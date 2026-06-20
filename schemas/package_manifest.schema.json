@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:package-manifest:v0",
+  "title": "AMSCodexPackageManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "package_manifest_id",
+    "name",
+    "version",
+    "package_mode",
+    "registry",
+    "gate_artifacts",
+    "created_at",
+    "manifest_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ams.ams_codex.package_manifest.v0"
+    },
+    "package_manifest_id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "package_mode": { "type": "string", "enum": ["shadow_only", "dry_run", "enforced"] },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tool_definitions", "surface_definitions"],
+      "properties": {
+        "tool_definitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["definition_id", "name", "version", "status", "definition_sha256"],
+            "properties": {
+              "definition_id": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "version": { "type": "string", "minLength": 1 },
+              "status": { "type": "string", "enum": ["active", "deprecated", "disabled"] },
+              "definition_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+            }
+          }
+        },
+        "surface_definitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "definition_id",
+              "provider",
+              "surface",
+              "version",
+              "mode",
+              "status",
+              "definition_sha256"
+            ],
+            "properties": {
+              "definition_id": { "type": "string", "minLength": 1 },
+              "provider": { "type": "string", "minLength": 1 },
+              "surface": { "type": "string", "minLength": 1 },
+              "version": { "type": "string", "minLength": 1 },
+              "mode": { "type": "string", "enum": ["dry_run", "shadow", "live"] },
+              "status": { "type": "string", "enum": ["active", "deprecated", "disabled"] },
+              "definition_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+            }
+          }
+        }
+      }
+    },
+    "gate_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "artifact_type", "mode", "artifact_sha256", "status"],
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "artifact_type": { "type": "string", "minLength": 1 },
+          "mode": { "type": "string", "enum": ["shadow_only", "dry_run", "enforced"] },
+          "artifact_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "status": { "type": "string", "enum": ["not_packaged", "packaged", "revoked"] }
+        }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "manifest_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "capability_policy_id": "cappol_625d80418e5113553b00",
+  "created_at": "2026-06-09T00:00:00Z",
+  "name": "local-default-capability-policy",
+  "policy_sha256": "sha256:79dfc38605a317709525f08f10ad3fcbb0584066f2062e41144335e17b2516c6",
+  "protected_path_rules": [
+    {
+      "actions": [
+        "read",
+        "write",
+        "execute",
+        "policy_change"
+      ],
+      "category": "secret",
+      "decision": "deny",
+      "patterns": [
+        ".env",
+        ".env.*",
+        "**/.env",
+        "**/.env.*",
+        "**/*.pem",
+        "**/*.key",
+        "*.pem",
+        "*.key",
+        "*token*",
+        "*secret*",
+        "**/*token*",
+        "**/*secret*",
+        "**/secrets/**",
+        ".ssh/**"
+      ],
+      "reason_code": "capability.secret_path_denied",
+      "rule_id": "secrets-never-agent-readable-or-writable"
+    },
+    {
+      "actions": [
+        "read",
+        "write",
+        "execute",
+        "policy_change"
+      ],
+      "category": "vcs_internal",
+      "decision": "deny",
+      "patterns": [
+        ".git/**",
+        ".git",
+        ".gitmodules"
+      ],
+      "reason_code": "capability.vcs_internal_denied",
+      "rule_id": "vcs-internals-denied"
+    },
+    {
+      "actions": [
+        "write",
+        "policy_change"
+      ],
+      "category": "ams_authority",
+      "decision": "defer",
+      "patterns": [
+        "ams_codex/store.py",
+        "ams_codex/replay.py",
+        "ams_codex/replay_oracle.py",
+        "ams_codex/schema_validation.py",
+        "ams_codex/agent_memory_sim.py",
+        "ams_codex/real_agent_trial.py",
+        "ams_codex/work_mode_decision.py",
+        "ams_codex/doc_action_execution.py",
+        "ams_codex/doc_action_operator_approval.py",
+        "ams_codex/doc_action_patch_preview.py",
+        "ams_codex/doc_action_patch_readback.py",
+        "ams_codex/doc_action_patch_artifact.py",
+        "ams_codex/doc_action_patch_artifact_approval.py",
+        "ams_codex/doc_action_patch_dry_run.py",
+        "ams_codex/doc_action_patch_dry_run_readback.py",
+        "ams_codex/doc_action_patch_live_execution_approval.py",
+        "ams_codex/doc_action_patch_executor_preflight.py",
+        "ams_codex/doc_action_patch_apply_boundary.py",
+        "ams_codex/doc_action_patch_apply_acceptance.py",
+        "ams_codex/simulation_sweep.py",
+        "ams_codex/ams_emulation.py",
+        "ams_codex/semantic_oracle_review.py",
+        "ams_codex/semantic_hook_run.py",
+        "ams_codex/semantic_hook_install_plan.py",
+        "ams_codex/semantic_hook_approval.py",
+        "ams_codex/semantic_hook_target_snapshot.py",
+        "ams_codex/semantic_hook_install_transaction.py",
+        "ams_codex/semantic_hook_operator_approval.py",
+        "ams_codex/semantic_hook_operator_readback.py",
+        "ams_codex/attention_router.py",
+        "ams_codex/manager_intervention.py",
+        "ams_codex/intervention_delivery.py",
+        "ams_codex/intervention_settlement.py",
+        "ams_codex/architecture_audit.py",
+        "ams_codex/architecture_gate.py",
+        "ams_codex/rag_index_plan.py",
+        "ams_codex/artifact_quarantine.py",
+        "ams_codex/rag_embedding_job.py",
+        "ams_codex/rag_local_vector_trial.py",
+        "ams_codex/gate_adapter.py",
+        "ams_codex/resource_enforcement.py",
+        "ams_codex/resource_policy.py",
+        "ams_codex/shareability_bundle.py",
+        "ams_codex/shareability_receiver.py",
+        "ams_codex/capability_policy.py",
+        "ams_codex/definition_registry.py",
+        "ams_codex/package_manifest.py",
+        "ams_codex/runner_boundary.py",
+        "ams_codex/install_preflight.py",
+        "ams_codex/shadow_readiness.py",
+        "ams_codex/shadow_launch.py",
+        "ams_codex/shadow_runner.py",
+        "ams_codex/surface_bindings.py",
+        "ams_codex/surface_promise.py",
+        "ams_codex/cli.py",
+        "schemas/*definition*.json",
+        "schemas/*surface*.json",
+        "schemas/*package*.json",
+        "schemas/*policy*.json",
+        "schemas/*verdict*.json",
+        "schemas/manager_intervention.schema.json",
+        "schemas/manager_intervention_delivery.schema.json",
+        "schemas/manager_intervention_settlement.schema.json",
+        "schemas/architecture_audit.schema.json",
+        "schemas/architecture_gate_review.schema.json",
+        "schemas/work_mode_decision.schema.json",
+        "schemas/doc_action_execution_plan.schema.json",
+        "schemas/doc_action_operator_approval_packet.schema.json",
+        "schemas/doc_action_patch_preview.schema.json",
+        "schemas/doc_action_patch_readback_receipt.schema.json",
+        "schemas/doc_action_patch_artifact_receipt.schema.json",
+        "schemas/doc_action_patch_artifact_approval_packet.schema.json",
+        "schemas/doc_action_patch_dry_run_plan.schema.json",
+        "schemas/doc_action_patch_dry_run_readback_receipt.schema.json",
+        "schemas/doc_action_patch_live_execution_approval_packet.schema.json",
+        "schemas/doc_action_patch_executor_preflight.schema.json",
+        "schemas/doc_action_patch_apply_boundary_packet.schema.json",
+        "schemas/doc_action_patch_apply_acceptance_packet.schema.json",
+        "schemas/simulation_sweep.schema.json",
+        "schemas/ams_emulation_trial.schema.json",
+        "schemas/semantic_oracle_review.schema.json",
+        "schemas/semantic_hook_record.schema.json",
+        "schemas/semantic_hook_run.schema.json",
+        "schemas/semantic_hook_install_plan.schema.json",
+        "schemas/semantic_hook_approval_binding.schema.json",
+        "schemas/semantic_hook_target_snapshot.schema.json",
+        "schemas/semantic_hook_install_transaction.schema.json",
+        "schemas/semantic_hook_operator_approval_packet.schema.json",
+        "schemas/semantic_hook_operator_readback_receipt.schema.json",
+        "schemas/rag_index_plan.schema.json",
+        "schemas/downloaded_artifact_quarantine.schema.json",
+        "schemas/rag_embedding_job.schema.json",
+        "schemas/rag_local_vector_trial.schema.json",
+        "schemas/resource_enforcement_trial.schema.json",
+        "schemas/shareability_bundle.schema.json",
+        "schemas/shareability_receiver_trial.schema.json",
+        "examples/*definition*.json",
+        "examples/*package*.json",
+        "examples/*policy*.json",
+        "data/*.json"
+      ],
+      "reason_code": "capability.ams_authority_requires_review",
+      "rule_id": "ams-authority-requires-review"
+    },
+    {
+      "actions": [
+        "write",
+        "execute",
+        "policy_change"
+      ],
+      "category": "supply_chain",
+      "decision": "defer",
+      "patterns": [
+        "pyproject.toml",
+        "requirements*.txt",
+        "uv.lock",
+        "poetry.lock",
+        "package.json",
+        "package-lock.json",
+        "pnpm-lock.yaml",
+        "yarn.lock",
+        ".github/**",
+        "CODEOWNERS",
+        ".pre-commit-config.yaml"
+      ],
+      "reason_code": "capability.supply_chain_requires_review",
+      "rule_id": "supply-chain-requires-review"
+    },
+    {
+      "actions": [
+        "write",
+        "execute",
+        "policy_change"
+      ],
+      "category": "service_control",
+      "decision": "defer",
+      "patterns": [
+        "*.plist",
+        "launchd/**",
+        "scripts/install*",
+        "scripts/*daemon*"
+      ],
+      "reason_code": "capability.service_control_requires_review",
+      "rule_id": "service-and-daemon-requires-review"
+    }
+  ],
+  "review_requirements": {
+    "live_mode_requires_signed_policy": true,
+    "protected_change_requires": [
+      "change_request_id",
+      "admission_review_id",
+      "signed_policy_sha256"
+    ],
+    "untrusted_repo_content_default": "read_or_patch_only"
+  },
+  "schema_version": "ams.ams_codex.capability_policy.v0",
+  "scope": {
+    "default_egress": "deny",
+    "workspace_roots": [
+      "/home/user/ams_codex"
+    ]
+  },
+  "tiers": [
+    {
+      "allowed_actions": [
+        "read"
+      ],
+      "allowed_egress_modes": [
+        "none"
+      ],
+      "allowed_tools": [
+        "Read",
+        "ShellReadOnly"
+      ],
+      "denied_tools": [
+        "Edit",
+        "ApplyPatch",
+        "network.post",
+        "discord_client.send"
+      ],
+      "tier": "observer",
+      "writable_globs": []
+    },
+    {
+      "allowed_actions": [
+        "read",
+        "test"
+      ],
+      "allowed_egress_modes": [
+        "none"
+      ],
+      "allowed_tools": [
+        "Read",
+        "ShellReadOnly",
+        "Tests"
+      ],
+      "denied_tools": [
+        "Edit",
+        "ApplyPatch",
+        "network.post",
+        "discord_client.send"
+      ],
+      "tier": "verifier",
+      "writable_globs": []
+    },
+    {
+      "allowed_actions": [
+        "read",
+        "write",
+        "test"
+      ],
+      "allowed_egress_modes": [
+        "none",
+        "ams_outbox"
+      ],
+      "allowed_tools": [
+        "Read",
+        "Edit",
+        "ApplyPatch",
+        "ShellReadOnly",
+        "Tests"
+      ],
+      "denied_tools": [
+        "network.post",
+        "discord_client.send",
+        "launchd.write",
+        "git.push"
+      ],
+      "tier": "builder",
+      "writable_globs": [
+        "README.md",
+        "MAP.md",
+        "MILESTONES.md",
+        "STATUS.md",
+        "NEW_CODEX_SESSION.md",
+        "*.md",
+        "notes/**",
+        "tests/**",
+        "examples/*.json",
+        "schemas/*.schema.json",
+        "ams_codex/*.py"
+      ]
+    },
+    {
+      "allowed_actions": [
+        "read",
+        "write",
+        "test",
+        "policy_change"
+      ],
+      "allowed_egress_modes": [
+        "none",
+        "ams_outbox"
+      ],
+      "allowed_tools": [
+        "Read",
+        "Edit",
+        "ApplyPatch",
+        "ShellReadOnly",
+        "Tests"
+      ],
+      "denied_tools": [
+        "network.post",
+        "discord_client.send",
+        "launchd.write",
+        "git.push"
+      ],
+      "tier": "maintainer",
+      "writable_globs": [
+        "*"
+      ]
+    },
+    {
+      "allowed_actions": [
+        "read",
+        "write",
+        "test",
+        "policy_change",
+        "egress"
+      ],
+      "allowed_egress_modes": [
+        "none",
+        "ams_outbox"
+      ],
+      "allowed_tools": [
+        "Read",
+        "Edit",
+        "ApplyPatch",
+        "ShellReadOnly",
+        "Tests",
+        "EgressOutbox"
+      ],
+      "denied_tools": [
+        "network.post",
+        "discord_client.send",
+        "launchd.write",
+        "git.push"
+      ],
+      "tier": "signed_maintainer",
+      "writable_globs": [
+        "*"
+      ]
+    }
+  ]
+}

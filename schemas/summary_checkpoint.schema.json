@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:summary-checkpoint:v0",
+  "title": "AMSCodexSummaryCheckpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "summary_checkpoint_id",
+    "session_id",
+    "attention_id",
+    "codex_thread_id",
+    "epoch",
+    "trigger",
+    "state_summary",
+    "next_action",
+    "created_at",
+    "checkpoint_sha256"
+  ],
+  "properties": {
+    "summary_checkpoint_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "attention_id": { "type": "string", "minLength": 1 },
+    "codex_thread_id": { "type": ["string", "null"] },
+    "epoch": { "type": "integer", "minimum": 0 },
+    "trigger": {
+      "type": "string",
+      "enum": ["turn_completed", "pre_compact", "post_compact", "token_threshold", "manual", "lease_transfer", "pre_egress"]
+    },
+    "token_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "input_tokens": { "type": ["integer", "null"], "minimum": 0 },
+        "output_tokens": { "type": ["integer", "null"], "minimum": 0 },
+        "total_tokens": { "type": ["integer", "null"], "minimum": 0 },
+        "remaining_context_estimate": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "state_summary": { "type": "string", "minLength": 1 },
+    "decisions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "no_repeat_keys": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "lease_id": { "type": ["string", "null"] },
+    "next_action": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "checkpoint_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

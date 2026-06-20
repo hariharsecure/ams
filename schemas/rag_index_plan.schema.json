@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:rag-index-plan:v0",
+  "title": "AMSCodexRAGIndexPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rag_index_plan_id",
+    "source_root",
+    "collection",
+    "source_policy",
+    "embedding",
+    "vector_store",
+    "source_snapshot_sha256",
+    "source_files",
+    "skipped_files",
+    "chunks",
+    "downloaded_artifacts",
+    "status",
+    "reason_codes",
+    "created_at",
+    "plan_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.rag_index_plan.v0" },
+    "rag_index_plan_id": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "collection": { "type": "string", "minLength": 1 },
+    "source_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_globs",
+        "denied_globs",
+        "max_file_bytes",
+        "max_total_bytes",
+        "follow_symlinks",
+        "downloaded_files_allowed",
+        "raw_content_stored",
+        "network_required"
+      ],
+      "properties": {
+        "allowed_globs": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "denied_globs": { "type": "array", "items": { "type": "string" } },
+        "max_file_bytes": { "type": "integer", "minimum": 1 },
+        "max_total_bytes": { "type": "integer", "minimum": 1 },
+        "follow_symlinks": { "type": "boolean", "const": false },
+        "downloaded_files_allowed": { "type": "boolean", "const": false },
+        "raw_content_stored": { "type": "boolean", "const": false },
+        "network_required": { "type": "boolean", "const": false }
+      }
+    },
+    "embedding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "dimensions", "status"],
+      "properties": {
+        "provider": { "type": "string", "enum": ["none", "openai", "local"] },
+        "model": { "type": ["string", "null"] },
+        "dimensions": { "type": ["integer", "null"], "minimum": 1 },
+        "status": { "type": "string", "enum": ["not_requested", "planned"] }
+      }
+    },
+    "vector_store": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "name", "external_store_id", "status"],
+      "properties": {
+        "provider": { "type": "string", "enum": ["none", "openai_file_search", "local"] },
+        "name": { "type": "string", "minLength": 1 },
+        "external_store_id": { "type": ["string", "null"] },
+        "status": { "type": "string", "enum": ["not_created"] }
+      }
+    },
+    "source_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "source_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "size_bytes", "media_type", "chunk_count"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "size_bytes": { "type": "integer", "minimum": 0 },
+          "media_type": { "type": "string", "minLength": 1 },
+          "chunk_count": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "reason"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 },
+          "size_bytes": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "chunks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chunk_id",
+          "source_path",
+          "chunk_index",
+          "char_start",
+          "char_end",
+          "chunk_sha256",
+          "embedding_status"
+        ],
+        "properties": {
+          "chunk_id": { "type": "string", "minLength": 1 },
+          "source_path": { "type": "string", "minLength": 1 },
+          "chunk_index": { "type": "integer", "minimum": 0 },
+          "char_start": { "type": "integer", "minimum": 0 },
+          "char_end": { "type": "integer", "minimum": 0 },
+          "chunk_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "embedding_status": { "type": "string", "enum": ["not_embedded", "planned", "skipped"] }
+        }
+      }
+    },
+    "downloaded_artifacts": { "type": "array", "maxItems": 0 },
+    "status": { "type": "string", "enum": ["planned"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string" },
+    "plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

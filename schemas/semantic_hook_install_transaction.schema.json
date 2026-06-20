@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:semantic-hook-install-transaction:v0",
+  "title": "AMSCodexSemanticHookInstallTransaction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "semantic_hook_install_transaction_id",
+    "label",
+    "source_root",
+    "semantic_hook_target_snapshot_id",
+    "semantic_hook_target_snapshot_sha256",
+    "semantic_hook_approval_binding_id",
+    "semantic_hook_approval_binding_sha256",
+    "semantic_hook_install_plan_id",
+    "semantic_hook_install_plan_sha256",
+    "semantic_hook_run_id",
+    "semantic_hook_run_sha256",
+    "target_count",
+    "payload_renderings",
+    "install_transaction_steps",
+    "rollback_transaction_steps",
+    "trust_review_steps",
+    "required_gates",
+    "approval_granted",
+    "live_install_allowed",
+    "hook_file_write_allowed",
+    "hook_trust_allowed",
+    "provider_hook_execution_allowed",
+    "backup_write_allowed",
+    "restore_allowed",
+    "install_actions",
+    "trust_actions",
+    "start_actions",
+    "live_boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "semantic_hook_install_transaction_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.semantic_hook_install_transaction.v0" },
+    "semantic_hook_install_transaction_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "semantic_hook_target_snapshot_id": { "type": "string", "minLength": 1 },
+    "semantic_hook_target_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "semantic_hook_approval_binding_id": { "type": "string", "minLength": 1 },
+    "semantic_hook_approval_binding_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "semantic_hook_install_plan_id": { "type": "string", "minLength": 1 },
+    "semantic_hook_install_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "semantic_hook_run_id": { "type": "string", "minLength": 1 },
+    "semantic_hook_run_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "target_count": { "type": "integer", "minimum": 0 },
+    "payload_renderings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "payload_source",
+          "declared_path",
+          "resolved_path",
+          "expected_config_sha256",
+          "payload_sha256",
+          "payload_size_bytes",
+          "raw_payload_stored",
+          "secret_stored",
+          "write_performed",
+          "target_safe_for_no_write_drill"
+        ],
+        "properties": {
+          "target": { "type": ["string", "null"] },
+          "payload_source": { "type": "string", "enum": ["codex_hook_config_preview", "claude_hook_contract_preview"] },
+          "declared_path": { "type": ["string", "null"] },
+          "resolved_path": { "type": ["string", "null"] },
+          "expected_config_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+          "payload_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "payload_size_bytes": { "type": "integer", "minimum": 0 },
+          "raw_payload_stored": { "type": "boolean", "const": false },
+          "secret_stored": { "type": "boolean", "const": false },
+          "write_performed": { "type": "boolean", "const": false },
+          "target_safe_for_no_write_drill": { "type": "boolean" }
+        }
+      }
+    },
+    "install_transaction_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "payload_sha256",
+          "target_path",
+          "temp_path_pattern",
+          "step_order",
+          "atomic_rename_required",
+          "fsync_required",
+          "trust_after_write",
+          "write_performed",
+          "provider_executed"
+        ],
+        "properties": {
+          "target": { "type": ["string", "null"] },
+          "payload_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "target_path": { "type": "string" },
+          "temp_path_pattern": { "type": "string" },
+          "step_order": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "atomic_rename_required": { "type": "boolean", "const": true },
+          "fsync_required": { "type": "boolean", "const": true },
+          "trust_after_write": { "type": "boolean", "const": false },
+          "write_performed": { "type": "boolean", "const": false },
+          "provider_executed": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "rollback_transaction_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "target_path",
+          "restore_action",
+          "previous_exists",
+          "previous_sha256",
+          "delete_if_created",
+          "restore_performed",
+          "backup_file_written"
+        ],
+        "properties": {
+          "target": { "type": ["string", "null"] },
+          "target_path": { "type": ["string", "null"] },
+          "restore_action": { "type": ["string", "null"], "enum": ["restore_file_sha256", "delete_created_file", null] },
+          "previous_exists": { "type": ["boolean", "null"] },
+          "previous_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+          "delete_if_created": { "type": "boolean" },
+          "restore_performed": { "type": "boolean", "const": false },
+          "backup_file_written": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "trust_review_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface",
+          "review_command",
+          "config_sha256",
+          "trusted",
+          "provider_hook_execution_allowed"
+        ],
+        "properties": {
+          "surface": { "type": ["string", "null"] },
+          "review_command": { "type": ["string", "null"] },
+          "config_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+          "trusted": { "type": "boolean", "const": false },
+          "provider_hook_execution_allowed": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_snapshot_ready",
+        "target_snapshot_inert",
+        "approval_binding_ready",
+        "approval_binding_inert",
+        "install_plan_ready",
+        "hook_run_allow",
+        "target_count_matches",
+        "payload_hashes_match_install_plan",
+        "payloads_hash_only",
+        "install_steps_no_write",
+        "install_steps_atomic",
+        "rollback_steps_no_restore",
+        "trust_steps_not_trusted",
+        "approval_granted_false",
+        "live_install_allowed_false"
+      ],
+      "properties": {
+        "target_snapshot_ready": { "type": "boolean" },
+        "target_snapshot_inert": { "type": "boolean" },
+        "approval_binding_ready": { "type": "boolean" },
+        "approval_binding_inert": { "type": "boolean" },
+        "install_plan_ready": { "type": "boolean" },
+        "hook_run_allow": { "type": "boolean" },
+        "target_count_matches": { "type": "boolean" },
+        "payload_hashes_match_install_plan": { "type": "boolean" },
+        "payloads_hash_only": { "type": "boolean" },
+        "install_steps_no_write": { "type": "boolean" },
+        "install_steps_atomic": { "type": "boolean" },
+        "rollback_steps_no_restore": { "type": "boolean" },
+        "trust_steps_not_trusted": { "type": "boolean" },
+        "approval_granted_false": { "type": "boolean", "const": true },
+        "live_install_allowed_false": { "type": "boolean", "const": true }
+      }
+    },
+    "approval_granted": { "type": "boolean", "const": false },
+    "live_install_allowed": { "type": "boolean", "const": false },
+    "hook_file_write_allowed": { "type": "boolean", "const": false },
+    "hook_trust_allowed": { "type": "boolean", "const": false },
+    "provider_hook_execution_allowed": { "type": "boolean", "const": false },
+    "backup_write_allowed": { "type": "boolean", "const": false },
+    "restore_allowed": { "type": "boolean", "const": false },
+    "install_actions": { "type": "array", "maxItems": 0 },
+    "trust_actions": { "type": "array", "maxItems": 0 },
+    "start_actions": { "type": "array", "maxItems": 0 },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hook_file_written",
+        "hook_installed",
+        "hook_trusted",
+        "provider_hook_executed",
+        "backup_file_written",
+        "restore_performed",
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "persistent_process_started",
+        "provider_call_performed",
+        "network_call_performed",
+        "raw_payload_stored",
+        "secret_stored"
+      ],
+      "properties": {
+        "hook_file_written": { "type": "boolean", "const": false },
+        "hook_installed": { "type": "boolean", "const": false },
+        "hook_trusted": { "type": "boolean", "const": false },
+        "provider_hook_executed": { "type": "boolean", "const": false },
+        "backup_file_written": { "type": "boolean", "const": false },
+        "restore_performed": { "type": "boolean", "const": false },
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "raw_payload_stored": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["ready_for_operator_review", "blocked"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "semantic_hook_install_transaction_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

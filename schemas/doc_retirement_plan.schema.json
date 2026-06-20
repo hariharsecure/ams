@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:doc-retirement-plan:v0",
+  "title": "AMSCodexDocRetirementPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "doc_retirement_plan_id",
+    "label",
+    "source_root",
+    "research_basis",
+    "policy",
+    "live_boundaries",
+    "markdown_audit_ref",
+    "generated_status",
+    "decision_actions",
+    "action_summary",
+    "status",
+    "reason_codes",
+    "created_at",
+    "doc_retirement_plan_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.doc_retirement_plan.v0" },
+    "doc_retirement_plan_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "research_basis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lens", "source", "url"],
+        "properties": {
+          "lens": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "control_doc_line_budget",
+        "session_start_line_budget",
+        "generated_status_line_budget",
+        "raw_markdown_stored",
+        "raw_session_content_stored",
+        "prompt_text_stored",
+        "transcript_text_stored",
+        "delete_or_move_allowed",
+        "generated_status_required",
+        "relative_links_required",
+        "bcp14_keywords_reserved_for_contracts"
+      ],
+      "properties": {
+        "control_doc_line_budget": { "type": "integer", "minimum": 1 },
+        "session_start_line_budget": { "type": "integer", "minimum": 1 },
+        "generated_status_line_budget": { "type": "integer", "minimum": 1 },
+        "raw_markdown_stored": { "type": "boolean", "const": false },
+        "raw_session_content_stored": { "type": "boolean", "const": false },
+        "prompt_text_stored": { "type": "boolean", "const": false },
+        "transcript_text_stored": { "type": "boolean", "const": false },
+        "delete_or_move_allowed": { "type": "boolean", "const": false },
+        "generated_status_required": { "type": "boolean" },
+        "relative_links_required": { "type": "boolean" },
+        "bcp14_keywords_reserved_for_contracts": { "type": "boolean" }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file_deleted",
+        "file_moved",
+        "file_rewritten",
+        "raw_markdown_stored",
+        "raw_session_content_stored",
+        "prompt_text_stored",
+        "transcript_text_stored",
+        "network_call_performed"
+      ],
+      "properties": {
+        "file_deleted": { "type": "boolean", "const": false },
+        "file_moved": { "type": "boolean", "const": false },
+        "file_rewritten": { "type": "boolean", "const": false },
+        "raw_markdown_stored": { "type": "boolean", "const": false },
+        "raw_session_content_stored": { "type": "boolean", "const": false },
+        "prompt_text_stored": { "type": "boolean", "const": false },
+        "transcript_text_stored": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false }
+      }
+    },
+    "markdown_audit_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "markdown_audit_id",
+        "markdown_audit_sha256",
+        "status",
+        "reason_codes",
+        "markdown_snapshot_sha256"
+      ],
+      "properties": {
+        "markdown_audit_id": { "type": "string", "minLength": 1 },
+        "markdown_audit_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+        "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "markdown_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "generated_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recommended_path",
+        "line_budget",
+        "source_record_kind",
+        "source_markdown_audit_id",
+        "source_markdown_audit_sha256",
+        "latest_milestone_doc",
+        "markdown_file_count",
+        "total_line_count",
+        "metadata_gap_count",
+        "structure_gap_count",
+        "oversized_file_count",
+        "role_counts",
+        "session_metadata_included",
+        "raw_content_stored"
+      ],
+      "properties": {
+        "recommended_path": { "type": "string", "minLength": 1 },
+        "line_budget": { "type": "integer", "minimum": 1 },
+        "source_record_kind": { "type": "string", "enum": ["doc_retirement_plan"] },
+        "source_markdown_audit_id": { "type": "string", "minLength": 1 },
+        "source_markdown_audit_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "latest_milestone_doc": { "type": ["string", "null"] },
+        "markdown_file_count": { "type": "integer", "minimum": 0 },
+        "total_line_count": { "type": "integer", "minimum": 0 },
+        "metadata_gap_count": { "type": "integer", "minimum": 0 },
+        "structure_gap_count": { "type": "integer", "minimum": 0 },
+        "oversized_file_count": { "type": "integer", "minimum": 0 },
+        "role_counts": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "session_metadata_included": { "type": "boolean" },
+        "excluded_paths": { "type": "array", "items": { "type": "string" } },
+        "raw_content_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "decision_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action_id",
+          "source_path",
+          "action_kind",
+          "severity",
+          "reason",
+          "target_surface",
+          "operator_review_required",
+          "raw_content_stored",
+          "details"
+        ],
+        "properties": {
+          "action_id": { "type": "string", "minLength": 1 },
+          "source_path": { "type": "string", "minLength": 1 },
+          "action_kind": {
+            "type": "string",
+            "enum": [
+              "replace_manual_status_with_generated_snapshot",
+              "split_milestone_history_from_session_surface",
+              "keep_readme_as_orientation_only",
+              "split_control_doc",
+              "add_machine_readable_metadata",
+              "add_required_doc_section"
+            ]
+          },
+          "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "reason": { "type": "string", "minLength": 1 },
+          "target_surface": { "type": "string", "minLength": 1 },
+          "operator_review_required": { "type": "boolean" },
+          "raw_content_stored": { "type": "boolean", "const": false },
+          "details": { "type": "object", "additionalProperties": true }
+        }
+      }
+    },
+    "action_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_count", "by_kind", "by_severity", "operator_review_required_count"],
+      "properties": {
+        "action_count": { "type": "integer", "minimum": 0 },
+        "by_kind": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "by_severity": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "operator_review_required_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "doc_retirement_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

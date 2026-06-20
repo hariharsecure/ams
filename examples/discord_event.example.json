@@ -1,0 +1,13 @@
+{
+  "event": "message_create",
+  "source_surface": "discord",
+  "channel_id": "000000000000000003",
+  "message_id": "example-message-001",
+  "root_message_id": "example-root-001",
+  "author_id": "operator_a",
+  "author_name": "Operator A",
+  "content": "Build a local dry-run AMS/Codex session registry.",
+  "priority": "P0",
+  "reason_code": "manual_example",
+  "requested_action": "create_or_continue_codex_task"
+}

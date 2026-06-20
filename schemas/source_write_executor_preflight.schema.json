@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:source-write-executor-preflight:v0",
+  "title": "AMSCodexSourceWriteExecutorPreflight",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "source_write_executor_preflight_id",
+    "label",
+    "source_root",
+    "doc_action_patch_apply_acceptance_packet_id",
+    "doc_action_patch_apply_acceptance_packet_sha256",
+    "source_path",
+    "accepted_apply_action",
+    "current_source_ref",
+    "preimage_requirements",
+    "architecture_gate_proof",
+    "blast_radius_proof",
+    "required_gates",
+    "preflight_policy",
+    "ready_for_backup_preimage_capture",
+    "apply_allowed",
+    "live_execution_allowed",
+    "source_file_write_allowed",
+    "source_file_move_allowed",
+    "source_file_delete_allowed",
+    "source_backup_write_allowed",
+    "archive_create_allowed",
+    "generated_surface_rewrite_allowed",
+    "provider_call_allowed",
+    "network_call_allowed",
+    "preflight_actions",
+    "backup_actions",
+    "source_write_actions",
+    "post_write_replay_actions",
+    "live_boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "source_write_executor_preflight_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ams.ams_codex.source_write_executor_preflight.v0"
+    },
+    "source_write_executor_preflight_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "doc_action_patch_apply_acceptance_packet_id": { "type": "string", "minLength": 1 },
+    "doc_action_patch_apply_acceptance_packet_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source_path": { "type": "string" },
+    "accepted_apply_action": { "type": "object" },
+    "current_source_ref": { "type": "object" },
+    "preimage_requirements": { "type": "object" },
+    "architecture_gate_proof": { "type": "object" },
+    "blast_radius_proof": { "type": "object" },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "preflight_policy": { "type": "object" },
+    "ready_for_backup_preimage_capture": { "type": "boolean" },
+    "apply_allowed": { "type": "boolean", "const": false },
+    "live_execution_allowed": { "type": "boolean", "const": false },
+    "source_file_write_allowed": { "type": "boolean", "const": false },
+    "source_file_move_allowed": { "type": "boolean", "const": false },
+    "source_file_delete_allowed": { "type": "boolean", "const": false },
+    "source_backup_write_allowed": { "type": "boolean", "const": false },
+    "archive_create_allowed": { "type": "boolean", "const": false },
+    "generated_surface_rewrite_allowed": { "type": "boolean", "const": false },
+    "provider_call_allowed": { "type": "boolean", "const": false },
+    "network_call_allowed": { "type": "boolean", "const": false },
+    "preflight_actions": { "type": "array" },
+    "backup_actions": { "type": "array", "maxItems": 0 },
+    "source_write_actions": { "type": "array", "maxItems": 0 },
+    "post_write_replay_actions": { "type": "array", "maxItems": 0 },
+    "live_boundaries": { "type": "object" },
+    "status": {
+      "type": "string",
+      "enum": ["ready_for_backup_preimage_capture", "blocked"]
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "created_at": { "type": "string", "minLength": 1 },
+    "source_write_executor_preflight_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

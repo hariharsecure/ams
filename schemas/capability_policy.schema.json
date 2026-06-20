@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:capability-policy:v0",
+  "title": "AMSCodexCapabilityPolicy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capability_policy_id",
+    "name",
+    "scope",
+    "tiers",
+    "protected_path_rules",
+    "review_requirements",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ams.ams_codex.capability_policy.v0"
+    },
+    "capability_policy_id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workspace_roots", "default_egress"],
+      "properties": {
+        "workspace_roots": { "type": "array", "items": { "type": "string" } },
+        "default_egress": { "type": "string", "enum": ["deny", "ams_outbox", "allow"] }
+      }
+    },
+    "tiers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tier",
+          "allowed_actions",
+          "writable_globs",
+          "allowed_tools",
+          "denied_tools",
+          "allowed_egress_modes"
+        ],
+        "properties": {
+          "tier": { "type": "string", "minLength": 1 },
+          "allowed_actions": { "type": "array", "items": { "type": "string" } },
+          "writable_globs": { "type": "array", "items": { "type": "string" } },
+          "allowed_tools": { "type": "array", "items": { "type": "string" } },
+          "denied_tools": { "type": "array", "items": { "type": "string" } },
+          "allowed_egress_modes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "protected_path_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rule_id",
+          "category",
+          "patterns",
+          "actions",
+          "decision",
+          "reason_code"
+        ],
+        "properties": {
+          "rule_id": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "minLength": 1 },
+          "patterns": { "type": "array", "items": { "type": "string" } },
+          "actions": { "type": "array", "items": { "type": "string" } },
+          "decision": { "type": "string", "enum": ["allow", "defer", "deny"] },
+          "reason_code": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "review_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protected_change_requires",
+        "untrusted_repo_content_default",
+        "live_mode_requires_signed_policy"
+      ],
+      "properties": {
+        "protected_change_requires": { "type": "array", "items": { "type": "string" } },
+        "untrusted_repo_content_default": { "type": "string", "minLength": 1 },
+        "live_mode_requires_signed_policy": { "type": "boolean" }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "policy_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

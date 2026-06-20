@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:resource-verdict:v0",
+  "title": "AMSCodexResourceVerdict",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "resource_verdict_id",
+    "task_run_id",
+    "status",
+    "policy_id",
+    "policy_sha256",
+    "reason_codes",
+    "limits",
+    "checked_at"
+  ],
+  "properties": {
+    "resource_verdict_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": ["string", "null"] },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "policy_id": { "type": ["string", "null"] },
+    "policy_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "provider_profile_id": { "type": ["string", "null"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" } },
+    "limits": { "type": "object" },
+    "checked_at": { "type": "string", "format": "date-time" }
+  }
+}

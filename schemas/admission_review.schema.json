@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:admission-review:v0",
+  "title": "AMSCodexAdmissionReview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "admission_review_id",
+    "request_uid",
+    "subject_kind",
+    "subject_id",
+    "operation",
+    "request",
+    "request_sha256",
+    "response",
+    "policy_refs",
+    "reviewer",
+    "created_at",
+    "review_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.admission_review.v0" },
+    "admission_review_id": { "type": "string", "minLength": 1 },
+    "request_uid": { "type": "string", "minLength": 1 },
+    "subject_kind": { "type": "string", "minLength": 1 },
+    "subject_id": { "type": "string", "minLength": 1 },
+    "operation": { "type": "string", "minLength": 1 },
+    "request": { "type": "object" },
+    "request_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uid", "allowed", "status", "reason_codes", "warnings", "expires_at"],
+      "properties": {
+        "uid": { "type": "string", "minLength": 1 },
+        "allowed": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+        "reason_codes": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "verdict_ref": { "type": ["string", "null"] },
+        "expires_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "policy_refs": { "type": "array", "items": { "type": "string" } },
+    "reviewer": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "review_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

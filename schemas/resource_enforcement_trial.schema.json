@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:resource-enforcement-trial:v0",
+  "title": "AMSCodexResourceEnforcementTrial",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "resource_enforcement_trial_id",
+    "label",
+    "source_root",
+    "task_run_id",
+    "session_id",
+    "resource_claim_id",
+    "resource_claim_sha256_before",
+    "resource_claim_sha256_active",
+    "resource_claim_sha256_released",
+    "resource_telemetry_id",
+    "resource_telemetry_sha256",
+    "mode",
+    "budget",
+    "subprocess",
+    "settlement",
+    "required_gates",
+    "live_boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "resource_enforcement_trial_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.resource_enforcement_trial.v0" },
+    "resource_enforcement_trial_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "resource_claim_id": { "type": "string", "minLength": 1 },
+    "resource_claim_sha256_before": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "resource_claim_sha256_active": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "resource_claim_sha256_released": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "resource_telemetry_id": { "type": "string", "minLength": 1 },
+    "resource_telemetry_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "mode": { "type": "string", "enum": ["within_budget", "timeout_kill"] },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timeout_seconds",
+        "kill_on_timeout",
+        "shell_allowed",
+        "network_allowed",
+        "external_process_inspection_allowed"
+      ],
+      "properties": {
+        "timeout_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "kill_on_timeout": { "type": "boolean", "const": true },
+        "shell_allowed": { "type": "boolean", "const": false },
+        "network_allowed": { "type": "boolean", "const": false },
+        "external_process_inspection_allowed": { "type": "boolean", "const": false }
+      }
+    },
+    "subprocess": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owned_subprocess_started",
+        "command_family",
+        "argv_sha256",
+        "shell_used",
+        "timeout_seconds",
+        "runtime_ms",
+        "return_code",
+        "timed_out",
+        "killed",
+        "stdout_sha256",
+        "stderr_sha256",
+        "combined_output_sha256",
+        "stdout_bytes",
+        "stderr_bytes",
+        "raw_output_stored"
+      ],
+      "properties": {
+        "owned_subprocess_started": { "type": "boolean", "const": true },
+        "command_family": { "type": "string", "const": "python_timeout_probe" },
+        "argv_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "shell_used": { "type": "boolean", "const": false },
+        "timeout_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "runtime_ms": { "type": "integer", "minimum": 0 },
+        "return_code": { "type": ["integer", "null"] },
+        "timed_out": { "type": "boolean" },
+        "killed": { "type": "boolean" },
+        "stdout_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stderr_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "combined_output_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stdout_bytes": { "type": "integer", "minimum": 0 },
+        "stderr_bytes": { "type": "integer", "minimum": 0 },
+        "raw_output_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "settlement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_state_before",
+        "claim_state_during",
+        "claim_state_after",
+        "telemetry_settlement_status"
+      ],
+      "properties": {
+        "claim_state_before": { "type": "string", "enum": ["reserved", "active"] },
+        "claim_state_during": { "type": "string", "const": "active" },
+        "claim_state_after": { "type": "string", "const": "released" },
+        "telemetry_settlement_status": { "type": "string", "enum": ["within_limits", "over_limit"] }
+      }
+    },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_released",
+        "telemetry_written",
+        "owned_subprocess_started",
+        "shell_not_used",
+        "raw_output_not_stored",
+        "mode_result_consistent"
+      ],
+      "properties": {
+        "claim_released": { "type": "boolean" },
+        "telemetry_written": { "type": "boolean" },
+        "owned_subprocess_started": { "type": "boolean" },
+        "shell_not_used": { "type": "boolean" },
+        "raw_output_not_stored": { "type": "boolean" },
+        "mode_result_consistent": { "type": "boolean" }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_process_inspection_performed",
+        "persistent_process_started",
+        "network_call_performed",
+        "provider_call_performed",
+        "discord_call_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "raw_stdout_stored",
+        "raw_stderr_stored",
+        "secret_stored"
+      ],
+      "properties": {
+        "external_process_inspection_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "raw_stdout_stored": { "type": "boolean", "const": false },
+        "raw_stderr_stored": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["within_budget", "killed_over_budget"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "resource_enforcement_trial_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

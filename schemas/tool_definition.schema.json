@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:tool-definition:v0",
+  "title": "AMSCodexToolDefinition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "definition_id",
+    "name",
+    "version",
+    "scope",
+    "tool_type",
+    "allowed_actions",
+    "risk_flags",
+    "egress_modes",
+    "definition",
+    "definition_sha256",
+    "status",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.tool_definition.v0" },
+    "definition_id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "tool_type": { "type": "string", "minLength": 1 },
+    "runner": { "type": ["string", "null"] },
+    "allowed_actions": { "type": "array", "items": { "type": "string" } },
+    "risk_flags": { "type": "array", "items": { "type": "string" } },
+    "egress_modes": { "type": "array", "items": { "type": "string" } },
+    "input_schema_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "signed_policy_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "definition": { "type": "object" },
+    "definition_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "status": { "type": "string", "enum": ["active", "deprecated", "disabled"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:provider-auth-preflight:v0",
+  "title": "AMSCodexProviderAuthPreflight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider_auth_preflight_id",
+    "subject_kind",
+    "subject_id",
+    "provider",
+    "surface",
+    "operation",
+    "model",
+    "auth_mode",
+    "required_env_names",
+    "present_env_names",
+    "absent_env_names",
+    "credential_refs",
+    "secret_material_stored",
+    "credential_fingerprints",
+    "network_probe_allowed",
+    "provider_call_allowed",
+    "status",
+    "reason_codes",
+    "created_at",
+    "auth_preflight_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.provider_auth_preflight.v0" },
+    "provider_auth_preflight_id": { "type": "string", "minLength": 1 },
+    "subject_kind": { "type": "string", "minLength": 1 },
+    "subject_id": { "type": "string", "minLength": 1 },
+    "provider": { "type": "string", "minLength": 1 },
+    "surface": { "type": ["string", "null"] },
+    "operation": { "type": "string", "minLength": 1 },
+    "model": { "type": ["string", "null"] },
+    "auth_mode": { "type": "string", "enum": ["env_api_key", "none"] },
+    "required_env_names": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "present_env_names": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "absent_env_names": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "credential_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "name", "present"],
+        "properties": {
+          "kind": { "type": "string", "const": "env" },
+          "name": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+          "present": { "type": "boolean" }
+        }
+      }
+    },
+    "secret_material_stored": { "type": "boolean", "const": false },
+    "credential_fingerprints": { "type": "array", "maxItems": 0 },
+    "network_probe_allowed": { "type": "boolean", "const": false },
+    "provider_call_allowed": { "type": "boolean", "const": false },
+    "status": { "type": "string", "enum": ["ready", "blocked"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string" },
+    "auth_preflight_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

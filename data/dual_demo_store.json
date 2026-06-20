@@ -1,0 +1,669 @@
+{
+  "admission_reviews": {},
+  "ams_events": {},
+  "checkpoints": {
+    "sum_2998ee7a3b97adc5ae07": {
+      "artifact_refs": [],
+      "attention_id": "attn_24ad4f8e5851c7b06775",
+      "checkpoint_sha256": "sha256:57fac98c211c0a5397ede880c9fa4bdfd49cb40399857cfb8a934e7c97e0f212",
+      "codex_thread_id": null,
+      "constraints": [
+        "No live egress",
+        "No persistent monitors"
+      ],
+      "created_at": "2026-06-10T01:37:10Z",
+      "decisions": [
+        "AMS owns continuity; Codex builds; Claude verifies"
+      ],
+      "epoch": 0,
+      "lease_id": "lease_d9a24ff1be85e84a48b2",
+      "next_action": "Run Codex builder dry-run, then Claude verifier dry-run.",
+      "no_repeat_keys": [
+        "sha256:f633140ac7e09b1d11b09a3654809eeee6cb0da093247c9e779c43e92168ab4c",
+        "sha256:8795975161de5d54608ea0dba4ddd00310e2f1c7a97074daf10740139639d245",
+        "sha256:93c8649d27662f18b2c0b156af33f83cb2e44a8062c9b01a323979754232c7c4"
+      ],
+      "open_questions": [],
+      "session_id": "sess_412521c2be942f710d83",
+      "source_refs": [
+        "discord://000000000000000003/example-message-001"
+      ],
+      "state_summary": "Simulation checkpoint before Codex/Claude handoff.",
+      "summary_checkpoint_id": "sum_2998ee7a3b97adc5ae07",
+      "token_usage": {},
+      "trigger": "pre_compact"
+    }
+  },
+  "claude_requests": {
+    "clauderpc_a9247feb173e": {
+      "context_id": "ctx_a321187fde4cb8211fd9",
+      "created_at": "2026-06-10T01:37:10Z",
+      "dry_run": true,
+      "request": {
+        "dry_run": true,
+        "expected_result": {
+          "fields": [
+            "verdict",
+            "reasons",
+            "risk_flags",
+            "required_next_action"
+          ],
+          "type": "verifier_report"
+        },
+        "id": "clauderpc_a9247feb173e",
+        "options": {
+          "agents": {
+            "ams-safety-lens": {
+              "description": "Reviews proposed actions for gate bypass, secret exposure, and authority drift.",
+              "prompt": "Identify safety/governance violations and required AMS gate decisions.",
+              "tools": [
+                "Read",
+                "Glob",
+                "Grep"
+              ]
+            },
+            "ams-verifier": {
+              "description": "Verifies Codex outputs against AMS gates and ATP context.",
+              "prompt": "Check evidence, risk, no-repeat, and egress constraints. Return verifier report only.",
+              "tools": [
+                "Read",
+                "Glob",
+                "Grep"
+              ]
+            }
+          },
+          "allowed_tools": [
+            "Read",
+            "Glob",
+            "Grep",
+            "Agent"
+          ],
+          "hooks": {
+            "PreCompact": [
+              {
+                "action": "write_summary_checkpoint_before_compaction",
+                "matcher": "*"
+              }
+            ],
+            "PreToolUse": [
+              {
+                "action": "call_ams_gate_shadow_or_signed_engine",
+                "deny_priority": "deny > defer > ask > allow",
+                "matcher": "Bash|Write|Edit|mcp__.*"
+              }
+            ],
+            "Stop": [
+              {
+                "action": "write_turn_completed_checkpoint",
+                "matcher": "*"
+              }
+            ],
+            "SubagentStart": [
+              {
+                "action": "create_child_attention_record",
+                "matcher": "*"
+              }
+            ],
+            "SubagentStop": [
+              {
+                "action": "merge_child_attention_summary",
+                "matcher": "*"
+              }
+            ]
+          },
+          "mcp_servers": {},
+          "resume": "sim-claude-session-001",
+          "setting_sources": []
+        },
+        "prompt": "AMS/Claude dry-run context slice.\nRole: verifier.\nDo not post to Discord. Do not start persistent monitors. AMS state is authoritative.\n\nsession_id: sess_412521c2be942f710d83\nattention_id: attn_24ad4f8e5851c7b06775\ntarget: {'channel_id': '000000000000000003', 'id': 'example-message-001', 'kind': 'discord_message'}\ncompaction_epoch: 0\nsummary_checkpoint_id: sum_2998ee7a3b97adc5ae07\nsource_refs: ['discord://000000000000000003/example-message-001']\nartifact_refs: []\nTask: verify Codex output against AMS constraints, identify gate risks, and return a concise verifier report. Do not execute egress.\n",
+        "surface": "claude-agent-sdk"
+      },
+      "session_id": "sess_412521c2be942f710d83"
+    }
+  },
+  "codex_requests": {
+    "rpc_5c8140b73692": {
+      "context_id": "ctx_a321187fde4cb8211fd9",
+      "created_at": "2026-06-10T01:37:10Z",
+      "dry_run": true,
+      "request": {
+        "id": "rpc_5c8140b73692",
+        "method": "turn/start",
+        "params": {
+          "approvalPolicy": "never",
+          "cwd": "/home/user/ams_codex",
+          "input": [
+            {
+              "text": "AMS/Codex dry-run context slice.\nDo not post to Discord. Do not start persistent monitors. AMS state is authoritative.\n\nsession_id: sess_412521c2be942f710d83\nattention_id: attn_24ad4f8e5851c7b06775\ntarget: {'channel_id': '000000000000000003', 'id': 'example-message-001', 'kind': 'discord_message'}\nstate: seen\ncompaction_epoch: 0\nlease: {'expires_at': '2026-06-10T02:07:10Z', 'holder': 'agent_b', 'lease_id': 'lease_d9a24ff1be85e84a48b2'}\nsummary_checkpoint_id: sum_2998ee7a3b97adc5ae07\nsource_refs: ['discord://000000000000000003/example-message-001']\nartifact_refs: []\nconstraints: ['do_not_post_to_discord_without_explicit_approval', 'do_not_start_persistent_monitor_without_explicit_approval', 'ams_state_wins_over_codex_transcript']\nrequested_action: create_or_continue_codex_task\n",
+              "type": "text"
+            }
+          ],
+          "model": "gpt-5.5",
+          "sandboxPolicy": {
+            "networkAccess": false,
+            "type": "readOnly"
+          },
+          "threadId": "sim-codex-thread-001"
+        }
+      },
+      "session_id": "sess_412521c2be942f710d83"
+    }
+  },
+  "contexts": {
+    "ctx_a321187fde4cb8211fd9": {
+      "artifact_refs": [],
+      "attention_id": "attn_24ad4f8e5851c7b06775",
+      "compaction_epoch": 0,
+      "constraints": [
+        "do_not_post_to_discord_without_explicit_approval",
+        "do_not_start_persistent_monitor_without_explicit_approval",
+        "ams_state_wins_over_codex_transcript"
+      ],
+      "context_id": "ctx_a321187fde4cb8211fd9",
+      "created_at": "2026-06-10T01:37:10Z",
+      "lease": {
+        "expires_at": "2026-06-10T02:07:10Z",
+        "holder": "agent_b",
+        "lease_id": "lease_d9a24ff1be85e84a48b2"
+      },
+      "open_questions": [],
+      "parent_attention_id": null,
+      "requested_action": "create_or_continue_codex_task",
+      "session_id": "sess_412521c2be942f710d83",
+      "source_refs": [
+        "discord://000000000000000003/example-message-001"
+      ],
+      "state": "seen",
+      "summary_checkpoint_id": "sum_2998ee7a3b97adc5ae07",
+      "target": {
+        "channel_id": "000000000000000003",
+        "id": "example-message-001",
+        "kind": "discord_message"
+      },
+      "weight": 100
+    }
+  },
+  "events": {
+    "evt_949d08e44aea43be2a82": {
+      "attention_id": null,
+      "author_id": "operator_a",
+      "author_name": "Operator A",
+      "channel_id": "000000000000000003",
+      "content_length": 49,
+      "content_sha256": "sha256:86457ba7728d041770a08c34dd5e92726f5d90dc3cf6a1bad40eaeff9a8c3f29",
+      "discord_thread_id": null,
+      "event_id": "evt_949d08e44aea43be2a82",
+      "event_type": "message_create",
+      "message_id": "example-message-001",
+      "metadata": {},
+      "parent_attention_id": null,
+      "priority": "P0",
+      "reason_code": "manual_example",
+      "received_at": "2026-06-10T01:37:10Z",
+      "reply_to_message_id": null,
+      "requested_action": "create_or_continue_codex_task",
+      "root_message_id": "example-root-001",
+      "source_surface": "discord"
+    }
+  },
+  "gate_checks": {
+    "shadowevt_c8cf45fbda46dbc0df6c": {
+      "action": {
+        "channel_id": null,
+        "endpoint": null,
+        "host": "example-host.local",
+        "method": "READ",
+        "payload_sha256": "sha256:698d03084a36de9f6be92f49ec8176b1d4804d63469fd0a8a9b5b8f1644e70ca",
+        "requester": "agent:agent_b",
+        "reversible": true,
+        "risk_flags": [
+          "non_trivial"
+        ],
+        "tool": "ams_codex.prepare_codex",
+        "writes": false
+      },
+      "created_at": "2026-06-10T01:37:10Z",
+      "verdict": {
+        "created_at": "2026-06-10T01:37:10Z",
+        "engine_version": "ams-codex-local-shadow/v0.1.0",
+        "ledger_event_id": "shadowevt_c8cf45fbda46dbc0df6c",
+        "reasons": [
+          "shadow-allow-local-dry-run"
+        ],
+        "shadow_only": true,
+        "verdict": "allow"
+      }
+    },
+    "shadowevt_f7363845eecd3347fc12": {
+      "action": {
+        "channel_id": "000000000000000003",
+        "endpoint": "/channels/000000000000000003/messages",
+        "host": "example-host.local",
+        "method": "POST",
+        "payload_sha256": "sha256:1458cfc460deeb4899f8a7d9bc3c49f1c3ed1519db4f3ceefce2bed49ac94ad9",
+        "requester": "agent:agent_b",
+        "reversible": true,
+        "risk_flags": [
+          "egress"
+        ],
+        "tool": "discord_client.send",
+        "writes": true
+      },
+      "created_at": "2026-06-10T01:37:10Z",
+      "verdict": {
+        "created_at": "2026-06-10T01:37:10Z",
+        "engine_version": "ams-codex-local-shadow/v0.1.0",
+        "ledger_event_id": "shadowevt_f7363845eecd3347fc12",
+        "reasons": [
+          "shadow-defer-egress-needs-signed-engine"
+        ],
+        "shadow_only": true,
+        "verdict": "defer"
+      }
+    }
+  },
+  "incident_packets": {},
+  "indexes": {
+    "attention_to_session": {
+      "attn_24ad4f8e5851c7b06775": "sess_412521c2be942f710d83"
+    },
+    "content_to_session": {
+      "sha256:86457ba7728d041770a08c34dd5e92726f5d90dc3cf6a1bad40eaeff9a8c3f29": "sess_412521c2be942f710d83"
+    },
+    "message_to_session": {
+      "example-message-001": "sess_412521c2be942f710d83"
+    },
+    "root_to_session": {
+      "discord:000000000000000003:example-root-001": "sess_412521c2be942f710d83"
+    },
+    "thread_to_session": {}
+  },
+  "outbox_items": {},
+  "outbox_receipts": {},
+  "provider_results": {},
+  "resource_claims": {},
+  "resource_policies": {},
+  "revision": 1,
+  "run_events": {},
+  "schema": "ams.ams_codex.store.v0",
+  "sessions": {
+    "sess_412521c2be942f710d83": {
+      "ams_task_id": "task_412521c2be942f710d83",
+      "artifact_refs": [],
+      "attention_id": "attn_24ad4f8e5851c7b06775",
+      "claude_agent_id": "sim-claude-agent-verifier-001",
+      "claude_session_id": "sim-claude-session-001",
+      "claude_surface": "agent-sdk",
+      "codex_surface": "app-server",
+      "codex_thread_id": "sim-codex-thread-001",
+      "compaction_epoch": 0,
+      "created_at": "2026-06-10T01:37:10Z",
+      "discord_channel_id": "000000000000000003",
+      "discord_root_message_id": "example-root-001",
+      "discord_thread_id": null,
+      "event_ids": [
+        "evt_949d08e44aea43be2a82"
+      ],
+      "last_summary_checkpoint_id": "sum_2998ee7a3b97adc5ae07",
+      "lease_holder": "agent_b",
+      "lease_id": "lease_d9a24ff1be85e84a48b2",
+      "message_ids": [
+        "example-message-001"
+      ],
+      "no_repeat_keys": [
+        "sha256:f633140ac7e09b1d11b09a3654809eeee6cb0da093247c9e779c43e92168ab4c",
+        "sha256:8795975161de5d54608ea0dba4ddd00310e2f1c7a97074daf10740139639d245",
+        "sha256:93c8649d27662f18b2c0b156af33f83cb2e44a8062c9b01a323979754232c7c4"
+      ],
+      "provider_sessions": [
+        {
+          "active_turn_id": null,
+          "compaction_epoch": 0,
+          "created_at": "2026-06-10T01:37:10Z",
+          "last_checkpoint_id": "sum_2998ee7a3b97adc5ae07",
+          "provider": "openai_codex",
+          "provider_agent_id": null,
+          "provider_session_id": "sim-codex-thread-001",
+          "status": "active",
+          "surface": "app-server",
+          "updated_at": "2026-06-10T01:37:10Z"
+        },
+        {
+          "active_turn_id": null,
+          "compaction_epoch": 0,
+          "created_at": "2026-06-10T01:37:10Z",
+          "last_checkpoint_id": "sum_2998ee7a3b97adc5ae07",
+          "provider": "anthropic_claude",
+          "provider_agent_id": "sim-claude-agent-verifier-001",
+          "provider_session_id": "sim-claude-session-001",
+          "status": "active",
+          "surface": "agent-sdk",
+          "updated_at": "2026-06-10T01:37:10Z"
+        }
+      ],
+      "root_key": "discord:000000000000000003:example-root-001",
+      "session_id": "sess_412521c2be942f710d83",
+      "source_refs": [
+        "discord://000000000000000003/example-message-001"
+      ],
+      "state": "active",
+      "updated_at": "2026-06-10T01:37:10Z"
+    }
+  },
+  "surface_definitions": {
+    "surfdef_64890db24a81991c235a": {
+      "allowed_methods": [
+        "session/start",
+        "session/resume"
+      ],
+      "capabilities": [
+        "verifier",
+        "worker"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Claude Agent SDK request surface; local dry-run only here."
+      },
+      "definition_id": "surfdef_64890db24a81991c235a",
+      "definition_sha256": "sha256:3034613e85e8ec74216503fa231e3bcc12f963419b503822154bd8095c6e3adf",
+      "endpoint": null,
+      "mode": "dry_run",
+      "provider": "anthropic_claude",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "agent-sdk",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "surfdef_9556c107ac8053af96da": {
+      "allowed_methods": [
+        "queue",
+        "receipt",
+        "readback"
+      ],
+      "capabilities": [
+        "egress_queue"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "AMS-owned Discord outbox/readback surface; no direct send."
+      },
+      "definition_id": "surfdef_9556c107ac8053af96da",
+      "definition_sha256": "sha256:a4a70dfe91a2a97a2b4af77eb68ed8a61bd6c7e40df3272c37b33d9ea9b22662",
+      "endpoint": null,
+      "mode": "shadow",
+      "provider": "discord",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "egress"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "ams_outbox",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "surfdef_e5d7521917598d77fca9": {
+      "allowed_methods": [
+        "generate",
+        "chat"
+      ],
+      "capabilities": [
+        "local_model",
+        "bounded_runner"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Local Ollama-compatible model surface; local dry-run only here."
+      },
+      "definition_id": "surfdef_e5d7521917598d77fca9",
+      "definition_sha256": "sha256:06544466cfb72fa0443de6d6fcfd4976d2a5b0cbffd6901f63ec467ef92829fd",
+      "endpoint": null,
+      "mode": "dry_run",
+      "provider": "local_ollama",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "ollama-api",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "surfdef_f59cc07b5123666c9a55": {
+      "allowed_methods": [
+        "thread/start",
+        "thread/resume",
+        "turn/start",
+        "turn/steer"
+      ],
+      "capabilities": [
+        "code_worker",
+        "bounded_runner"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Codex app-server envelope surface; local dry-run only here."
+      },
+      "definition_id": "surfdef_f59cc07b5123666c9a55",
+      "definition_sha256": "sha256:af76bc189b3f67ed6469c4b8b003d0563cf87cf059ea6c50a9cc8638eca20d8a",
+      "endpoint": null,
+      "mode": "dry_run",
+      "provider": "openai_codex",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "app-server",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    }
+  },
+  "task_runs": {},
+  "tool_definitions": {
+    "tooldef_00469e44b6d407892a4a": {
+      "allowed_actions": [
+        "egress"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Direct Discord send path, disabled until signed live gate."
+      },
+      "definition_id": "tooldef_00469e44b6d407892a4a",
+      "definition_sha256": "sha256:c9e6252cb4755598e0dabce119922d55a5a87b27462da268819bfb36d72437f0",
+      "egress_modes": [
+        "direct"
+      ],
+      "input_schema_sha256": null,
+      "name": "discord_client.send",
+      "risk_flags": [
+        "egress",
+        "live_touch"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "disabled",
+      "tool_type": "egress",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_04b352f6aed549b0da4c": {
+      "allowed_actions": [
+        "write"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Edit workspace files through approved patch mechanisms."
+      },
+      "definition_id": "tooldef_04b352f6aed549b0da4c",
+      "definition_sha256": "sha256:81e932a65615421e521306b5c28186e625f95c341b7bbd44186e0d047dfd4f54",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "Edit",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "filesystem",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_144b43be58e870b0a198": {
+      "allowed_actions": [
+        "egress"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Queue an AMS outbox item; never sends directly."
+      },
+      "definition_id": "tooldef_144b43be58e870b0a198",
+      "definition_sha256": "sha256:9b75a487c77ca3c192e27c22248f69ff302aa4b3f36e5f8a14c98cf7fa2b5d5b",
+      "egress_modes": [
+        "ams_outbox"
+      ],
+      "input_schema_sha256": null,
+      "name": "EgressOutbox",
+      "risk_flags": [
+        "egress"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "egress",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_4c09b624eb487aacda12": {
+      "allowed_actions": [
+        "write"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Apply scoped patches to workspace files."
+      },
+      "definition_id": "tooldef_4c09b624eb487aacda12",
+      "definition_sha256": "sha256:2ce085f06badba6d92e34006a2c8ddbad73fa7754e4249c122e14652c54aa680",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "ApplyPatch",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "filesystem",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_67456770dfc1eeb1daa8": {
+      "allowed_actions": [
+        "test"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Run local test suites or focused verification commands."
+      },
+      "definition_id": "tooldef_67456770dfc1eeb1daa8",
+      "definition_sha256": "sha256:08816d140dd191a3fd44c1a3ab96117b1a0d166dec97240fc90908578f47d3b6",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "Tests",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "shell",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_aad7f3bf52545a6dbc2f": {
+      "allowed_actions": [
+        "read"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Read bounded workspace files through the agent runtime."
+      },
+      "definition_id": "tooldef_aad7f3bf52545a6dbc2f",
+      "definition_sha256": "sha256:494282ac55436b94f043f334612bcb5fa224f193e7ce5ccdc6f39f9e5df4d17b",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "Read",
+      "risk_flags": [],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "filesystem",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_fd717b882e3d0b245b7d": {
+      "allowed_actions": [
+        "read",
+        "test"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Run local shell commands that inspect or verify state."
+      },
+      "definition_id": "tooldef_fd717b882e3d0b245b7d",
+      "definition_sha256": "sha256:3f01fe33b2e3092241ae0dff97cbb8b206f79d60115415109e9451bca93466ab",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "ShellReadOnly",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "shell",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    }
+  }
+}

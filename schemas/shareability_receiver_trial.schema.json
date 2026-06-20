@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:shareability-receiver-trial:v0",
+  "title": "AMSCodexShareabilityReceiverTrial",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "shareability_receiver_trial_id",
+    "label",
+    "source_bundle_ref",
+    "receiver",
+    "git_commands",
+    "conformance",
+    "required_gates",
+    "boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "shareability_receiver_trial_sha256",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.shareability_receiver_trial.v0" },
+    "shareability_receiver_trial_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_bundle_ref": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "shareability_bundle_id",
+        "shareability_bundle_sha256",
+        "source_record_valid",
+        "source_status",
+        "bundle_path",
+        "bundle_file_exists",
+        "expected_bundle_sha256",
+        "actual_bundle_sha256",
+        "bundle_sha_matches",
+        "source_head_sha",
+        "source_tags_at_head",
+        "raw_bundle_stored"
+      ],
+      "properties": {
+        "shareability_bundle_id": { "type": "string" },
+        "shareability_bundle_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "source_record_valid": { "type": "boolean" },
+        "source_record_reason_codes": { "type": "array", "items": { "type": "string" } },
+        "source_status": { "type": "string" },
+        "bundle_path": { "type": "string", "minLength": 1 },
+        "bundle_filename": { "type": ["string", "null"] },
+        "bundle_file_exists": { "type": "boolean" },
+        "expected_bundle_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "actual_bundle_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "bundle_sha_matches": { "type": "boolean" },
+        "source_head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "source_branch": { "type": ["string", "null"] },
+        "source_tags_at_head": { "type": "array", "items": { "type": "string" } },
+        "source_ref_scope": { "type": "object" },
+        "raw_bundle_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "receiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiver_root",
+        "trial_root",
+        "clone_path",
+        "clone_created",
+        "clone_path_under_receiver_root",
+        "head_sha",
+        "head_matches_source",
+        "branch",
+        "tags_at_head",
+        "expected_tags_present",
+        "dirty_file_count",
+        "remote_count",
+        "remote_names_sha256",
+        "remote_urls_stored"
+      ],
+      "properties": {
+        "receiver_root": { "type": "string", "minLength": 1 },
+        "trial_root": { "type": "string", "minLength": 1 },
+        "clone_path": { "type": "string", "minLength": 1 },
+        "clone_created": { "type": "boolean" },
+        "clone_path_under_receiver_root": { "type": "boolean" },
+        "head_sha": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "head_matches_source": { "type": "boolean" },
+        "branch": { "type": ["string", "null"] },
+        "tags_at_head": { "type": "array", "items": { "type": "string" } },
+        "expected_tags_present": { "type": "boolean" },
+        "dirty_file_count": { "type": ["integer", "null"], "minimum": 0 },
+        "remote_count": { "type": ["integer", "null"], "minimum": 0 },
+        "remote_names_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "remote_urls_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "git_commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "git_init",
+        "git_fetch_bundle",
+        "git_checkout",
+        "git_fsck",
+        "git_head",
+        "git_tags_at_head",
+        "git_status",
+        "git_remote_names"
+      ],
+      "properties": {
+        "git_init": { "$ref": "#/$defs/command" },
+        "git_fetch_bundle": { "$ref": "#/$defs/command" },
+        "git_checkout": { "$ref": "#/$defs/command" },
+        "git_fsck": { "$ref": "#/$defs/command" },
+        "git_head": { "$ref": "#/$defs/command" },
+        "git_tags_at_head": { "$ref": "#/$defs/command" },
+        "git_status": { "$ref": "#/$defs/command" },
+        "git_remote_names": { "$ref": "#/$defs/command" }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["json_validation", "python_compile", "focused_tests"],
+      "properties": {
+        "json_validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ok", "checked_count", "invalid_count"],
+          "properties": {
+            "ok": { "type": "boolean" },
+            "checked_count": { "type": "integer", "minimum": 0 },
+            "invalid_count": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "python_compile": { "$ref": "#/$defs/command" },
+        "focused_tests": { "$ref": "#/$defs/command" }
+      }
+    },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_bundle_record_valid",
+        "source_bundle_status_allow",
+        "bundle_file_exists",
+        "bundle_sha_matches",
+        "clone_created",
+        "clone_path_under_receiver_root",
+        "head_matches_source",
+        "expected_tags_present",
+        "working_tree_clean",
+        "no_remote_configured",
+        "remote_urls_not_stored",
+        "json_valid",
+        "python_compile_ok",
+        "focused_tests_ok"
+      ],
+      "properties": {
+        "source_bundle_record_valid": { "type": "boolean" },
+        "source_bundle_status_allow": { "type": "boolean" },
+        "bundle_file_exists": { "type": "boolean" },
+        "bundle_sha_matches": { "type": "boolean" },
+        "clone_created": { "type": "boolean" },
+        "clone_path_under_receiver_root": { "type": "boolean" },
+        "head_matches_source": { "type": "boolean" },
+        "expected_tags_present": { "type": "boolean" },
+        "working_tree_clean": { "type": "boolean" },
+        "no_remote_configured": { "type": "boolean" },
+        "remote_urls_not_stored": { "type": "boolean" },
+        "json_valid": { "type": "boolean" },
+        "python_compile_ok": { "type": "boolean" },
+        "focused_tests_ok": { "type": "boolean" }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_call_performed",
+        "ssh_call_performed",
+        "remote_push_performed",
+        "remote_pull_performed",
+        "remote_url_stored",
+        "raw_bundle_stored_in_record",
+        "raw_command_output_stored",
+        "host_repo_write_performed",
+        "secret_stored"
+      ],
+      "properties": {
+        "network_call_performed": { "type": "boolean", "const": false },
+        "ssh_call_performed": { "type": "boolean", "const": false },
+        "remote_push_performed": { "type": "boolean", "const": false },
+        "remote_pull_performed": { "type": "boolean", "const": false },
+        "remote_url_stored": { "type": "boolean", "const": false },
+        "raw_bundle_stored_in_record": { "type": "boolean", "const": false },
+        "raw_command_output_stored": { "type": "boolean", "const": false },
+        "host_repo_write_performed": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "shareability_receiver_trial_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "kind", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "argv_sha256",
+        "return_code",
+        "stdout_sha256",
+        "stderr_sha256",
+        "stdout_line_count",
+        "stderr_line_count",
+        "raw_output_stored",
+        "skipped"
+      ],
+      "properties": {
+        "argv_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "return_code": { "type": "integer" },
+        "stdout_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stderr_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stdout_line_count": { "type": "integer", "minimum": 0 },
+        "stderr_line_count": { "type": "integer", "minimum": 0 },
+        "raw_output_stored": { "type": "boolean", "const": false },
+        "skipped": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:session-registry:v0",
+  "title": "AMSCodexSessionRegistryRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "ams_task_id",
+    "attention_id",
+    "discord_root_message_id",
+    "codex_thread_id",
+    "state",
+    "compaction_epoch",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "session_id": { "type": "string", "minLength": 1 },
+    "ams_task_id": { "type": "string", "minLength": 1 },
+    "attention_id": { "type": "string", "minLength": 1 },
+    "discord_channel_id": { "type": ["string", "null"] },
+    "discord_root_message_id": { "type": "string", "minLength": 1 },
+    "discord_thread_id": { "type": ["string", "null"] },
+    "codex_thread_id": { "type": ["string", "null"] },
+    "codex_surface": {
+      "type": "string",
+      "enum": ["app-server", "mcp", "exec", "unknown"],
+      "default": "unknown"
+    },
+    "claude_session_id": { "type": ["string", "null"] },
+    "claude_agent_id": { "type": ["string", "null"] },
+    "claude_surface": {
+      "type": "string",
+      "enum": ["agent-sdk", "cli", "managed-agent", "unknown"],
+      "default": "unknown"
+    },
+    "provider_sessions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider", "surface", "provider_session_id", "status", "created_at", "updated_at"],
+        "properties": {
+          "provider": { "type": "string", "enum": ["openai_codex", "anthropic_claude"] },
+          "surface": { "type": "string" },
+          "provider_session_id": { "type": "string", "minLength": 1 },
+          "provider_agent_id": { "type": ["string", "null"] },
+          "active_turn_id": { "type": ["string", "null"] },
+          "last_checkpoint_id": { "type": ["string", "null"] },
+          "compaction_epoch": { "type": "integer", "minimum": 0 },
+          "status": { "type": "string", "enum": ["active", "idle", "blocked", "closed"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "updated_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": ["pending", "active", "blocked", "done", "archived"]
+    },
+    "lease_id": { "type": ["string", "null"] },
+    "lease_holder": { "type": ["string", "null"] },
+    "last_summary_checkpoint_id": { "type": ["string", "null"] },
+    "compaction_epoch": { "type": "integer", "minimum": 0 },
+    "session_revision": { "type": "integer", "minimum": 0 },
+    "no_repeat_keys": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "message_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "event_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "root_key": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" }
+  }
+}

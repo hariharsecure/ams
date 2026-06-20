@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:provider-result:v0",
+  "title": "AMSCodexProviderResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "provider_result_id",
+    "task_run_id",
+    "provider",
+    "surface",
+    "status",
+    "output_refs",
+    "token_usage",
+    "provider_session_id",
+    "provider_msg_refs",
+    "started_at",
+    "ended_at",
+    "ingested_at",
+    "source_class",
+    "sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.provider_result.v0" },
+    "provider_result_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "provider": { "type": "string", "minLength": 1 },
+    "surface": { "type": ["string", "null"] },
+    "status": { "type": "string", "enum": ["ok", "error", "timeout", "refused"] },
+    "output_refs": { "type": "array", "items": { "type": "string" } },
+    "token_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "input": { "type": "integer", "minimum": 0 },
+        "output": { "type": "integer", "minimum": 0 },
+        "cached": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "est_cost_usd": { "type": ["number", "null"], "minimum": 0 },
+    "provider_session_id": { "type": ["string", "null"] },
+    "provider_msg_refs": { "type": "array", "items": { "type": "string" } },
+    "started_at": { "type": "string", "format": "date-time" },
+    "ended_at": { "type": "string", "format": "date-time" },
+    "ingested_at": { "type": "string", "format": "date-time" },
+    "source_class": { "type": "string", "enum": ["trusted", "untrusted"] },
+    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

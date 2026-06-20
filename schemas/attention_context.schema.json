@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:attention-context:v0",
+  "title": "AMSCodexAttentionContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "context_id",
+    "attention_id",
+    "session_id",
+    "target",
+    "state",
+    "compaction_epoch",
+    "lease",
+    "source_refs",
+    "summary_checkpoint_id",
+    "requested_action",
+    "created_at"
+  ],
+  "properties": {
+    "context_id": { "type": "string", "minLength": 1 },
+    "attention_id": { "type": "string", "minLength": 1 },
+    "parent_attention_id": { "type": ["string", "null"] },
+    "session_id": { "type": "string", "minLength": 1 },
+    "session_revision": { "type": ["integer", "null"], "minimum": 0 },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["discord_message", "ams_task", "artifact"] },
+        "id": { "type": "string", "minLength": 1 },
+        "channel_id": { "type": ["string", "null"] }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": ["seen", "working", "done", "blocked"]
+    },
+    "compaction_epoch": { "type": "integer", "minimum": 0 },
+    "weight": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "lease": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lease_id", "holder", "expires_at"],
+      "properties": {
+        "lease_id": { "type": ["string", "null"] },
+        "holder": { "type": ["string", "null"] },
+        "expires_at": { "type": ["string", "null"], "format": "date-time" },
+        "end_state_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "summary_checkpoint_id": { "type": ["string", "null"] },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "intent": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    },
+    "source_class": { "type": "string", "enum": ["trusted", "untrusted"] },
+    "requested_action": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

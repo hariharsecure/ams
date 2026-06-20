@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:codebase-graph-edge:v0",
+  "title": "AMSCodexCodebaseGraphEdge",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "codebase_graph_edge_id",
+    "label",
+    "source_root",
+    "snapshot_id",
+    "from_node_id",
+    "from_path",
+    "to_node_id",
+    "to_path",
+    "edge_type",
+    "confidence",
+    "evidence",
+    "raw_content_stored",
+    "created_at",
+    "codebase_graph_edge_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.codebase_graph_edge.v0" },
+    "codebase_graph_edge_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "snapshot_id": { "type": "string", "minLength": 1 },
+    "from_node_id": { "type": "string", "minLength": 1 },
+    "from_path": { "type": "string", "minLength": 1 },
+    "to_node_id": { "type": "string", "minLength": 1 },
+    "to_path": { "type": "string", "minLength": 1 },
+    "edge_type": {
+      "type": "string",
+      "enum": ["imports", "imported_by", "tests", "tested_by"]
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "detail"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string", "minLength": 1 }
+      }
+    },
+    "raw_content_stored": { "type": "boolean", "const": false },
+    "created_at": { "type": "string", "minLength": 1 },
+    "codebase_graph_edge_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

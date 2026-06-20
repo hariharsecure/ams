@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:memory-supersession-record:v0",
+  "title": "AMSCodexMemorySupersessionRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "memory_supersession_record_id",
+    "old_memory_claim_id",
+    "old_memory_claim_sha256",
+    "new_memory_claim_id",
+    "new_memory_claim_sha256",
+    "semantic_key",
+    "supersession_mode",
+    "operator_confirmed",
+    "operator_confirmation_ref",
+    "operator_confirmation_sha256",
+    "reviewed_claim_ids",
+    "raw_value_stored",
+    "created_at",
+    "memory_supersession_record_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.memory_supersession_record.v0" },
+    "memory_supersession_record_id": { "type": "string", "minLength": 1 },
+    "old_memory_claim_id": { "type": "string", "minLength": 1 },
+    "old_memory_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "new_memory_claim_id": { "type": "string", "minLength": 1 },
+    "new_memory_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "supersession_mode": {
+      "type": "string",
+      "enum": ["correction", "temporal_update", "scope_refinement", "revocation", "duplicate"]
+    },
+    "operator_confirmed": { "type": "boolean", "const": true },
+    "operator_confirmation_ref": { "type": "string", "minLength": 1 },
+    "operator_confirmation_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "reviewed_claim_ids": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 2 },
+    "raw_value_stored": { "type": "boolean", "const": false },
+    "created_at": { "type": "string", "minLength": 1 },
+    "memory_supersession_record_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

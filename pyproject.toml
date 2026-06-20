@@ -1,0 +1,9 @@
+[project]
+name = "ams-codex"
+version = "0.1.0"
+description = "Local-only AMS/Codex session and context prototypes"
+requires-python = ">=3.9"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:codebase-spider-graph-snapshot:v0",
+  "title": "AMSCodexCodebaseSpiderGraphSnapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "codebase_spider_graph_snapshot_id",
+    "label",
+    "source_root",
+    "package_name",
+    "analyzer",
+    "architecture_audit_ref",
+    "source_snapshot_sha256",
+    "node_count",
+    "edge_count",
+    "node_refs",
+    "edge_refs",
+    "graph_summary",
+    "status",
+    "reason_codes",
+    "created_at",
+    "codebase_spider_graph_snapshot_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.codebase_spider_graph_snapshot.v0" },
+    "codebase_spider_graph_snapshot_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "package_name": { "type": "string", "minLength": 1 },
+    "analyzer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "phase", "network_required", "raw_source_stored"],
+      "properties": {
+        "engine": { "type": "string", "enum": ["python_ast"] },
+        "phase": { "type": "string", "enum": ["static_python"] },
+        "network_required": { "type": "boolean", "const": false },
+        "raw_source_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "architecture_audit_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["architecture_audit_id", "architecture_audit_sha256", "status"],
+      "properties": {
+        "architecture_audit_id": { "type": "string", "minLength": 1 },
+        "architecture_audit_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "status": { "type": "string", "enum": ["allow", "defer", "deny"] }
+      }
+    },
+    "source_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "node_count": { "type": "integer", "minimum": 0 },
+    "edge_count": { "type": "integer", "minimum": 0 },
+    "node_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "codebase_graph_node_id", "codebase_graph_node_sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "codebase_graph_node_id": { "type": "string", "minLength": 1 },
+          "codebase_graph_node_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "edge_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["codebase_graph_edge_id", "codebase_graph_edge_sha256", "edge_type"],
+        "properties": {
+          "codebase_graph_edge_id": { "type": "string", "minLength": 1 },
+          "codebase_graph_edge_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "edge_type": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "graph_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["file_nodes", "test_nodes", "import_edges", "test_edges"]
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "codebase_spider_graph_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:surface-binding:v0",
+  "title": "AMSCodexSurfaceBinding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "surface_binding_id",
+    "runtime_surface_id",
+    "session_id",
+    "provider",
+    "surface",
+    "binding_role",
+    "status",
+    "created_at",
+    "updated_at",
+    "surface_binding_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.surface_binding.v0" },
+    "surface_binding_id": { "type": "string", "minLength": 1 },
+    "runtime_surface_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "provider": { "type": "string", "minLength": 1 },
+    "surface": { "type": "string", "minLength": 1 },
+    "provider_session_id": { "type": ["string", "null"] },
+    "task_run_id": { "type": ["string", "null"] },
+    "binding_role": { "type": "string", "enum": ["worker", "verifier", "observer", "egress_queue"] },
+    "status": { "type": "string", "enum": ["bound", "paused", "released"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "surface_binding_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

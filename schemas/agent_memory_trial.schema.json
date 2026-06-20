@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:agent-memory-trial:v0",
+  "title": "AMSCodexAgentMemoryTrial",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agent_memory_trial_id",
+    "trial_label",
+    "mode",
+    "runtime_root",
+    "runtime_manifest_sha256",
+    "discord_sim",
+    "attention_signal_ids",
+    "agents",
+    "metrics",
+    "launch_actions",
+    "egress_actions",
+    "created_at",
+    "updated_at",
+    "trial_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.agent_memory_trial.v0" },
+    "agent_memory_trial_id": { "type": "string", "minLength": 1 },
+    "trial_label": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "const": "fake_agents" },
+    "runtime_root": { "type": "string", "minLength": 1 },
+    "runtime_manifest_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "discord_sim": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["channels", "input_event_count", "output_event_count", "input_ref", "output_ref"],
+      "properties": {
+        "channels": { "type": "object" },
+        "input_event_count": { "type": "integer", "minimum": 0 },
+        "output_event_count": { "type": "integer", "minimum": 0 },
+        "input_ref": { "type": "string", "minLength": 1 },
+        "output_ref": { "type": "string", "minLength": 1 }
+      }
+    },
+    "attention_signal_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "agent_record_id",
+          "agent_name",
+          "provider",
+          "provider_session_id",
+          "workspace",
+          "venv_path",
+          "venv_created",
+          "transcript_path",
+          "launch_allowed",
+          "turns_seen",
+          "compaction_count",
+          "memory_limit",
+          "raw_probe_results",
+          "ams_probe_results",
+          "metrics",
+          "transcript_rows"
+        ],
+        "properties": {
+          "agent_record_id": { "type": "string", "minLength": 1 },
+          "agent_name": { "type": "string", "minLength": 1 },
+          "provider": { "type": "string", "minLength": 1 },
+          "provider_session_id": { "type": "string", "minLength": 1 },
+          "workspace": { "type": "string", "minLength": 1 },
+          "venv_path": { "type": "string", "minLength": 1 },
+          "venv_created": { "type": "boolean" },
+          "transcript_path": { "type": "string", "minLength": 1 },
+          "launch_allowed": { "type": "boolean", "const": false },
+          "turns_seen": { "type": "integer", "minimum": 0 },
+          "compaction_count": { "type": "integer", "minimum": 0 },
+          "memory_limit": { "type": "integer", "minimum": 1 },
+          "raw_probe_results": { "type": "array", "items": { "type": "object" } },
+          "ams_probe_results": { "type": "array", "items": { "type": "object" } },
+          "metrics": { "type": "object" },
+          "transcript_rows": { "type": "array", "items": { "type": "object" } }
+        }
+      }
+    },
+    "metrics": { "type": "object", "additionalProperties": true },
+    "launch_actions": { "type": "array" },
+    "egress_actions": { "type": "array" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "trial_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

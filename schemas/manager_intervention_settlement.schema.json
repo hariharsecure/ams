@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:manager-intervention-settlement:v0",
+  "title": "AMSCodexManagerInterventionSettlement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manager_intervention_settlement_id",
+    "manager_intervention_id",
+    "target_agent",
+    "ack_status",
+    "settlement_status",
+    "readback",
+    "readback_checks",
+    "idempotency_key",
+    "idempotency_fingerprint",
+    "applied_to_intervention",
+    "created_at",
+    "settlement_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ams.ams_codex.manager_intervention_settlement.v0"
+    },
+    "manager_intervention_settlement_id": { "type": "string", "minLength": 1 },
+    "manager_intervention_id": { "type": "string", "minLength": 1 },
+    "target_agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent_name", "provider", "surface"],
+      "properties": {
+        "agent_name": { "type": "string", "minLength": 1 },
+        "provider": { "type": "string", "minLength": 1 },
+        "surface": { "type": "string", "minLength": 1 }
+      }
+    },
+    "ack_status": { "type": "string", "enum": ["acknowledged", "deferred", "resolved"] },
+    "settlement_status": { "type": "string", "enum": ["accepted", "rejected"] },
+    "readback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref",
+        "summary",
+        "summary_sha256",
+        "source_refs_used",
+        "priority_decision",
+        "deferred_signal_ids",
+        "priority_reason",
+        "domain_decision"
+      ],
+      "properties": {
+        "ref": { "type": ["string", "null"] },
+        "summary": { "type": "string" },
+        "summary_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "source_refs_used": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "priority_decision": { "type": "string", "enum": ["none_deferred", "deferred"] },
+        "deferred_signal_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "priority_reason": { "type": ["string", "null"] },
+        "domain_decision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["next_domain", "crosses_domains", "reason"],
+          "properties": {
+            "next_domain": {
+              "type": "string",
+              "enum": [
+                "surface_discord",
+                "surface_terminal",
+                "training_ops",
+                "cloud_ops",
+                "ams_kernel",
+                "provider_session",
+                "security",
+                "resource_capacity",
+                "cyber_physical_ops",
+                "animal_welfare",
+                "research_memory",
+                "unknown"
+              ]
+            },
+            "crosses_domains": { "type": "boolean" },
+            "reason": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "readback_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_type", "required", "passed", "evidence"],
+        "properties": {
+          "check_type": {
+            "type": "string",
+            "enum": [
+              "readback_present",
+              "source_refs_named",
+              "priority_deferral_stated",
+              "domain_transition_stated"
+            ]
+          },
+          "required": { "type": "boolean" },
+          "passed": { "type": "boolean" },
+          "evidence": { "type": "object", "additionalProperties": true }
+        }
+      }
+    },
+    "idempotency_key": { "type": "string", "minLength": 1 },
+    "idempotency_fingerprint": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "applied_to_intervention": { "type": "boolean" },
+    "created_at": { "type": "string" },
+    "settlement_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

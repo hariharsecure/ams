@@ -1,0 +1,35 @@
+# AMS eval harness — pinned requirements
+# Python 3.9 (system python3)
+# Generated: 2026-06-15
+
+# BEIR retrieval framework (includes sentence-transformers, datasets, torch)
+beir==2.2.0
+
+# BM25 lexical retrieval (no Elasticsearch required)
+rank-bm25==0.2.2
+
+# BEIR dependencies (pinned to what pip resolved)
+sentence-transformers==5.1.2
+transformers==4.57.6
+datasets==4.5.0
+torch==2.8.0
+pytrec-eval-terrier==0.5.10
+huggingface-hub==0.36.2
+scikit-learn==1.6.1
+numpy==2.0.2
+scipy==1.13.1
+pandas==2.3.3
+
+# HTTP / async (needed by datasets)
+httpx==0.28.1
+aiohttp==3.13.5
+
+# InjecAgent deps (see injecagent/repo/requirements.txt for full list)
+# openai and anthropic keys needed at eval time but not installed here
+# to avoid pulling in API client versions until model selection is finalized
+
+# Pyserini BM25 (ships the Anserini fat-JAR; needs Java 11+ + JDK on PATH)
+pyserini==0.22.1
+
+# OpenAI client for the GPT-4 ReAct positive-control arm (needs OPENAI_API_KEY)
+openai==2.41.1

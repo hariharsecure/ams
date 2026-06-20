@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:semantic-hook-run:v0",
+  "title": "AMSCodexSemanticHookRun",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "semantic_hook_run_id",
+    "label",
+    "source_root",
+    "runner_mode",
+    "semantic_oracle_review_id",
+    "semantic_oracle_review_sha256",
+    "simulation_sweep_id",
+    "simulation_sweep_sha256",
+    "hook_contract_sha256",
+    "required_hooks",
+    "required_record_families",
+    "hook_event_receipts",
+    "record_family_receipts",
+    "coverage",
+    "codex_hook_config_preview",
+    "claude_hook_contract_preview",
+    "research_basis",
+    "live_boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "semantic_hook_run_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.semantic_hook_run.v0" },
+    "semantic_hook_run_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "runner_mode": { "type": "string", "const": "sandbox_simulated" },
+    "semantic_oracle_review_id": { "type": "string", "minLength": 1 },
+    "semantic_oracle_review_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "simulation_sweep_id": { "type": "string", "minLength": 1 },
+    "simulation_sweep_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "hook_contract_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "required_hooks": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+    "required_record_families": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+    "hook_event_receipts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hook_event",
+          "matcher",
+          "turn_scope",
+          "thread_scope",
+          "source_ref",
+          "produced_record_families",
+          "hook_installed",
+          "provider_executed",
+          "raw_input_stored",
+          "receipt_sha256",
+          "status",
+          "reason_code"
+        ],
+        "properties": {
+          "hook_event": { "type": "string", "minLength": 1 },
+          "matcher": { "type": "string" },
+          "turn_scope": { "type": "boolean" },
+          "thread_scope": { "type": "boolean" },
+          "source_ref": { "type": "string", "minLength": 1 },
+          "produced_record_families": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "hook_installed": { "type": "boolean", "const": false },
+          "provider_executed": { "type": "boolean", "const": false },
+          "raw_input_stored": { "type": "boolean", "const": false },
+          "receipt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "status": { "type": "string", "const": "recorded" },
+          "reason_code": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "record_family_receipts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record_family",
+          "source_hooks",
+          "semantic_hook_record_id",
+          "semantic_hook_record_sha256",
+          "stored_record_ref",
+          "raw_payload_stored",
+          "coverage_semantic_gap_count",
+          "purpose",
+          "status",
+          "reason_code"
+        ],
+        "properties": {
+          "record_family": { "type": "string", "minLength": 1 },
+          "source_hooks": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+          "semantic_hook_record_id": { "type": "string", "minLength": 1 },
+          "semantic_hook_record_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "stored_record_ref": { "type": "string", "minLength": 1 },
+          "raw_payload_stored": { "type": "boolean", "const": false },
+          "coverage_semantic_gap_count": { "type": "integer", "minimum": 0 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "const": "recorded" },
+          "reason_code": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_matched_scenario_count",
+        "semantic_gap_input_count",
+        "semantic_gap_covered_count",
+        "semantic_gap_remaining_count",
+        "coverage_rate",
+        "required_hook_count",
+        "covered_hook_count",
+        "missing_hooks",
+        "required_record_family_count",
+        "covered_record_family_count",
+        "missing_record_families",
+        "hook_event_receipt_count",
+        "record_family_receipt_count"
+      ],
+      "properties": {
+        "semantic_matched_scenario_count": { "type": "integer", "minimum": 0 },
+        "semantic_gap_input_count": { "type": "integer", "minimum": 0 },
+        "semantic_gap_covered_count": { "type": "integer", "minimum": 0 },
+        "semantic_gap_remaining_count": { "type": "integer", "minimum": 0 },
+        "coverage_rate": { "type": "number", "minimum": 0 },
+        "required_hook_count": { "type": "integer", "minimum": 0 },
+        "covered_hook_count": { "type": "integer", "minimum": 0 },
+        "missing_hooks": { "type": "array", "items": { "type": "string" } },
+        "required_record_family_count": { "type": "integer", "minimum": 0 },
+        "covered_record_family_count": { "type": "integer", "minimum": 0 },
+        "missing_record_families": { "type": "array", "items": { "type": "string" } },
+        "hook_event_receipt_count": { "type": "integer", "minimum": 0 },
+        "record_family_receipt_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "codex_hook_config_preview": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["format", "installed", "trust_required_before_live_use", "hooks"],
+      "properties": {
+        "format": { "type": "string", "const": "hooks.json-preview" },
+        "installed": { "type": "boolean", "const": false },
+        "trust_required_before_live_use": { "type": "boolean", "const": true },
+        "hooks": { "type": "object" }
+      }
+    },
+    "claude_hook_contract_preview": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["format", "installed", "required_lifecycle_events", "notes"],
+      "properties": {
+        "format": { "type": "string", "const": "agent-sdk-hook-contract-preview" },
+        "installed": { "type": "boolean", "const": false },
+        "required_lifecycle_events": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+        "notes": { "type": "string", "minLength": 1 }
+      }
+    },
+    "research_basis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lens", "source", "url"],
+        "properties": {
+          "lens": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "persistent_process_started",
+        "provider_call_performed",
+        "embedding_call_performed",
+        "vector_write_performed",
+        "network_call_performed",
+        "raw_content_stored",
+        "secret_stored",
+        "hook_installed",
+        "hook_command_executed_by_provider"
+      ],
+      "properties": {
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "embedding_call_performed": { "type": "boolean", "const": false },
+        "vector_write_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "raw_content_stored": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false },
+        "hook_installed": { "type": "boolean", "const": false },
+        "hook_command_executed_by_provider": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "semantic_hook_run_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:rag-local-vector-trial:v0",
+  "title": "AMSCodexRAGLocalVectorTrial",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rag_local_vector_trial_id",
+    "label",
+    "rag_index_plan_id",
+    "rag_index_plan_sha256",
+    "collection",
+    "top_k",
+    "taint_labels",
+    "query",
+    "local_adapter",
+    "source_verification",
+    "source_refs",
+    "source_ref_count",
+    "required_gates",
+    "boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "rag_local_vector_trial_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.rag_local_vector_trial.v0" },
+    "rag_local_vector_trial_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "rag_index_plan_id": { "type": "string", "minLength": 1 },
+    "rag_index_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "collection": { "type": "string" },
+    "top_k": { "type": "integer", "minimum": 0 },
+    "taint_labels": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query_sha256", "query_length", "query_text_stored"],
+      "properties": {
+        "query_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "query_length": { "type": "integer", "minimum": 0 },
+        "query_text_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "local_adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "feature_buckets",
+        "feature_payload_stored",
+        "vector_payload_stored",
+        "persistent_index_written",
+        "hnsw_backend_used",
+        "hnsw_compatible_contract"
+      ],
+      "properties": {
+        "kind": { "type": "string", "const": "in_memory_hash_feature_vector" },
+        "feature_buckets": { "type": "integer", "minimum": 1 },
+        "feature_payload_stored": { "type": "boolean", "const": false },
+        "vector_payload_stored": { "type": "boolean", "const": false },
+        "persistent_index_written": { "type": "boolean", "const": false },
+        "hnsw_backend_used": { "type": "boolean", "const": false },
+        "hnsw_compatible_contract": { "type": "boolean", "const": true }
+      }
+    },
+    "source_verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_root",
+        "plan_valid",
+        "plan_validation_reason_codes",
+        "chunk_count",
+        "verified_chunk_count",
+        "file_mismatch_count",
+        "chunk_mismatch_count",
+        "raw_content_stored"
+      ],
+      "properties": {
+        "source_root": { "type": "string", "minLength": 1 },
+        "plan_valid": { "type": "boolean" },
+        "plan_validation_reason_codes": { "type": "array", "items": { "type": "string" } },
+        "chunk_count": { "type": "integer", "minimum": 0 },
+        "verified_chunk_count": { "type": "integer", "minimum": 0 },
+        "file_mismatch_count": { "type": "integer", "minimum": 0 },
+        "chunk_mismatch_count": { "type": "integer", "minimum": 0 },
+        "raw_content_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "retrieval_source_ref_id",
+          "rank",
+          "chunk_id",
+          "source_path",
+          "chunk_sha256",
+          "feature_ref_sha256",
+          "score_ref_sha256",
+          "taint_labels",
+          "content_stored",
+          "embedding_stored",
+          "vector_stored"
+        ],
+        "properties": {
+          "retrieval_source_ref_id": { "type": "string", "minLength": 1 },
+          "rank": { "type": "integer", "minimum": 1 },
+          "chunk_id": { "type": "string", "minLength": 1 },
+          "source_path": { "type": "string", "minLength": 1 },
+          "chunk_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "feature_ref_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "score_ref_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "taint_labels": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "content_stored": { "type": "boolean", "const": false },
+          "embedding_stored": { "type": "boolean", "const": false },
+          "vector_stored": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "source_ref_count": { "type": "integer", "minimum": 0 },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_valid",
+        "chunks_verified",
+        "source_refs_present",
+        "top_k_respected",
+        "hash_refs_taint_present",
+        "raw_content_not_stored",
+        "query_text_not_stored",
+        "embedding_payload_not_stored",
+        "vector_payload_not_stored",
+        "network_not_used"
+      ],
+      "properties": {
+        "plan_valid": { "type": "boolean" },
+        "chunks_verified": { "type": "boolean" },
+        "source_refs_present": { "type": "boolean" },
+        "top_k_respected": { "type": "boolean" },
+        "hash_refs_taint_present": { "type": "boolean" },
+        "raw_content_not_stored": { "type": "boolean" },
+        "query_text_not_stored": { "type": "boolean" },
+        "embedding_payload_not_stored": { "type": "boolean" },
+        "vector_payload_not_stored": { "type": "boolean" },
+        "network_not_used": { "type": "boolean" }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_call_performed",
+        "provider_call_performed",
+        "embedding_api_call_performed",
+        "vector_store_write_performed",
+        "raw_content_stored",
+        "query_text_stored",
+        "embedding_payload_stored",
+        "vector_payload_stored",
+        "downloaded_artifact_ingested",
+        "secret_stored"
+      ],
+      "properties": {
+        "network_call_performed": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "embedding_api_call_performed": { "type": "boolean", "const": false },
+        "vector_store_write_performed": { "type": "boolean", "const": false },
+        "raw_content_stored": { "type": "boolean", "const": false },
+        "query_text_stored": { "type": "boolean", "const": false },
+        "embedding_payload_stored": { "type": "boolean", "const": false },
+        "vector_payload_stored": { "type": "boolean", "const": false },
+        "downloaded_artifact_ingested": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "rag_local_vector_trial_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

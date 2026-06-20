@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:outbox-item:v0",
+  "title": "AMSCodexOutboxItem",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "outbox_id",
+    "task_run_id",
+    "session_id",
+    "target",
+    "method",
+    "payload",
+    "payload_sha256",
+    "idempotency_key",
+    "state",
+    "attempt_count",
+    "created_at",
+    "updated_at",
+    "outbox_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.outbox_item.v0" },
+    "outbox_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "target": { "type": "string", "minLength": 1 },
+    "channel_id": { "type": ["string", "null"] },
+    "endpoint": { "type": ["string", "null"] },
+    "method": { "type": "string", "minLength": 1 },
+    "payload": { "type": "object" },
+    "payload_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "admission_review_id": { "type": ["string", "null"] },
+    "idempotency_key": { "type": "string", "minLength": 1 },
+    "nonce": { "type": "string", "minLength": 1 },
+    "state": {
+      "type": "string",
+      "enum": ["queued", "sent", "readback_verified", "deferred", "failed", "ambiguous"]
+    },
+    "attempt_count": { "type": "integer", "minimum": 0 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "last_receipt_id": { "type": ["string", "null"] },
+    "outbox_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "created_at": "2026-06-09T00:00:00Z",
+  "global_limits": {
+    "max_concurrent_runs": 2,
+    "max_daily_input_tokens": 1000000,
+    "max_daily_output_tokens": 250000,
+    "max_daily_usd": 25.0
+  },
+  "name": "local-default-dry-run",
+  "provider_profiles": [
+    {
+      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_tools": ["Read", "Edit", "ApplyPatch", "ShellReadOnly", "Tests"],
+      "data_classes": ["public", "project", "hash_refs"],
+      "denied_tools": ["discord_client.send", "network.post", "launchd.write"],
+      "egress_modes": ["none", "ams_outbox"],
+      "local_resources": { "cpu_cores": 1, "gpu_memory_mb": 0, "memory_mb": 2048 },
+      "max_concurrent_runs": 1,
+      "max_context_tokens": 200000,
+      "max_input_tokens_per_run": 50000,
+      "max_output_tokens_per_run": 12000,
+      "max_runtime_seconds": 3600,
+      "model_pattern": "*",
+      "profile_id": "codex-app-server-default",
+      "provider": "openai_codex",
+      "surface": "app-server"
+    },
+    {
+      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_tools": ["Read", "ShellReadOnly", "Tests"],
+      "data_classes": ["public", "project", "hash_refs"],
+      "denied_tools": ["Edit", "ApplyPatch", "discord_client.send", "network.post"],
+      "egress_modes": ["none"],
+      "local_resources": { "cpu_cores": 1, "gpu_memory_mb": 0, "memory_mb": 2048 },
+      "max_concurrent_runs": 1,
+      "max_context_tokens": 200000,
+      "max_input_tokens_per_run": 50000,
+      "max_output_tokens_per_run": 12000,
+      "max_runtime_seconds": 2400,
+      "model_pattern": "*",
+      "profile_id": "claude-agent-sdk-verifier",
+      "provider": "anthropic_claude",
+      "surface": "agent-sdk"
+    },
+    {
+      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_tools": ["Read", "ShellReadOnly"],
+      "data_classes": ["public", "project", "hash_refs"],
+      "denied_tools": ["Edit", "ApplyPatch", "discord_client.send", "network.post"],
+      "egress_modes": ["none"],
+      "local_resources": { "cpu_cores": 4, "gpu_memory_mb": 8192, "memory_mb": 16384 },
+      "max_concurrent_runs": 1,
+      "max_context_tokens": 32768,
+      "max_input_tokens_per_run": 12000,
+      "max_output_tokens_per_run": 4000,
+      "max_runtime_seconds": 900,
+      "model_pattern": "*",
+      "profile_id": "local-ollama-default",
+      "provider": "local_ollama",
+      "surface": "ollama-api"
+    },
+    {
+      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_tools": ["Read", "ShellReadOnly"],
+      "data_classes": ["public", "project", "hash_refs"],
+      "denied_tools": ["Edit", "ApplyPatch", "discord_client.send", "network.post"],
+      "egress_modes": ["none"],
+      "local_resources": { "cpu_cores": 4, "gpu_memory_mb": 12288, "memory_mb": 24576 },
+      "max_concurrent_runs": 1,
+      "max_context_tokens": 65536,
+      "max_input_tokens_per_run": 16000,
+      "max_output_tokens_per_run": 6000,
+      "max_runtime_seconds": 1200,
+      "model_pattern": "*",
+      "profile_id": "local-openai-compatible-default",
+      "provider": "local_openai_compatible",
+      "surface": "openai-compatible"
+    }
+  ],
+  "resource_policy_id": "respol_local_default_v0",
+  "schema_version": "ams.ams_codex.resource_policy.v0",
+  "scope": {
+    "default_egress": "deny",
+    "install_id": "local-dry-run",
+    "workspace_roots": ["/home/user/ams_codex"]
+  },
+  "status_cadence": {
+    "max_public_status_per_hour": 4,
+    "min_seconds_between_status_posts": 300,
+    "prefer_edit_existing_status": true
+  }
+}

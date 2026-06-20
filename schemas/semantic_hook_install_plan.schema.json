@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:semantic-hook-install-plan:v0",
+  "title": "AMSCodexSemanticHookInstallPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "semantic_hook_install_plan_id",
+    "label",
+    "source_root",
+    "semantic_hook_run_id",
+    "semantic_hook_run_sha256",
+    "semantic_oracle_review_id",
+    "semantic_gap_remaining_count",
+    "covered_hook_count",
+    "covered_record_family_count",
+    "semantic_hook_record_count",
+    "semantic_hook_record_set_sha256",
+    "codex_hook_config_preview_sha256",
+    "claude_hook_contract_preview_sha256",
+    "install_targets",
+    "trust_review_plan",
+    "signing_requirements",
+    "rollback_plan",
+    "operator_approval",
+    "readiness",
+    "research_basis",
+    "live_boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "semantic_hook_install_plan_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.semantic_hook_install_plan.v0" },
+    "semantic_hook_install_plan_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "semantic_hook_run_id": { "type": "string", "minLength": 1 },
+    "semantic_hook_run_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "semantic_oracle_review_id": { "type": "string", "minLength": 1 },
+    "semantic_gap_remaining_count": { "type": "integer", "minimum": 0 },
+    "covered_hook_count": { "type": "integer", "minimum": 0 },
+    "covered_record_family_count": { "type": "integer", "minimum": 0 },
+    "semantic_hook_record_count": { "type": "integer", "minimum": 0 },
+    "semantic_hook_record_set_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "codex_hook_config_preview_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "claude_hook_contract_preview_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "install_targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "path",
+          "config_sha256",
+          "write_performed",
+          "installed",
+          "trust_review_required",
+          "rollback_required"
+        ],
+        "properties": {
+          "target": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "config_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "write_performed": { "type": "boolean", "const": false },
+          "installed": { "type": "boolean", "const": false },
+          "trust_review_required": { "type": "boolean", "const": true },
+          "rollback_required": { "type": "boolean", "const": true }
+        }
+      }
+    },
+    "trust_review_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface", "review_command", "review_required", "trusted", "config_sha256"],
+        "properties": {
+          "surface": { "type": "string", "minLength": 1 },
+          "review_command": { "type": "string", "minLength": 1 },
+          "review_required": { "type": "boolean", "const": true },
+          "trusted": { "type": "boolean", "const": false },
+          "config_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "signing_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "signed_package_required",
+        "pinned_signer_required",
+        "verified_signed_package_present",
+        "reason_code"
+      ],
+      "properties": {
+        "signed_package_required": { "type": "boolean", "const": true },
+        "pinned_signer_required": { "type": "boolean", "const": true },
+        "verified_signed_package_present": { "type": "boolean", "const": false },
+        "reason_code": { "type": "string", "minLength": 1 }
+      }
+    },
+    "rollback_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step", "required", "completed"],
+        "properties": {
+          "step": { "type": "string", "minLength": 1 },
+          "required": { "type": "boolean", "const": true },
+          "completed": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "operator_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "approval_granted", "approval_id", "reason_code"],
+      "properties": {
+        "required": { "type": "boolean", "const": true },
+        "approval_granted": { "type": "boolean", "const": false },
+        "approval_id": { "type": ["string", "null"] },
+        "reason_code": { "type": "string", "minLength": 1 }
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_hook_run_allow",
+        "semantic_gap_remaining_count",
+        "expected_hook_record_count",
+        "actual_hook_record_count",
+        "hook_record_count_ok",
+        "signed_package_verified",
+        "operator_approval_granted",
+        "live_install_allowed"
+      ],
+      "properties": {
+        "semantic_hook_run_allow": { "type": "boolean" },
+        "semantic_gap_remaining_count": { "type": "integer", "minimum": 0 },
+        "expected_hook_record_count": { "type": "integer", "minimum": 0 },
+        "actual_hook_record_count": { "type": "integer", "minimum": 0 },
+        "hook_record_count_ok": { "type": "boolean" },
+        "signed_package_verified": { "type": "boolean", "const": false },
+        "operator_approval_granted": { "type": "boolean", "const": false },
+        "live_install_allowed": { "type": "boolean", "const": false }
+      }
+    },
+    "research_basis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lens", "source", "url"],
+        "properties": {
+          "lens": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hook_file_written",
+        "hook_installed",
+        "hook_trusted",
+        "provider_hook_executed",
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "persistent_process_started",
+        "provider_call_performed",
+        "embedding_call_performed",
+        "vector_write_performed",
+        "network_call_performed",
+        "raw_content_stored",
+        "secret_stored"
+      ],
+      "properties": {
+        "hook_file_written": { "type": "boolean", "const": false },
+        "hook_installed": { "type": "boolean", "const": false },
+        "hook_trusted": { "type": "boolean", "const": false },
+        "provider_hook_executed": { "type": "boolean", "const": false },
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "embedding_call_performed": { "type": "boolean", "const": false },
+        "vector_write_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "raw_content_stored": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["ready_for_operator_review", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "semantic_hook_install_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

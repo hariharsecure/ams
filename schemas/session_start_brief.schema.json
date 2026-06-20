@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:session-start-brief:v0",
+  "title": "AMSCodexSessionStartBrief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_start_brief_id",
+    "label",
+    "source_root",
+    "output_path",
+    "output_path_relative",
+    "line_budget",
+    "source_refs",
+    "latest_milestone_doc",
+    "rendered",
+    "write_result",
+    "operator_guidance",
+    "boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "session_start_brief_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.session_start_brief.v0" },
+    "session_start_brief_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "output_path": { "type": "string", "minLength": 1 },
+    "output_path_relative": { "type": "string", "minLength": 1 },
+    "line_budget": { "type": "integer", "minimum": 1 },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "exists", "required", "sha256", "line_count", "raw_content_stored"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "exists": { "type": "boolean" },
+          "required": { "type": "boolean" },
+          "sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+          "line_count": { "type": "integer", "minimum": 0 },
+          "raw_content_stored": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "latest_milestone_doc": { "type": ["string", "null"] },
+    "rendered": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "line_count", "size_bytes", "within_line_budget", "raw_content_stored_in_record"],
+      "properties": {
+        "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "line_count": { "type": "integer", "minimum": 0 },
+        "size_bytes": { "type": "integer", "minimum": 0 },
+        "within_line_budget": { "type": "boolean" },
+        "raw_content_stored_in_record": { "type": "boolean", "const": false }
+      }
+    },
+    "write_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "write_requested",
+        "write_performed",
+        "allow_overwrite",
+        "previous_file_exists",
+        "previous_file_sha256",
+        "output_already_current",
+        "created_new_file",
+        "rewrote_existing_session_start_file"
+      ],
+      "properties": {
+        "write_requested": { "type": "boolean" },
+        "write_performed": { "type": "boolean" },
+        "allow_overwrite": { "type": "boolean" },
+        "previous_file_exists": { "type": "boolean" },
+        "previous_file_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+        "output_already_current": { "type": "boolean" },
+        "created_new_file": { "type": "boolean" },
+        "rewrote_existing_session_start_file": { "type": "boolean" }
+      }
+    },
+    "operator_guidance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read_all_milestones_on_start",
+        "start_surface",
+        "use_map_for_deep_links",
+        "raw_transcript_required",
+        "live_boundary_approval_required"
+      ],
+      "properties": {
+        "read_all_milestones_on_start": { "type": "boolean", "const": false },
+        "start_surface": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "use_map_for_deep_links": { "type": "boolean" },
+        "raw_transcript_required": { "type": "boolean", "const": false },
+        "live_boundary_approval_required": { "type": "boolean" }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_file_deleted",
+        "source_file_moved",
+        "raw_source_markdown_stored",
+        "raw_session_content_stored",
+        "prompt_text_stored",
+        "transcript_text_stored",
+        "network_call_performed",
+        "live_process_started"
+      ],
+      "properties": {
+        "source_file_deleted": { "type": "boolean", "const": false },
+        "source_file_moved": { "type": "boolean", "const": false },
+        "raw_source_markdown_stored": { "type": "boolean", "const": false },
+        "raw_session_content_stored": { "type": "boolean", "const": false },
+        "prompt_text_stored": { "type": "boolean", "const": false },
+        "transcript_text_stored": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "live_process_started": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "session_start_brief_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

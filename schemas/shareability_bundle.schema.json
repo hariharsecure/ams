@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:shareability-bundle:v0",
+  "title": "AMSCodexShareabilityBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "shareability_bundle_id",
+    "label",
+    "source_root",
+    "output_dir",
+    "bundle_path",
+    "bundle_filename",
+    "bundle_sha256",
+    "bundle_size_bytes",
+    "include_all_refs",
+    "overwrite_allowed",
+    "source",
+    "ref_scope",
+    "git_safety",
+    "git_commands",
+    "required_gates",
+    "boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "shareability_bundle_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.shareability_bundle.v0" },
+    "shareability_bundle_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "output_dir": { "type": "string", "minLength": 1 },
+    "bundle_path": { "type": "string", "minLength": 1 },
+    "bundle_filename": { "type": "string", "minLength": 1 },
+    "bundle_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "bundle_size_bytes": { "type": "integer", "minimum": 0 },
+    "include_all_refs": { "type": "boolean" },
+    "overwrite_allowed": { "type": "boolean" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo_root",
+        "head_sha",
+        "branch",
+        "tags_at_head",
+        "dirty_file_count",
+        "status_porcelain_sha256",
+        "remote_count",
+        "remote_names",
+        "remote_names_sha256",
+        "remote_urls_stored"
+      ],
+      "properties": {
+        "repo_root": { "type": "string", "minLength": 1 },
+        "head_sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "branch": { "type": "string" },
+        "tags_at_head": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "dirty_file_count": { "type": "integer", "minimum": 0 },
+        "status_porcelain_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "remote_count": { "type": "integer", "minimum": 0 },
+        "remote_names": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "remote_names_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "remote_urls_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "ref_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "selected_refs",
+        "all_refs_included",
+        "safe_ref_scope"
+      ],
+      "properties": {
+        "mode": { "type": "string", "enum": ["head_and_tags_at_head", "all_refs"] },
+        "selected_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "uniqueItems": true },
+        "all_refs_included": { "type": "boolean" },
+        "safe_ref_scope": { "type": "boolean" }
+      }
+    },
+    "git_safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system_git_config_ignored",
+        "global_git_config_ignored",
+        "repo_config_helpers_disabled",
+        "git_terminal_prompt_disabled",
+        "git_askpass_disabled",
+        "ssh_command_disabled",
+        "non_file_protocols_disabled",
+        "external_diff_disabled",
+        "command_timeout_seconds",
+        "raw_environment_stored"
+      ],
+      "properties": {
+        "system_git_config_ignored": { "type": "boolean", "const": true },
+        "global_git_config_ignored": { "type": "boolean", "const": true },
+        "repo_config_helpers_disabled": { "type": "boolean", "const": true },
+        "git_terminal_prompt_disabled": { "type": "boolean", "const": true },
+        "git_askpass_disabled": { "type": "boolean", "const": true },
+        "ssh_command_disabled": { "type": "boolean", "const": true },
+        "non_file_protocols_disabled": { "type": "boolean", "const": true },
+        "external_diff_disabled": { "type": "boolean", "const": true },
+        "command_timeout_seconds": { "type": "integer", "minimum": 1 },
+        "raw_environment_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "git_commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rev_parse_toplevel",
+        "rev_parse_head",
+        "status_porcelain",
+        "remote_names",
+        "fsck_connectivity",
+        "bundle_create",
+        "bundle_verify",
+        "bundle_list_heads"
+      ],
+      "properties": {
+        "rev_parse_toplevel": { "$ref": "#/$defs/command" },
+        "rev_parse_head": { "$ref": "#/$defs/command" },
+        "status_porcelain": { "$ref": "#/$defs/command" },
+        "remote_names": { "$ref": "#/$defs/command" },
+        "fsck_connectivity": { "$ref": "#/$defs/command" },
+        "bundle_create": { "$ref": "#/$defs/command" },
+        "bundle_verify": { "$ref": "#/$defs/command" },
+        "bundle_list_heads": { "$ref": "#/$defs/command" }
+      }
+    },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_git_repo",
+        "working_tree_clean",
+        "head_sha_present",
+        "bundle_created",
+        "bundle_verified",
+        "bundle_heads_listed",
+        "fsck_connectivity_ok",
+        "safe_ref_scope",
+        "git_config_hardened",
+        "network_not_used",
+        "remote_urls_not_stored"
+      ],
+      "properties": {
+        "source_git_repo": { "type": "boolean" },
+        "working_tree_clean": { "type": "boolean" },
+        "head_sha_present": { "type": "boolean" },
+        "bundle_created": { "type": "boolean" },
+        "bundle_verified": { "type": "boolean" },
+        "bundle_heads_listed": { "type": "boolean" },
+        "fsck_connectivity_ok": { "type": "boolean" },
+        "safe_ref_scope": { "type": "boolean" },
+        "git_config_hardened": { "type": "boolean" },
+        "network_not_used": { "type": "boolean" },
+        "remote_urls_not_stored": { "type": "boolean" }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "network_call_performed",
+        "ssh_call_performed",
+        "remote_push_performed",
+        "remote_pull_performed",
+        "remote_url_stored",
+        "raw_bundle_stored_in_record",
+        "secret_stored"
+      ],
+      "properties": {
+        "network_call_performed": { "type": "boolean", "const": false },
+        "ssh_call_performed": { "type": "boolean", "const": false },
+        "remote_push_performed": { "type": "boolean", "const": false },
+        "remote_pull_performed": { "type": "boolean", "const": false },
+        "remote_url_stored": { "type": "boolean", "const": false },
+        "raw_bundle_stored_in_record": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "shareability_bundle_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "$defs": {
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "argv_sha256",
+        "return_code",
+        "stdout_sha256",
+        "stderr_sha256",
+        "stdout_line_count",
+        "stderr_line_count",
+        "raw_output_stored"
+      ],
+      "properties": {
+        "argv_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "return_code": { "type": "integer" },
+        "stdout_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stderr_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stdout_line_count": { "type": "integer", "minimum": 0 },
+        "stderr_line_count": { "type": "integer", "minimum": 0 },
+        "raw_output_stored": { "type": "boolean", "const": false }
+      }
+    }
+  }
+}

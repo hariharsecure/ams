@@ -1,0 +1,128 @@
+{
+  "_comment": "Ablation manifest template for AMS eval harness. One entry per run. Fill all 8 fields.",
+  "schema_version": "ams_eval.ablation_manifest.v0",
+  "fields": {
+    "llm_backbone": {
+      "description": "Model family and provider, e.g. 'gpt-4o', 'claude-3-5-sonnet-20241022', 'claude-3-haiku-20240307'",
+      "type": "string",
+      "example": "gpt-4o"
+    },
+    "llm_version": {
+      "description": "Exact versioned model identifier as sent to provider API",
+      "type": "string",
+      "example": "gpt-4o-2024-11-20"
+    },
+    "temperature": {
+      "description": "Sampling temperature (0.0 = greedy)",
+      "type": "number",
+      "example": 0.0
+    },
+    "seed": {
+      "description": "RNG seed for reproducibility (pass to provider if supported)",
+      "type": "integer",
+      "example": 42
+    },
+    "agent_scaffold": {
+      "description": "ReAct loop implementation; 'injecagent_prompted' uses the InjecAgent ReAct prompt; 'baseline_react' is minimal",
+      "type": "string",
+      "enum": ["injecagent_prompted", "baseline_react", "function_calling"],
+      "example": "injecagent_prompted"
+    },
+    "ams_config": {
+      "description": "Which AMS gates are active. Set all false for the bare baseline.",
+      "type": "object",
+      "properties": {
+        "gates": {
+          "description": "Capability gate (shadow_verdict / evaluate_capability_request) active",
+          "type": "boolean"
+        },
+        "taint": {
+          "description": "Taint labeling on tool outputs (ams_label_tool_output) active",
+          "type": "boolean"
+        },
+        "quarantine": {
+          "description": "Artifact quarantine gate (quarantine_is_approved) active",
+          "type": "boolean"
+        },
+        "hash_only_rag": {
+          "description": "contains_forbidden_payload_key enforcement on RAG refs active",
+          "type": "boolean"
+        }
+      },
+      "example": {
+        "gates": false,
+        "taint": false,
+        "quarantine": false,
+        "hash_only_rag": false
+      }
+    },
+    "retriever": {
+      "description": "Retrieval backend: 'bm25_rank_bm25', 'bm25_elasticsearch', 'dense_beir_dpr', 'none'",
+      "type": "string",
+      "example": "bm25_rank_bm25"
+    },
+    "embedding_model": {
+      "description": "Embedding model used for dense retrieval; null for BM25/lexical",
+      "type": ["string", "null"],
+      "example": null
+    },
+    "k": {
+      "description": "Top-k docs retrieved per query",
+      "type": "integer",
+      "example": 10
+    }
+  },
+  "example_runs": [
+    {
+      "run_id": "baseline_gpt4o_react_ams_off",
+      "llm_backbone": "gpt-4o",
+      "llm_version": "gpt-4o-2024-11-20",
+      "temperature": 0.0,
+      "seed": 42,
+      "agent_scaffold": "injecagent_prompted",
+      "ams_config": {
+        "gates": false,
+        "taint": false,
+        "quarantine": false,
+        "hash_only_rag": false
+      },
+      "retriever": "none",
+      "embedding_model": null,
+      "k": 0
+    },
+    {
+      "run_id": "ams_full_gpt4o_react",
+      "llm_backbone": "gpt-4o",
+      "llm_version": "gpt-4o-2024-11-20",
+      "temperature": 0.0,
+      "seed": 42,
+      "agent_scaffold": "injecagent_prompted",
+      "ams_config": {
+        "gates": true,
+        "taint": true,
+        "quarantine": true,
+        "hash_only_rag": true
+      },
+      "retriever": "none",
+      "embedding_model": null,
+      "k": 0
+    },
+    {
+      "run_id": "beir_bm25_scifact_sanity",
+      "llm_backbone": "none",
+      "llm_version": "none",
+      "temperature": null,
+      "seed": null,
+      "agent_scaffold": "none",
+      "ams_config": {
+        "gates": false,
+        "taint": false,
+        "quarantine": false,
+        "hash_only_rag": false
+      },
+      "retriever": "bm25_rank_bm25",
+      "embedding_model": null,
+      "k": 10
+    }
+  ]
+}

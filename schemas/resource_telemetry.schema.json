@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:resource-telemetry:v0",
+  "title": "AMSCodexResourceTelemetry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "resource_telemetry_id",
+    "task_run_id",
+    "session_id",
+    "resource_claim_id",
+    "provider_result_id",
+    "source_type",
+    "source_ref",
+    "observed",
+    "reserved_snapshot",
+    "claim_state_at_record",
+    "policy_id",
+    "policy_sha256",
+    "provider_profile_id",
+    "live_boundaries",
+    "settlement_status",
+    "reason_codes",
+    "created_at",
+    "telemetry_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.resource_telemetry.v0" },
+    "resource_telemetry_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "resource_claim_id": { "type": "string", "minLength": 1 },
+    "provider_result_id": { "type": ["string", "null"] },
+    "source_type": {
+      "type": "string",
+      "enum": ["manual_local", "provider_result_summary", "runner_summary", "synthetic"]
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ref", "ref_sha256", "artifact_sha256"],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "ref": { "type": "string", "minLength": 1 },
+        "ref_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "artifact_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "runtime_ms",
+        "cost_microusd",
+        "cpu_core_ms",
+        "peak_memory_mb",
+        "peak_gpu_memory_mb",
+        "network_bytes",
+        "disk_read_bytes",
+        "disk_write_bytes"
+      ],
+      "properties": {
+        "input_tokens": { "type": "integer", "minimum": 0 },
+        "output_tokens": { "type": "integer", "minimum": 0 },
+        "total_tokens": { "type": "integer", "minimum": 0 },
+        "runtime_ms": { "type": "integer", "minimum": 0 },
+        "cost_microusd": { "type": "integer", "minimum": 0 },
+        "cpu_core_ms": { "type": "integer", "minimum": 0 },
+        "peak_memory_mb": { "type": "integer", "minimum": 0 },
+        "peak_gpu_memory_mb": { "type": "integer", "minimum": 0 },
+        "network_bytes": { "type": "integer", "minimum": 0 },
+        "disk_read_bytes": { "type": "integer", "minimum": 0 },
+        "disk_write_bytes": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "reserved_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cpu_cores",
+        "memory_mb",
+        "gpu_memory_mb",
+        "max_input_tokens",
+        "max_output_tokens",
+        "max_runtime_seconds",
+        "concurrency_units"
+      ],
+      "properties": {
+        "cpu_cores": { "type": "integer", "minimum": 0 },
+        "memory_mb": { "type": "integer", "minimum": 0 },
+        "gpu_memory_mb": { "type": "integer", "minimum": 0 },
+        "max_input_tokens": { "type": "integer", "minimum": 0 },
+        "max_output_tokens": { "type": "integer", "minimum": 0 },
+        "max_runtime_seconds": { "type": "integer", "minimum": 0 },
+        "concurrency_units": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "claim_state_at_record": { "type": "string", "enum": ["reserved", "active", "released", "expired"] },
+    "policy_id": { "type": "string", "minLength": 1 },
+    "policy_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "provider_profile_id": { "type": "string", "minLength": 1 },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "listener_started",
+        "provider_poll_performed",
+        "network_call_performed",
+        "process_inspection_performed",
+        "terminal_capture_performed",
+        "token_log_read_performed",
+        "raw_usage_log_stored",
+        "token_stored"
+      ],
+      "properties": {
+        "listener_started": { "type": "boolean", "const": false },
+        "provider_poll_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "process_inspection_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "token_log_read_performed": { "type": "boolean", "const": false },
+        "raw_usage_log_stored": { "type": "boolean", "const": false },
+        "token_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "settlement_status": { "type": "string", "enum": ["within_limits", "over_limit"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "telemetry_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

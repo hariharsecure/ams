@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:conformance-pack:v0",
+  "title": "AMSCodexConformancePack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "conformance_pack_id",
+    "label",
+    "target_milestone",
+    "repo_root",
+    "evidence_root",
+    "git",
+    "json_validation",
+    "python_compile",
+    "command_results",
+    "store_checks",
+    "docs_check",
+    "live_boundaries",
+    "artifact_refs",
+    "checks",
+    "warnings",
+    "status",
+    "reason_codes",
+    "created_at",
+    "conformance_pack_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.conformance_pack.v0" },
+    "conformance_pack_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "target_milestone": { "type": "string", "minLength": 1 },
+    "repo_root": { "type": "string", "minLength": 1 },
+    "evidence_root": { "type": "string", "minLength": 1 },
+    "git": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "head_sha",
+        "branch",
+        "tags_at_head",
+        "dirty",
+        "status_entry_count",
+        "status_short_sha256"
+      ],
+      "properties": {
+        "available": { "type": "boolean" },
+        "head_sha": { "type": ["string", "null"] },
+        "branch": { "type": ["string", "null"] },
+        "tags_at_head": { "type": "array", "items": { "type": "string" } },
+        "dirty": { "type": "boolean" },
+        "status_entry_count": { "type": "integer", "minimum": 0 },
+        "status_short_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "json_validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok", "files_checked", "invalid_files"],
+      "properties": {
+        "ok": { "type": "boolean" },
+        "files_checked": { "type": "integer", "minimum": 0 },
+        "invalid_files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "error"],
+            "properties": {
+              "path": { "type": "string" },
+              "error": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "python_compile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "argv",
+        "ok",
+        "exit_code",
+        "timed_out",
+        "duration_ms",
+        "stdout_sha256",
+        "stderr_sha256",
+        "stdout_tail",
+        "stderr_tail",
+        "files_checked"
+      ],
+      "properties": {
+        "name": { "type": "string" },
+        "argv": { "type": "array", "items": { "type": "string" } },
+        "ok": { "type": "boolean" },
+        "exit_code": { "type": "integer" },
+        "timed_out": { "type": "boolean" },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "stdout_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stderr_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "stdout_tail": { "type": "string" },
+        "stderr_tail": { "type": "string" },
+        "files_checked": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "command_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "argv",
+          "ok",
+          "exit_code",
+          "timed_out",
+          "duration_ms",
+          "stdout_sha256",
+          "stderr_sha256",
+          "stdout_tail",
+          "stderr_tail",
+          "policy_allowed",
+          "policy_reason"
+        ],
+        "properties": {
+          "name": { "type": "string" },
+          "argv": { "type": "array", "items": { "type": "string" } },
+          "ok": { "type": "boolean" },
+          "exit_code": { "type": "integer" },
+          "timed_out": { "type": "boolean" },
+          "duration_ms": { "type": "integer", "minimum": 0 },
+          "stdout_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "stderr_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "stdout_tail": { "type": "string" },
+          "stderr_tail": { "type": "string" },
+          "policy_allowed": { "type": "boolean" },
+          "policy_reason": { "type": "string" }
+        }
+      }
+    },
+    "store_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "exists",
+          "file_sha256",
+          "replay_ok",
+          "replay_error_count",
+          "oracle_ok",
+          "oracle_cases",
+          "oracle_detected",
+          "oracle_missed",
+          "oracle_skipped"
+        ],
+        "properties": {
+          "path": { "type": "string" },
+          "exists": { "type": "boolean" },
+          "file_sha256": { "type": ["string", "null"] },
+          "replay_ok": { "type": "boolean" },
+          "replay_error_count": { "type": "integer", "minimum": 0 },
+          "oracle_ok": { "type": "boolean" },
+          "oracle_cases": { "type": "integer", "minimum": 0 },
+          "oracle_detected": { "type": "integer", "minimum": 0 },
+          "oracle_missed": { "type": "integer", "minimum": 0 },
+          "oracle_skipped": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "docs_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok", "target_milestone", "files_checked", "missing_mentions"],
+      "properties": {
+        "ok": { "type": "boolean" },
+        "target_milestone": { "type": "string" },
+        "files_checked": { "type": "integer", "minimum": 0 },
+        "missing_mentions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "persistent_process_started",
+        "provider_call_performed",
+        "embedding_call_performed",
+        "vector_write_performed",
+        "network_call_performed",
+        "token_stored",
+        "raw_content_stored"
+      ],
+      "properties": {
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "embedding_call_performed": { "type": "boolean", "const": false },
+        "vector_write_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "token_stored": { "type": "boolean", "const": false },
+        "raw_content_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "kind"],
+        "properties": {
+          "path": { "type": "string" },
+          "kind": { "type": "string" }
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "git_available",
+        "json_valid",
+        "python_compile_ok",
+        "commands_ok",
+        "stores_replay_ok",
+        "stores_oracle_ok",
+        "docs_current_ok",
+        "no_live_boundaries"
+      ],
+      "properties": {
+        "git_available": { "type": "boolean" },
+        "json_valid": { "type": "boolean" },
+        "python_compile_ok": { "type": "boolean" },
+        "commands_ok": { "type": "boolean" },
+        "stores_replay_ok": { "type": "boolean" },
+        "stores_oracle_ok": { "type": "boolean" },
+        "docs_current_ok": { "type": "boolean" },
+        "no_live_boundaries": { "type": "boolean" }
+      }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "status": { "type": "string", "enum": ["passed", "failed"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "conformance_pack_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

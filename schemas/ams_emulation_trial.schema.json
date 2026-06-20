@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:ams-emulation-trial:v0",
+  "title": "AMSCodexAmsEmulationTrial",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ams_emulation_trial_id",
+    "label",
+    "mode",
+    "source_root",
+    "emulation_area",
+    "scenario_count",
+    "agent_count",
+    "invocation_count",
+    "timeout_seconds",
+    "allow_external_agents",
+    "agent_command_file_ref",
+    "agents",
+    "scenario_matrix",
+    "research_basis",
+    "live_boundaries",
+    "process_start_allowed",
+    "sandbox_model",
+    "artifacts",
+    "metrics",
+    "limitations",
+    "playbook_ref",
+    "status",
+    "reason_codes",
+    "created_at",
+    "updated_at",
+    "ams_emulation_trial_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.ams_emulation_trial.v0" },
+    "ams_emulation_trial_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "const": "subprocess_sandbox_emulation" },
+    "source_root": { "type": "string", "minLength": 1 },
+    "emulation_area": { "type": "string", "minLength": 1 },
+    "scenario_count": { "type": "integer", "minimum": 1 },
+    "agent_count": { "type": "integer", "minimum": 1 },
+    "invocation_count": { "type": "integer", "minimum": 1 },
+    "timeout_seconds": { "type": "integer", "minimum": 1 },
+    "allow_external_agents": { "type": "boolean" },
+    "agent_command_file_ref": { "type": ["string", "null"] },
+    "agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["agent_name", "provider_kind", "workspace", "external", "workspace_under_emulation_root"],
+        "properties": {
+          "agent_name": { "type": "string", "minLength": 1 },
+          "provider_kind": { "type": "string", "minLength": 1 },
+          "workspace": { "type": "string", "minLength": 1 },
+          "external": { "type": "boolean" },
+          "workspace_under_emulation_root": { "type": "boolean" }
+        }
+      }
+    },
+    "scenario_matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scenarios", "categories", "faults"],
+      "properties": {
+        "scenarios": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["scenario_id", "category", "fault", "expected_status"],
+            "properties": {
+              "scenario_id": { "type": "string", "minLength": 1 },
+              "category": { "type": "string", "minLength": 1 },
+              "fault": { "type": "string", "minLength": 1 },
+              "expected_status": { "type": "string", "enum": ["allow", "defer", "deny"] }
+            }
+          }
+        },
+        "categories": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "faults": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    },
+    "research_basis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["lens", "source", "url", "takeaway"],
+        "properties": {
+          "lens": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "minLength": 1 },
+          "takeaway": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "provider_call_performed",
+        "network_call_performed",
+        "embedding_call_performed",
+        "vector_write_performed",
+        "host_repo_write_performed",
+        "persistent_process_started",
+        "secret_stored",
+        "raw_external_content_stored"
+      ],
+      "properties": {
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "embedding_call_performed": { "type": "boolean", "const": false },
+        "vector_write_performed": { "type": "boolean", "const": false },
+        "host_repo_write_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false },
+        "raw_external_content_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "process_start_allowed": { "type": "boolean", "const": true },
+    "sandbox_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "workspace_root",
+        "os_container_used",
+        "network_disabled_by_os",
+        "host_secrets_forwarded",
+        "host_repo_write_allowed",
+        "external_agent_commands_default",
+        "containment_note"
+      ],
+      "properties": {
+        "kind": { "type": "string", "minLength": 1 },
+        "workspace_root": { "type": "string", "minLength": 1 },
+        "os_container_used": { "type": "boolean" },
+        "network_disabled_by_os": { "type": "boolean" },
+        "host_secrets_forwarded": { "type": "boolean", "const": false },
+        "host_repo_write_allowed": { "type": "boolean", "const": false },
+        "external_agent_commands_default": { "type": "string", "minLength": 1 },
+        "containment_note": { "type": "string", "minLength": 1 }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "kind", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "scenario_count",
+        "total_invocations",
+        "passed_invocations",
+        "failed_invocations",
+        "pass_rate",
+        "timeout_count",
+        "nonzero_returncode_count",
+        "contained_escape_attempt_count",
+        "live_boundary_leak_count",
+        "external_agent_invocation_count",
+        "by_scenario"
+      ],
+      "properties": {
+        "scenario_count": { "type": "integer", "minimum": 1 },
+        "total_invocations": { "type": "integer", "minimum": 1 },
+        "passed_invocations": { "type": "integer", "minimum": 0 },
+        "failed_invocations": { "type": "integer", "minimum": 0 },
+        "pass_rate": { "type": "number", "minimum": 0 },
+        "timeout_count": { "type": "integer", "minimum": 0 },
+        "nonzero_returncode_count": { "type": "integer", "minimum": 0 },
+        "contained_escape_attempt_count": { "type": "integer", "minimum": 0 },
+        "live_boundary_leak_count": { "type": "integer", "minimum": 0 },
+        "external_agent_invocation_count": { "type": "integer", "minimum": 0 },
+        "by_scenario": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "impact", "mitigation"],
+        "properties": {
+          "code": { "type": "string", "minLength": 1 },
+          "impact": { "type": "string", "minLength": 1 },
+          "mitigation": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "playbook_ref": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "minLength": 1 },
+    "ams_emulation_trial_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

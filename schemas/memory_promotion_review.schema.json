@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:memory-promotion-review:v0",
+  "title": "AMSCodexMemoryPromotionReview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "memory_promotion_review_id",
+    "label",
+    "candidate_claim",
+    "prior_claim_refs",
+    "duplicate_claim_ref",
+    "conflicting_claim_refs",
+    "rag_retrieval_refs",
+    "rag_policy",
+    "supersedes_claim_id",
+    "supersession_mode",
+    "operator_confirmed",
+    "operator_confirmation_ref",
+    "operator_confirmation_sha256",
+    "decision",
+    "status",
+    "quiet_build_allowed",
+    "created_memory_claim_id",
+    "created_memory_claim_sha256",
+    "memory_supersession_record_id",
+    "memory_conflict_record_id",
+    "reason_codes",
+    "created_at",
+    "memory_promotion_review_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.memory_promotion_review.v0" },
+    "memory_promotion_review_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "candidate_claim": { "$ref": "#/$defs/candidate_claim" },
+    "prior_claim_refs": { "type": "array", "items": { "$ref": "#/$defs/claim_ref" } },
+    "duplicate_claim_ref": { "type": ["object", "null"], "additionalProperties": true },
+    "conflicting_claim_refs": { "type": "array", "items": { "$ref": "#/$defs/claim_ref" } },
+    "rag_retrieval_refs": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+    "rag_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rag_used_for_recall",
+        "retrieval_is_authority",
+        "raw_retrieval_content_stored",
+        "raw_embedding_stored",
+        "vector_payload_stored"
+      ],
+      "properties": {
+        "rag_used_for_recall": { "type": "boolean" },
+        "retrieval_is_authority": { "type": "boolean", "const": false },
+        "raw_retrieval_content_stored": { "type": "boolean", "const": false },
+        "raw_embedding_stored": { "type": "boolean", "const": false },
+        "vector_payload_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "supersedes_claim_id": { "type": ["string", "null"] },
+    "supersession_mode": {
+      "type": "string",
+      "enum": ["correction", "temporal_update", "scope_refinement", "revocation", "duplicate"]
+    },
+    "operator_confirmed": { "type": "boolean" },
+    "operator_confirmation_ref": { "type": ["string", "null"] },
+    "operator_confirmation_sha256": { "type": ["string", "null"] },
+    "decision": { "type": "string", "enum": ["promote", "duplicate", "needs_operator", "blocked"] },
+    "status": { "type": "string", "enum": ["promoted", "duplicate", "needs_operator", "blocked"] },
+    "quiet_build_allowed": { "type": "boolean" },
+    "created_memory_claim_id": { "type": ["string", "null"] },
+    "created_memory_claim_sha256": { "type": ["string", "null"] },
+    "memory_supersession_record_id": { "type": ["string", "null"] },
+    "memory_conflict_record_id": { "type": ["string", "null"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "memory_promotion_review_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "$defs": {
+    "candidate_claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "subject",
+        "predicate",
+        "scope",
+        "valid_from",
+        "valid_until",
+        "value_sha256",
+        "value_ref",
+        "value_summary",
+        "value_summary_sha256",
+        "raw_value_stored",
+        "source_ref",
+        "source_kind",
+        "trust_class",
+        "retrieval_is_authority",
+        "base_semantic_key",
+        "semantic_key",
+        "candidate_claim_sha256"
+      ],
+      "properties": {
+        "domain": { "type": "string", "minLength": 1 },
+        "subject": { "type": "string", "minLength": 1 },
+        "predicate": { "type": "string", "minLength": 1 },
+        "scope": { "type": "string", "minLength": 1 },
+        "valid_from": { "type": ["string", "null"] },
+        "valid_until": { "type": ["string", "null"] },
+        "value_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "value_ref": { "type": ["string", "null"] },
+        "value_summary": { "type": "string" },
+        "value_summary_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "raw_value_stored": { "type": "boolean", "const": false },
+        "source_ref": { "type": "string", "minLength": 1 },
+        "source_kind": { "type": "string", "minLength": 1 },
+        "trust_class": {
+          "type": "string",
+          "enum": [
+            "user_asserted",
+            "operator_asserted",
+            "system_record",
+            "generated_surface",
+            "provider_evidence",
+            "retrieved_evidence"
+          ]
+        },
+        "retrieval_is_authority": { "type": "boolean", "const": false },
+        "base_semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "candidate_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "claim_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["memory_claim_id", "memory_claim_sha256", "semantic_key", "value_sha256", "trust_class"],
+      "properties": {
+        "memory_claim_id": { "type": "string", "minLength": 1 },
+        "memory_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "value_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "trust_class": {
+          "type": "string",
+          "enum": [
+            "user_asserted",
+            "operator_asserted",
+            "system_record",
+            "generated_surface",
+            "provider_evidence",
+            "retrieved_evidence"
+          ]
+        }
+      }
+    }
+  }
+}

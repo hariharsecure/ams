@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:manager-intervention:v0",
+  "title": "AMSCodexManagerIntervention",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manager_intervention_id",
+    "intervention_type",
+    "manager_actor",
+    "subject",
+    "session_id",
+    "context_id",
+    "task_run_id",
+    "attention_id",
+    "priority",
+    "primary_domain",
+    "additional_domains",
+    "source_attention_signal_ids",
+    "source_refs",
+    "target_agents",
+    "delivery_status",
+    "delivery_actions",
+    "ack_required",
+    "ack_status",
+    "ack_due_at",
+    "payload",
+    "payload_sha256",
+    "reason_codes",
+    "created_at",
+    "updated_at",
+    "manager_intervention_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.manager_intervention.v0" },
+    "manager_intervention_id": { "type": "string", "minLength": 1 },
+    "intervention_type": {
+      "type": "string",
+      "enum": [
+        "ack_escalation",
+        "cross_domain_bridge",
+        "anti_digression_guard",
+        "hallucination_guard"
+      ]
+    },
+    "manager_actor": { "type": "string", "minLength": 1 },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["task_run", "context", "session", "attention_signal"] },
+        "id": { "type": "string", "minLength": 1 }
+      }
+    },
+    "session_id": { "type": ["string", "null"] },
+    "context_id": { "type": ["string", "null"] },
+    "task_run_id": { "type": ["string", "null"] },
+    "attention_id": { "type": ["string", "null"] },
+    "priority": { "type": "string", "enum": ["P0", "P1", "P2", "P3", "P4"] },
+    "primary_domain": {
+      "type": "string",
+      "enum": [
+        "surface_discord",
+        "surface_terminal",
+        "training_ops",
+        "cloud_ops",
+        "ams_kernel",
+        "provider_session",
+        "security",
+        "resource_capacity",
+        "cyber_physical_ops",
+        "animal_welfare",
+        "research_memory",
+        "unknown"
+      ]
+    },
+    "additional_domains": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "source_attention_signal_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+    "source_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "target_agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent_name",
+          "provider",
+          "surface",
+          "session_id",
+          "task_run_id",
+          "delivery_mode",
+          "delivery_status"
+        ],
+        "properties": {
+          "agent_name": { "type": "string", "minLength": 1 },
+          "provider": { "type": "string", "minLength": 1 },
+          "surface": { "type": "string", "minLength": 1 },
+          "session_id": { "type": ["string", "null"] },
+          "task_run_id": { "type": ["string", "null"] },
+          "delivery_mode": { "type": "string", "enum": ["context_injection"] },
+          "delivery_status": { "type": "string", "enum": ["planned", "delivered", "acked", "superseded"] }
+        }
+      }
+    },
+    "delivery_status": { "type": "string", "enum": ["planned", "delivered", "acked", "superseded"] },
+    "delivery_actions": { "type": "array", "items": { "type": "object" } },
+    "ack_required": { "type": "boolean" },
+    "ack_status": { "type": "string", "enum": ["new", "acknowledged", "deferred", "resolved"] },
+    "ack_due_at": { "type": ["string", "null"] },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "priority",
+        "primary_domain",
+        "additional_domains",
+        "must_remember",
+        "do_not_do",
+        "required_readback",
+        "source_refs",
+        "vector_query"
+      ],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "priority": { "type": "string", "minLength": 1 },
+        "primary_domain": { "type": "string", "minLength": 1 },
+        "additional_domains": { "type": "array", "items": { "type": "string" } },
+        "must_remember": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "do_not_do": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "required_readback": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "source_refs": { "type": "array", "items": { "type": "string" } },
+        "vector_query": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["collections", "filter_keys"],
+          "properties": {
+            "collections": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+            "filter_keys": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        }
+      }
+    },
+    "payload_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "manager_intervention_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

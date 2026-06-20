@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:codebase-graph-node:v0",
+  "title": "AMSCodexCodebaseGraphNode",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "codebase_graph_node_id",
+    "label",
+    "source_root",
+    "snapshot_id",
+    "path",
+    "node_type",
+    "module",
+    "area",
+    "source_sha256",
+    "line_count",
+    "size_bytes",
+    "raw_content_stored",
+    "created_at",
+    "codebase_graph_node_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.codebase_graph_node.v0" },
+    "codebase_graph_node_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "snapshot_id": { "type": "string", "minLength": 1 },
+    "path": { "type": "string", "minLength": 1 },
+    "node_type": { "type": "string", "enum": ["file", "test_file"] },
+    "module": { "type": ["string", "null"] },
+    "area": { "type": ["string", "null"] },
+    "source_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "line_count": { "type": "integer", "minimum": 0 },
+    "size_bytes": { "type": "integer", "minimum": 0 },
+    "raw_content_stored": { "type": "boolean", "const": false },
+    "created_at": { "type": "string", "minLength": 1 },
+    "codebase_graph_node_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

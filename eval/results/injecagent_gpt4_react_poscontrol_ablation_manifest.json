@@ -1,0 +1,29 @@
+{
+  "schema_version": "ams_eval.ablation_manifest.v0",
+  "runs": [
+    {
+      "run_id": "injecagent_gpt4_react_baseline_ams_off",
+      "model": "gpt-4",
+      "llm_backbone": "openai_chat_completions",
+      "llm_version": "gpt-4",
+      "decoding": "greedy temp=0",
+      "dataset_n": 80,
+      "gate_on": false,
+      "host": "example-host.local",
+      "commit": "<build-commit>",
+      "timestamp": "2026-06-17T02:16:52Z"
+    },
+    {
+      "run_id": "injecagent_gpt4_react_amsgated_ams_on",
+      "model": "gpt-4",
+      "llm_backbone": "openai_chat_completions",
+      "llm_version": "gpt-4",
+      "decoding": "greedy temp=0",
+      "dataset_n": 80,
+      "gate_on": true,
+      "host": "example-host.local",
+      "commit": "<build-commit>",
+      "timestamp": "2026-06-17T02:16:52Z"
+    }
+  ]
+}

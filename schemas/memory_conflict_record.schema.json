@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:memory-conflict-record:v0",
+  "title": "AMSCodexMemoryConflictRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "memory_conflict_record_id",
+    "candidate_claim",
+    "conflicting_claim_refs",
+    "requires_operator_resolution",
+    "build_quietly_allowed",
+    "raw_value_stored",
+    "reason_codes",
+    "created_at",
+    "memory_conflict_record_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.memory_conflict_record.v0" },
+    "memory_conflict_record_id": { "type": "string", "minLength": 1 },
+    "candidate_claim": { "$ref": "#/$defs/candidate_claim" },
+    "conflicting_claim_refs": { "type": "array", "items": { "$ref": "#/$defs/claim_ref" } },
+    "requires_operator_resolution": { "type": "boolean", "const": true },
+    "build_quietly_allowed": { "type": "boolean", "const": false },
+    "raw_value_stored": { "type": "boolean", "const": false },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "memory_conflict_record_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  },
+  "$defs": {
+    "candidate_claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain",
+        "subject",
+        "predicate",
+        "scope",
+        "valid_from",
+        "valid_until",
+        "value_sha256",
+        "value_ref",
+        "value_summary",
+        "value_summary_sha256",
+        "raw_value_stored",
+        "source_ref",
+        "source_kind",
+        "trust_class",
+        "retrieval_is_authority",
+        "base_semantic_key",
+        "semantic_key",
+        "candidate_claim_sha256"
+      ],
+      "properties": {
+        "domain": { "type": "string", "minLength": 1 },
+        "subject": { "type": "string", "minLength": 1 },
+        "predicate": { "type": "string", "minLength": 1 },
+        "scope": { "type": "string", "minLength": 1 },
+        "valid_from": { "type": ["string", "null"] },
+        "valid_until": { "type": ["string", "null"] },
+        "value_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "value_ref": { "type": ["string", "null"] },
+        "value_summary": { "type": "string" },
+        "value_summary_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "raw_value_stored": { "type": "boolean", "const": false },
+        "source_ref": { "type": "string", "minLength": 1 },
+        "source_kind": { "type": "string", "minLength": 1 },
+        "trust_class": {
+          "type": "string",
+          "enum": [
+            "user_asserted",
+            "operator_asserted",
+            "system_record",
+            "generated_surface",
+            "provider_evidence",
+            "retrieved_evidence"
+          ]
+        },
+        "retrieval_is_authority": { "type": "boolean", "const": false },
+        "base_semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "candidate_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "claim_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["memory_claim_id", "memory_claim_sha256", "semantic_key", "value_sha256", "trust_class"],
+      "properties": {
+        "memory_claim_id": { "type": "string", "minLength": 1 },
+        "memory_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "semantic_key": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "value_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "trust_class": {
+          "type": "string",
+          "enum": [
+            "user_asserted",
+            "operator_asserted",
+            "system_record",
+            "generated_surface",
+            "provider_evidence",
+            "retrieved_evidence"
+          ]
+        }
+      }
+    }
+  }
+}

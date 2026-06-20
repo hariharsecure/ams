@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:doc-action-patch-preview:v0",
+  "title": "AMSCodexDocActionPatchPreview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "doc_action_patch_preview_id",
+    "label",
+    "source_root",
+    "doc_action_operator_approval_packet_id",
+    "doc_action_operator_approval_packet_sha256",
+    "doc_action_execution_plan_id",
+    "doc_action_execution_plan_sha256",
+    "source_doc_retirement_plan_id",
+    "source_doc_retirement_plan_sha256",
+    "policy",
+    "live_boundaries",
+    "patch_previews",
+    "patch_summary",
+    "required_gates",
+    "status",
+    "reason_codes",
+    "created_at",
+    "doc_action_patch_preview_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.doc_action_patch_preview.v0" },
+    "doc_action_patch_preview_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "doc_action_operator_approval_packet_id": { "type": "string", "minLength": 1 },
+    "doc_action_operator_approval_packet_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "doc_action_execution_plan_id": { "type": "string", "minLength": 1 },
+    "doc_action_execution_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "source_doc_retirement_plan_id": { "type": "string", "minLength": 1 },
+    "source_doc_retirement_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preview_only",
+        "operator_review_required",
+        "literal_patch_stored",
+        "raw_source_markdown_stored",
+        "preview_artifact_write_allowed",
+        "source_file_write_allowed",
+        "archive_create_allowed",
+        "generated_surface_rewrite_allowed",
+        "future_executor_must_recheck_source_sha256"
+      ],
+      "properties": {
+        "preview_only": { "type": "boolean", "const": true },
+        "operator_review_required": { "type": "boolean", "const": true },
+        "literal_patch_stored": { "type": "boolean", "const": false },
+        "raw_source_markdown_stored": { "type": "boolean", "const": false },
+        "preview_artifact_write_allowed": { "type": "boolean", "const": false },
+        "source_file_write_allowed": { "type": "boolean", "const": false },
+        "archive_create_allowed": { "type": "boolean", "const": false },
+        "generated_surface_rewrite_allowed": { "type": "boolean", "const": false },
+        "future_executor_must_recheck_source_sha256": { "type": "boolean", "const": true }
+      }
+    },
+    "live_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_file_rewritten",
+        "source_file_deleted",
+        "source_file_moved",
+        "archive_created",
+        "generated_surface_rewritten",
+        "preview_artifact_written",
+        "raw_patch_stored",
+        "raw_source_markdown_stored",
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "provider_call_performed",
+        "network_call_performed"
+      ],
+      "properties": {
+        "source_file_rewritten": { "type": "boolean", "const": false },
+        "source_file_deleted": { "type": "boolean", "const": false },
+        "source_file_moved": { "type": "boolean", "const": false },
+        "archive_created": { "type": "boolean", "const": false },
+        "generated_surface_rewritten": { "type": "boolean", "const": false },
+        "preview_artifact_written": { "type": "boolean", "const": false },
+        "raw_patch_stored": { "type": "boolean", "const": false },
+        "raw_source_markdown_stored": { "type": "boolean", "const": false },
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false }
+      }
+    },
+    "patch_previews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "action_id",
+          "source_path",
+          "target_surface",
+          "planned_operation",
+          "patch_kind",
+          "current_source_ref",
+          "source_hash_matches_plan",
+          "semantic_patch_sha256",
+          "preview_only",
+          "operator_review_required",
+          "future_executor_must_recheck_source_sha256",
+          "live_boundary",
+          "raw_patch_stored",
+          "raw_source_markdown_stored",
+          "preview_artifact_written",
+          "patch_preview_sha256"
+        ],
+        "properties": {
+          "action_id": { "type": "string", "minLength": 1 },
+          "source_path": { "type": "string", "minLength": 1 },
+          "target_surface": { "type": "string", "minLength": 1 },
+          "planned_operation": {
+            "type": "string",
+            "enum": [
+              "replace_with_generated_surface_preview",
+              "split_archive_preview",
+              "trim_orientation_preview",
+              "metadata_patch_preview",
+              "section_patch_preview",
+              "manual_review_preview"
+            ]
+          },
+          "patch_kind": { "type": "string", "minLength": 1 },
+          "current_source_ref": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "exists",
+              "under_source_root",
+              "sha256",
+              "line_count",
+              "size_bytes",
+              "raw_content_stored"
+            ],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "exists": { "type": "boolean" },
+              "under_source_root": { "type": "boolean" },
+              "sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+              "line_count": { "type": ["integer", "null"], "minimum": 0 },
+              "size_bytes": { "type": ["integer", "null"], "minimum": 0 },
+              "raw_content_stored": { "type": "boolean", "const": false }
+            }
+          },
+          "source_hash_matches_plan": { "type": "boolean" },
+          "semantic_patch_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "preview_only": { "type": "boolean", "const": true },
+          "operator_review_required": { "type": "boolean", "const": true },
+          "future_executor_must_recheck_source_sha256": { "type": "boolean", "const": true },
+          "live_boundary": { "type": "boolean", "const": false },
+          "raw_patch_stored": { "type": "boolean", "const": false },
+          "raw_source_markdown_stored": { "type": "boolean", "const": false },
+          "preview_artifact_written": { "type": "boolean", "const": false },
+          "patch_preview_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "patch_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "patch_count",
+        "by_planned_operation",
+        "source_hash_match_count",
+        "source_hash_mismatch_count",
+        "patch_set_sha256",
+        "raw_patch_stored",
+        "raw_source_markdown_stored",
+        "preview_artifact_written"
+      ],
+      "properties": {
+        "patch_count": { "type": "integer", "minimum": 0 },
+        "by_planned_operation": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } },
+        "source_hash_match_count": { "type": "integer", "minimum": 0 },
+        "source_hash_mismatch_count": { "type": "integer", "minimum": 0 },
+        "patch_set_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "raw_patch_stored": { "type": "boolean", "const": false },
+        "raw_source_markdown_stored": { "type": "boolean", "const": false },
+        "preview_artifact_written": { "type": "boolean", "const": false }
+      }
+    },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_packet_present",
+        "approval_packet_ready_for_review",
+        "approval_packet_grants_no_authority",
+        "execution_plan_present",
+        "execution_plan_preview_only",
+        "execution_plan_write_disabled",
+        "execution_plan_hash_matches_packet",
+        "source_doc_plan_ref_matches_packet",
+        "selected_actions_present",
+        "patch_previews_present",
+        "source_hashes_match_plan",
+        "patch_hashes_present",
+        "raw_patch_not_stored",
+        "preview_artifact_not_written"
+      ],
+      "properties": {
+        "approval_packet_present": { "type": "boolean" },
+        "approval_packet_ready_for_review": { "type": "boolean" },
+        "approval_packet_grants_no_authority": { "type": "boolean" },
+        "execution_plan_present": { "type": "boolean" },
+        "execution_plan_preview_only": { "type": "boolean" },
+        "execution_plan_write_disabled": { "type": "boolean" },
+        "execution_plan_hash_matches_packet": { "type": "boolean" },
+        "source_doc_plan_ref_matches_packet": { "type": "boolean" },
+        "selected_actions_present": { "type": "boolean" },
+        "patch_previews_present": { "type": "boolean" },
+        "source_hashes_match_plan": { "type": "boolean" },
+        "patch_hashes_present": { "type": "boolean" },
+        "raw_patch_not_stored": { "type": "boolean" },
+        "preview_artifact_not_written": { "type": "boolean" }
+      }
+    },
+    "status": { "type": "string", "enum": ["ready_for_review", "blocked"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "doc_action_patch_preview_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

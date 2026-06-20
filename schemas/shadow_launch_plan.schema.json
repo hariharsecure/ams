@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:shadow-launch-plan:v0",
+  "title": "AMSCodexShadowLaunchPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "shadow_launch_plan_id",
+    "mode",
+    "egress_mode",
+    "approval_id",
+    "ready_to_launch",
+    "status",
+    "reason_code",
+    "reason_codes",
+    "runtime_surface_ids",
+    "surface_binding_ids",
+    "surface_promise_ids",
+    "input_hashes",
+    "gate_snapshots",
+    "required_gates",
+    "launch_actions",
+    "downstream_consumers",
+    "source_refs",
+    "created_at",
+    "updated_at",
+    "shadow_launch_plan_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.shadow_launch_plan.v0" },
+    "shadow_launch_plan_id": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "const": "shadow" },
+    "egress_mode": { "type": "string" },
+    "approval_id": { "type": ["string", "null"] },
+    "ready_to_launch": { "type": "boolean" },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_code": { "type": "string", "minLength": 1 },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "runtime_surface_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "surface_binding_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "surface_promise_ids": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "input_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "install_preflight_sha256",
+        "package_verification_sha256",
+        "shadow_readiness_sha256"
+      ],
+      "properties": {
+        "install_preflight_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "package_verification_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "shadow_readiness_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "gate_snapshots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["install_preflight", "package_verification", "shadow_readiness"],
+      "properties": {
+        "install_preflight": { "type": "object" },
+        "package_verification": { "type": "object" },
+        "shadow_readiness": { "type": "object" }
+      }
+    },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "install_preflight_ready",
+        "package_verified",
+        "explicit_approval",
+        "egress_none",
+        "runtime_surfaces_present",
+        "runtime_surfaces_valid",
+        "runtime_surfaces_shadow_rollout",
+        "runtime_surfaces_no_egress",
+        "runtime_surface_package_pins_match",
+        "surface_bindings_present",
+        "surface_bindings_valid",
+        "surface_bindings_bound",
+        "surface_bindings_no_egress_queue",
+        "surface_promises_present",
+        "surface_promises_terminal"
+      ],
+      "properties": {
+        "install_preflight_ready": { "type": "boolean" },
+        "package_verified": { "type": "boolean" },
+        "explicit_approval": { "type": "boolean" },
+        "egress_none": { "type": "boolean" },
+        "runtime_surfaces_present": { "type": "boolean" },
+        "runtime_surfaces_valid": { "type": "boolean" },
+        "runtime_surfaces_shadow_rollout": { "type": "boolean" },
+        "runtime_surfaces_no_egress": { "type": "boolean" },
+        "runtime_surface_package_pins_match": { "type": "boolean" },
+        "surface_bindings_present": { "type": "boolean" },
+        "surface_bindings_valid": { "type": "boolean" },
+        "surface_bindings_bound": { "type": "boolean" },
+        "surface_bindings_no_egress_queue": { "type": "boolean" },
+        "surface_promises_present": { "type": "boolean" },
+        "surface_promises_terminal": { "type": "boolean" }
+      }
+    },
+    "launch_actions": { "type": "array" },
+    "downstream_consumers": { "type": "array" },
+    "source_refs": { "type": "object" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "shadow_launch_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

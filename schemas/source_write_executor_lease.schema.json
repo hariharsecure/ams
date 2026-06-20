@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:source-write-executor-lease:v0",
+  "title": "AMSCodexSourceWriteExecutorLease",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "source_write_executor_lease_id",
+    "label",
+    "source_root",
+    "source_path",
+    "source_write_backup_preimage_receipt_id",
+    "source_write_backup_preimage_receipt_sha256",
+    "source_write_executor_preflight_id",
+    "source_write_executor_preflight_sha256",
+    "current_source_ref",
+    "backup_preimage_ref",
+    "lease_scope",
+    "lease_policy",
+    "required_gates",
+    "lease_active",
+    "source_write_receipt_required",
+    "post_write_replay_required",
+    "rollback_readback_required",
+    "apply_allowed",
+    "live_execution_allowed",
+    "source_file_write_allowed",
+    "source_file_move_allowed",
+    "source_file_delete_allowed",
+    "source_backup_write_allowed",
+    "rollback_allowed",
+    "archive_create_allowed",
+    "generated_surface_rewrite_allowed",
+    "provider_call_allowed",
+    "network_call_allowed",
+    "lease_actions",
+    "source_write_actions",
+    "rollback_actions",
+    "post_write_replay_actions",
+    "live_boundaries",
+    "status",
+    "reason_codes",
+    "created_at",
+    "source_write_executor_lease_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ams.ams_codex.source_write_executor_lease.v0"
+    },
+    "source_write_executor_lease_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "source_path": { "type": "string" },
+    "source_write_backup_preimage_receipt_id": { "type": "string", "minLength": 1 },
+    "source_write_backup_preimage_receipt_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "source_write_executor_preflight_id": { "type": "string", "minLength": 1 },
+    "source_write_executor_preflight_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "current_source_ref": { "type": "object" },
+    "backup_preimage_ref": { "type": "object" },
+    "lease_scope": {
+      "type": "object",
+      "required": [
+        "source_root",
+        "source_path",
+        "scope_sha256",
+        "exclusive",
+        "active",
+        "overlapping_active_lease_ids"
+      ],
+      "properties": {
+        "source_root": { "type": "string", "minLength": 1 },
+        "source_path": { "type": "string" },
+        "scope_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "exclusive": { "type": "boolean", "const": true },
+        "active": { "type": "boolean" },
+        "overlapping_active_lease_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "lease_policy": { "type": "object" },
+    "required_gates": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "lease_active": { "type": "boolean" },
+    "source_write_receipt_required": { "type": "boolean", "const": true },
+    "post_write_replay_required": { "type": "boolean", "const": true },
+    "rollback_readback_required": { "type": "boolean", "const": true },
+    "apply_allowed": { "type": "boolean", "const": false },
+    "live_execution_allowed": { "type": "boolean", "const": false },
+    "source_file_write_allowed": { "type": "boolean", "const": false },
+    "source_file_move_allowed": { "type": "boolean", "const": false },
+    "source_file_delete_allowed": { "type": "boolean", "const": false },
+    "source_backup_write_allowed": { "type": "boolean", "const": false },
+    "rollback_allowed": { "type": "boolean", "const": false },
+    "archive_create_allowed": { "type": "boolean", "const": false },
+    "generated_surface_rewrite_allowed": { "type": "boolean", "const": false },
+    "provider_call_allowed": { "type": "boolean", "const": false },
+    "network_call_allowed": { "type": "boolean", "const": false },
+    "lease_actions": { "type": "array" },
+    "source_write_actions": { "type": "array", "maxItems": 0 },
+    "rollback_actions": { "type": "array", "maxItems": 0 },
+    "post_write_replay_actions": { "type": "array", "maxItems": 0 },
+    "live_boundaries": {
+      "type": "object",
+      "required": [
+        "source_file_rewritten",
+        "source_file_deleted",
+        "source_file_moved",
+        "source_backup_written",
+        "rollback_executed",
+        "archive_created",
+        "generated_surface_rewritten",
+        "raw_source_stored_in_ams_state",
+        "raw_patch_stored_in_ams_state",
+        "raw_executor_output_stored_in_ams_state",
+        "discord_call_performed",
+        "terminal_attach_performed",
+        "terminal_capture_performed",
+        "terminal_injection_performed",
+        "persistent_process_started",
+        "provider_call_performed",
+        "network_call_performed",
+        "secret_stored"
+      ],
+      "properties": {
+        "source_file_rewritten": { "type": "boolean", "const": false },
+        "source_file_deleted": { "type": "boolean", "const": false },
+        "source_file_moved": { "type": "boolean", "const": false },
+        "source_backup_written": { "type": "boolean", "const": false },
+        "rollback_executed": { "type": "boolean", "const": false },
+        "archive_created": { "type": "boolean", "const": false },
+        "generated_surface_rewritten": { "type": "boolean", "const": false },
+        "raw_source_stored_in_ams_state": { "type": "boolean", "const": false },
+        "raw_patch_stored_in_ams_state": { "type": "boolean", "const": false },
+        "raw_executor_output_stored_in_ams_state": { "type": "boolean", "const": false },
+        "discord_call_performed": { "type": "boolean", "const": false },
+        "terminal_attach_performed": { "type": "boolean", "const": false },
+        "terminal_capture_performed": { "type": "boolean", "const": false },
+        "terminal_injection_performed": { "type": "boolean", "const": false },
+        "persistent_process_started": { "type": "boolean", "const": false },
+        "provider_call_performed": { "type": "boolean", "const": false },
+        "network_call_performed": { "type": "boolean", "const": false },
+        "secret_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ready_for_source_write_receipt", "blocked"]
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "created_at": { "type": "string", "minLength": 1 },
+    "source_write_executor_lease_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

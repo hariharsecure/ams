@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:ams-event:v0",
+  "title": "AMSCodexEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "specversion",
+    "id",
+    "source",
+    "type",
+    "subject",
+    "time",
+    "datacontenttype",
+    "data",
+    "data_sha256",
+    "trace_id",
+    "span_id",
+    "event_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.ams_event.v0" },
+    "specversion": { "type": "string", "const": "1.0" },
+    "id": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1 },
+    "type": { "type": "string", "minLength": 1 },
+    "subject": { "type": "string", "minLength": 1 },
+    "time": { "type": "string", "format": "date-time" },
+    "datacontenttype": { "type": "string", "const": "application/json" },
+    "dataschema": { "type": ["string", "null"] },
+    "data": { "type": "object" },
+    "data_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "trace_id": { "type": "string", "minLength": 1 },
+    "span_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": ["string", "null"] },
+    "task_run_id": { "type": ["string", "null"] },
+    "parent_event_id": { "type": ["string", "null"] },
+    "event_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

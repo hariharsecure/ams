@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:manager-intervention-delivery:v0",
+  "title": "AMSCodexManagerInterventionDelivery",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manager_intervention_delivery_id",
+    "manager_intervention_id",
+    "task_run_id",
+    "session_id",
+    "context_id",
+    "attention_id",
+    "target_agents",
+    "delivery_targets",
+    "outbox_ids",
+    "surface_promise_id",
+    "source_packet_ref",
+    "status",
+    "admission_review_id",
+    "promise_reason",
+    "idempotency_key",
+    "idempotency_fingerprint",
+    "created_at",
+    "delivery_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "ams.ams_codex.manager_intervention_delivery.v0"
+    },
+    "manager_intervention_delivery_id": { "type": "string", "minLength": 1 },
+    "manager_intervention_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "context_id": { "type": ["string", "null"] },
+    "attention_id": { "type": ["string", "null"] },
+    "target_agents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["agent_name", "provider", "surface"],
+        "properties": {
+          "agent_name": { "type": "string", "minLength": 1 },
+          "provider": { "type": "string", "minLength": 1 },
+          "surface": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "delivery_targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target_agent", "surface", "target", "channel_id", "endpoint", "outbox_id"],
+        "properties": {
+          "target_agent": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["agent_name", "provider", "surface"],
+            "properties": {
+              "agent_name": { "type": "string", "minLength": 1 },
+              "provider": { "type": "string", "minLength": 1 },
+              "surface": { "type": "string", "minLength": 1 }
+            }
+          },
+          "surface": { "type": "string", "minLength": 1 },
+          "target": { "type": "string", "minLength": 1 },
+          "channel_id": { "type": ["string", "null"] },
+          "endpoint": { "type": "string", "minLength": 1 },
+          "outbox_id": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "outbox_ids": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+    "surface_promise_id": { "type": "string", "minLength": 1 },
+    "source_packet_ref": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["attached"] },
+    "admission_review_id": { "type": ["string", "null"] },
+    "promise_reason": { "type": ["string", "null"] },
+    "idempotency_key": { "type": "string", "minLength": 1 },
+    "idempotency_fingerprint": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "created_at": { "type": "string" },
+    "delivery_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

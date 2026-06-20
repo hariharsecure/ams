@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:surface-promise:v0",
+  "title": "AMSCodexSurfacePromise",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "surface_promise_id",
+    "task_run_id",
+    "session_id",
+    "promised_surfaces",
+    "surface_delivery_status",
+    "evaluation",
+    "created_at",
+    "updated_at",
+    "surface_promise_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.surface_promise.v0" },
+    "surface_promise_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "source_packet_ref": { "type": ["string", "null"] },
+    "promise_reason": { "type": ["string", "null"] },
+    "promised_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface", "target", "required", "required_readback"],
+        "properties": {
+          "surface": { "type": "string", "minLength": 1 },
+          "target": { "type": "string", "minLength": 1 },
+          "channel_id": { "type": ["string", "null"] },
+          "outbox_id": { "type": ["string", "null"] },
+          "required": { "type": "boolean" },
+          "required_readback": { "type": "boolean" }
+        }
+      }
+    },
+    "surface_delivery_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "delivered_and_readback_verified",
+        "not_required_by_packet",
+        "blocked_with_reason_and_deferred",
+        "surface_promise_mismatch"
+      ]
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "promised_surfaces",
+        "required_readbacks",
+        "observed_surfaces",
+        "surface_promise_mismatch_count",
+        "postproof_required_surface_missing_count",
+        "readback_required_but_missing_count",
+        "pending_count",
+        "deferred_count",
+        "failed_count",
+        "ambiguous_count",
+        "delivered",
+        "deferred",
+        "pending",
+        "missing",
+        "readback_missing",
+        "failed",
+        "ambiguous"
+      ],
+      "properties": {
+        "promised_surfaces": { "type": "integer", "minimum": 0 },
+        "required_readbacks": { "type": "integer", "minimum": 0 },
+        "observed_surfaces": { "type": "integer", "minimum": 0 },
+        "surface_promise_mismatch_count": { "type": "integer", "minimum": 0 },
+        "postproof_required_surface_missing_count": { "type": "integer", "minimum": 0 },
+        "readback_required_but_missing_count": { "type": "integer", "minimum": 0 },
+        "pending_count": { "type": "integer", "minimum": 0 },
+        "deferred_count": { "type": "integer", "minimum": 0 },
+        "failed_count": { "type": "integer", "minimum": 0 },
+        "ambiguous_count": { "type": "integer", "minimum": 0 },
+        "delivered": { "type": "array", "items": { "type": "string" } },
+        "deferred": { "type": "array", "items": { "type": "string" } },
+        "pending": { "type": "array", "items": { "type": "string" } },
+        "missing": { "type": "array", "items": { "type": "string" } },
+        "readback_missing": { "type": "array", "items": { "type": "string" } },
+        "failed": { "type": "array", "items": { "type": "string" } },
+        "ambiguous": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "surface_promise_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

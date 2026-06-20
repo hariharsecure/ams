@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:shadow-runner-transaction:v0",
+  "title": "AMSCodexShadowRunnerTransaction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "shadow_runner_transaction_id",
+    "mode",
+    "egress_mode",
+    "status",
+    "reason_code",
+    "reason_codes",
+    "ready_for_operator_review",
+    "process_start_allowed",
+    "runner_preflight",
+    "runner_preflight_sha256",
+    "shadow_launch_plan_id",
+    "shadow_launch_plan_sha256",
+    "dispatch_envelope_id",
+    "task_run_id",
+    "session_id",
+    "command",
+    "environment",
+    "operator_intent",
+    "abort_conditions",
+    "rollback_steps",
+    "required_gates",
+    "start_actions",
+    "created_at",
+    "updated_at",
+    "shadow_runner_transaction_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.shadow_runner_transaction.v0" },
+    "shadow_runner_transaction_id": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "const": "shadow" },
+    "egress_mode": { "type": "string", "const": "none" },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_code": { "type": "string", "minLength": 1 },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "ready_for_operator_review": { "type": "boolean" },
+    "process_start_allowed": { "type": "boolean", "const": false },
+    "runner_preflight": { "type": "object" },
+    "runner_preflight_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "shadow_launch_plan_id": { "type": ["string", "null"] },
+    "shadow_launch_plan_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },
+    "dispatch_envelope_id": { "type": ["string", "null"] },
+    "task_run_id": { "type": ["string", "null"] },
+    "session_id": { "type": ["string", "null"] },
+    "provider": { "type": ["string", "null"] },
+    "surface": { "type": ["string", "null"] },
+    "provider_session_id": { "type": ["string", "null"] },
+    "command": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["argv", "executable", "cwd", "shell", "command_sha256"],
+      "properties": {
+        "argv": { "type": "array", "items": { "type": "string" } },
+        "executable": { "type": ["string", "null"] },
+        "cwd": { "type": "string", "minLength": 1 },
+        "shell": { "type": "boolean", "const": false },
+        "command_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inherit",
+        "redaction_policy",
+        "allowed_names",
+        "redacted_names",
+        "blocked_secret_names",
+        "stored_values",
+        "environment_sha256"
+      ],
+      "properties": {
+        "inherit": { "type": "boolean", "const": false },
+        "redaction_policy": { "type": "string", "const": "names_only_hash_values" },
+        "allowed_names": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "redacted_names": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "blocked_secret_names": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "stored_values": { "type": "object", "additionalProperties": false },
+        "environment_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "operator_intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requested_by", "approval_id", "purpose", "created_at"],
+      "properties": {
+        "requested_by": { "type": "string", "minLength": 1 },
+        "approval_id": { "type": ["string", "null"] },
+        "purpose": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "abort_conditions": { "type": "array", "items": { "type": "string" } },
+    "rollback_steps": { "type": "array", "items": { "type": "string" } },
+    "required_gates": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "start_actions": { "type": "array" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "shadow_runner_transaction_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:outbox-receipt:v0",
+  "title": "AMSCodexOutboxReceipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "outbox_receipt_id",
+    "outbox_id",
+    "task_run_id",
+    "status",
+    "attempt",
+    "response_payload",
+    "response_sha256",
+    "reason_codes",
+    "created_at",
+    "receipt_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.outbox_receipt.v0" },
+    "outbox_receipt_id": { "type": "string", "minLength": 1 },
+    "outbox_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["sent", "readback_verified", "deferred", "failed", "ambiguous"] },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "response_payload": { "type": "object" },
+    "response_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "readback_ref": { "type": ["string", "null"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" } },
+    "created_at": { "type": "string", "format": "date-time" },
+    "receipt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

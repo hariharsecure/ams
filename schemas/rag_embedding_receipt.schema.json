@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:rag-embedding-receipt:v0",
+  "title": "AMSCodexRAGEmbeddingReceipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rag_embedding_receipt_id",
+    "rag_embedding_job_id",
+    "rag_embedding_job_sha256",
+    "rag_index_plan_id",
+    "rag_index_plan_sha256",
+    "provider_auth_preflight_id",
+    "provider_auth_preflight_sha256",
+    "collection",
+    "embedding_provider",
+    "embedding_model",
+    "vector_store_provider",
+    "external_vector_store_ref",
+    "receipt_mode",
+    "provider_call_observed",
+    "vector_write_observed",
+    "secret_material_stored",
+    "raw_content_stored",
+    "embeddings_stored",
+    "vectors_stored",
+    "batch_receipts",
+    "vector_receipts",
+    "totals",
+    "status",
+    "reason_codes",
+    "created_at",
+    "receipt_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.rag_embedding_receipt.v0" },
+    "rag_embedding_receipt_id": { "type": "string", "minLength": 1 },
+    "rag_embedding_job_id": { "type": "string", "minLength": 1 },
+    "rag_embedding_job_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "rag_index_plan_id": { "type": "string", "minLength": 1 },
+    "rag_index_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "provider_auth_preflight_id": { "type": ["string", "null"] },
+    "provider_auth_preflight_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "collection": { "type": "string", "minLength": 1 },
+    "embedding_provider": { "type": "string", "enum": ["none", "openai", "local"] },
+    "embedding_model": { "type": ["string", "null"] },
+    "vector_store_provider": { "type": "string", "enum": ["none", "openai_file_search", "local"] },
+    "external_vector_store_ref": { "type": ["string", "null"] },
+    "receipt_mode": {
+      "type": "string",
+      "enum": ["planned_only", "simulated_success", "external_observed", "failed"]
+    },
+    "provider_call_observed": { "type": "boolean" },
+    "vector_write_observed": { "type": "boolean" },
+    "secret_material_stored": { "type": "boolean", "const": false },
+    "raw_content_stored": { "type": "boolean", "const": false },
+    "embeddings_stored": { "type": "boolean", "const": false },
+    "vectors_stored": { "type": "boolean", "const": false },
+    "batch_receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "batch_id",
+          "batch_index",
+          "chunk_ids",
+          "chunk_count",
+          "receipt_status",
+          "embedding_output_sha256",
+          "vector_write_receipt_sha256",
+          "provider_request_ref",
+          "output_ref",
+          "error_code"
+        ],
+        "properties": {
+          "batch_id": { "type": "string", "minLength": 1 },
+          "batch_index": { "type": "integer", "minimum": 0 },
+          "chunk_ids": { "type": "array", "items": { "type": "string" } },
+          "chunk_count": { "type": "integer", "minimum": 0 },
+          "receipt_status": {
+            "type": "string",
+            "enum": ["planned_only", "simulated_success", "external_observed", "failed"]
+          },
+          "embedding_output_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "vector_write_receipt_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "provider_request_ref": { "type": ["string", "null"] },
+          "output_ref": { "type": ["string", "null"] },
+          "error_code": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "vector_receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "vector_ref_id",
+          "chunk_id",
+          "source_path",
+          "chunk_sha256",
+          "receipt_status",
+          "embedding_output_sha256",
+          "vector_write_ref"
+        ],
+        "properties": {
+          "vector_ref_id": { "type": "string", "minLength": 1 },
+          "chunk_id": { "type": "string", "minLength": 1 },
+          "source_path": { "type": "string", "minLength": 1 },
+          "chunk_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "receipt_status": {
+            "type": "string",
+            "enum": ["not_observed", "simulated", "external_observed", "failed"]
+          },
+          "embedding_output_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "vector_write_ref": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "planned_batches",
+        "planned_vectors",
+        "observed_embedding_outputs",
+        "observed_vector_writes",
+        "simulated_vectors",
+        "failed_batches"
+      ],
+      "properties": {
+        "planned_batches": { "type": "integer", "minimum": 0 },
+        "planned_vectors": { "type": "integer", "minimum": 0 },
+        "observed_embedding_outputs": { "type": "integer", "minimum": 0 },
+        "observed_vector_writes": { "type": "integer", "minimum": 0 },
+        "simulated_vectors": { "type": "integer", "minimum": 0 },
+        "failed_batches": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "status": { "type": "string", "enum": ["recorded", "blocked", "failed"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string" },
+    "receipt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

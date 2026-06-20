@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:runtime-surface:v0",
+  "title": "AMSCodexRuntimeSurface",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "runtime_surface_id",
+    "runtime_name",
+    "binding_kind",
+    "provider",
+    "surface",
+    "surface_definition_ref",
+    "transport",
+    "rollout_mode",
+    "status",
+    "process_owner",
+    "capability_tier",
+    "workspace_roots",
+    "egress_modes",
+    "session_semantics",
+    "surface_binding_ids",
+    "capture_only",
+    "inject_allowed",
+    "created_at",
+    "updated_at",
+    "runtime_surface_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.runtime_surface.v0" },
+    "runtime_surface_id": { "type": "string", "minLength": 1 },
+    "runtime_name": { "type": "string", "minLength": 1 },
+    "binding_kind": {
+      "type": "string",
+      "enum": ["provider_runtime", "surface_adapter", "local_model_endpoint", "human_surface"]
+    },
+    "provider": { "type": "string", "minLength": 1 },
+    "surface": { "type": "string", "minLength": 1 },
+    "surface_definition_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "surface", "version", "definition_id", "definition_sha256"],
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "surface": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "definition_id": { "type": "string", "minLength": 1 },
+        "definition_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "transport": {
+      "type": "string",
+      "enum": ["stdio", "unix_socket", "localhost_http", "websocket", "mcp_stdio", "mcp_http", "terminal", "tmux", "none"]
+    },
+    "endpoint": { "type": ["string", "null"] },
+    "rollout_mode": { "type": "string", "enum": ["dry_run", "shadow", "canary", "enforce"] },
+    "status": { "type": "string", "enum": ["declared", "observed", "disabled"] },
+    "process_owner": { "type": "string", "enum": ["external", "ams_supervised", "none"] },
+    "capability_tier": {
+      "type": "string",
+      "enum": ["observer", "verifier", "builder", "maintainer", "signed_maintainer"]
+    },
+    "resource_profile_id": { "type": ["string", "null"] },
+    "workspace_roots": { "type": "array", "items": { "type": "string" } },
+    "egress_modes": { "type": "array", "items": { "type": "string" } },
+    "session_semantics": {
+      "type": "string",
+      "enum": ["persistent_thread", "resumable_session", "stateless", "human_visible_stream", "outbox_queue"]
+    },
+    "surface_binding_ids": { "type": "array", "items": { "type": "string" } },
+    "capture_only": { "type": "boolean" },
+    "inject_allowed": { "type": "boolean" },
+    "approval_id": { "type": ["string", "null"] },
+    "package_manifest_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "runtime_surface_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

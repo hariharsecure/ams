@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:resource-claim:v0",
+  "title": "AMSCodexResourceClaim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "resource_claim_id",
+    "task_run_id",
+    "session_id",
+    "policy_id",
+    "policy_sha256",
+    "resource_verdict_id",
+    "provider_profile_id",
+    "state",
+    "reserved",
+    "created_at",
+    "updated_at",
+    "expires_at",
+    "claim_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.resource_claim.v0" },
+    "resource_claim_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "policy_id": { "type": "string", "minLength": 1 },
+    "policy_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "resource_verdict_id": { "type": "string", "minLength": 1 },
+    "provider_profile_id": { "type": "string", "minLength": 1 },
+    "state": { "type": "string", "enum": ["reserved", "active", "released", "expired"] },
+    "holder": { "type": ["string", "null"] },
+    "idempotency_key": { "type": ["string", "null"] },
+    "reserved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cpu_cores",
+        "memory_mb",
+        "gpu_memory_mb",
+        "max_input_tokens",
+        "max_output_tokens",
+        "max_runtime_seconds",
+        "concurrency_units"
+      ],
+      "properties": {
+        "cpu_cores": { "type": "integer", "minimum": 0 },
+        "memory_mb": { "type": "integer", "minimum": 0 },
+        "gpu_memory_mb": { "type": "integer", "minimum": 0 },
+        "max_input_tokens": { "type": "integer", "minimum": 0 },
+        "max_output_tokens": { "type": "integer", "minimum": 0 },
+        "max_runtime_seconds": { "type": "integer", "minimum": 0 },
+        "concurrency_units": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "released_at": { "type": ["string", "null"], "format": "date-time" },
+    "claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

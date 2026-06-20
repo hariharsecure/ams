@@ -1,0 +1,928 @@
+{
+  "admission_reviews": {
+    "adm_e04283a7297b2efcfb3a": {
+      "admission_review_id": "adm_e04283a7297b2efcfb3a",
+      "created_at": "2026-06-10T16:52:04Z",
+      "operation": "capability.dispatch",
+      "policy_refs": [
+        "cappol_625d80418e5113553b00:sha256:be8704c4b677597cfb2c1ca23f67aef365833d7f0085952c72f316f4b99a0d61"
+      ],
+      "request": {
+        "action": "write",
+        "actor": "agent:agent_b",
+        "admission_review_id": null,
+        "capability_request_id": "capreq_9c649b6b27e0666dcc87",
+        "change_request_id": null,
+        "created_at": "2026-06-10T16:52:04Z",
+        "egress_mode": "ams_outbox",
+        "paths": [
+          "ams_codex/simulation.py",
+          "tests/test_m8g_full.py"
+        ],
+        "schema_version": "ams.ams_codex.capability_request.v0",
+        "signed_policy_sha256": null,
+        "tier": "builder",
+        "tools": [
+          "Read",
+          "ApplyPatch",
+          "Tests"
+        ]
+      },
+      "request_sha256": "sha256:6eb94d16ce9012605048433f272288cf288d56036b1f6f3b594213b1999bd65e",
+      "request_uid": "admuid_7b3cd9b46791c251b556",
+      "response": {
+        "allowed": true,
+        "expires_at": "2026-06-10T17:07:04Z",
+        "reason_codes": [],
+        "status": "allow",
+        "uid": "admuid_7b3cd9b46791c251b556",
+        "verdict_ref": "capv_182bd3c4900a113300de",
+        "warnings": []
+      },
+      "review_sha256": "sha256:be04ee76354aa639c4d0e372ff6f79b567b0c4ccf4a59d357eb1ba8ebd5824fa",
+      "reviewer": "ams.local",
+      "schema_version": "ams.ams_codex.admission_review.v0",
+      "subject_id": "run_8711881a14ba4e2d15d4",
+      "subject_kind": "task_run"
+    }
+  },
+  "ams_events": {},
+  "checkpoints": {},
+  "contexts": {
+    "ctx_68ef59dd8085f2bc579c": {
+      "artifact_refs": [],
+      "attention_id": "attn_24ad4f8e5851c7b06775",
+      "compaction_epoch": 0,
+      "constraints": [
+        "do_not_post_to_discord_without_explicit_approval",
+        "do_not_start_persistent_monitor_without_explicit_approval",
+        "ams_state_wins_over_codex_transcript"
+      ],
+      "context_id": "ctx_68ef59dd8085f2bc579c",
+      "created_at": "2026-06-10T16:52:04Z",
+      "intent": {
+        "constraints": [
+          "do_not_post_to_discord_without_explicit_approval",
+          "do_not_start_persistent_monitor_without_explicit_approval",
+          "ams_state_wins_over_codex_transcript"
+        ],
+        "deadline_s": 3600,
+        "end_state": {
+          "checks": [
+            {
+              "args": {
+                "collection": "provider_results",
+                "where": {
+                  "status": "ok",
+                  "task_run_id": "@task_run_id"
+                }
+              },
+              "id": "provider_result_ok",
+              "type": "record_exists"
+            }
+          ],
+          "type": "all"
+        },
+        "on_fail": "halt_and_escalate",
+        "purpose": "create_or_continue_codex_task",
+        "two_up_context": "AMS owns continuity; provider workers execute bounded turns from this context."
+      },
+      "lease": {
+        "end_state_sha256": "sha256:f6507ff81bc9a19d67b0ad680bccd1a174eb122c70b03c8228a7a28bd2574fad",
+        "expires_at": "2026-06-10T17:22:04Z",
+        "holder": "agent_b",
+        "lease_id": "lease_d9a24ff1be85e84a48b2"
+      },
+      "open_questions": [],
+      "parent_attention_id": null,
+      "requested_action": "create_or_continue_codex_task",
+      "session_id": "sess_412521c2be942f710d83",
+      "session_revision": 2,
+      "source_class": "trusted",
+      "source_refs": [
+        "discord://000000000000000003/example-message-001"
+      ],
+      "state": "working",
+      "summary_checkpoint_id": null,
+      "target": {
+        "channel_id": "000000000000000003",
+        "id": "example-message-001",
+        "kind": "discord_message"
+      },
+      "weight": 100
+    }
+  },
+  "events": {
+    "evt_949d08e44aea43be2a82": {
+      "attention_id": null,
+      "author_id": "operator_a",
+      "author_name": "Operator A",
+      "channel_id": "000000000000000003",
+      "content_length": 49,
+      "content_sha256": "sha256:86457ba7728d041770a08c34dd5e92726f5d90dc3cf6a1bad40eaeff9a8c3f29",
+      "discord_thread_id": null,
+      "event_id": "evt_949d08e44aea43be2a82",
+      "event_type": "message_create",
+      "message_id": "example-message-001",
+      "metadata": {},
+      "parent_attention_id": null,
+      "priority": "P0",
+      "reason_code": "manual_example",
+      "received_at": "2026-06-10T16:52:04Z",
+      "reply_to_message_id": null,
+      "requested_action": "create_or_continue_codex_task",
+      "root_message_id": "example-root-001",
+      "source_surface": "discord"
+    }
+  },
+  "incident_packets": {},
+  "indexes": {
+    "attention_to_session": {
+      "attn_24ad4f8e5851c7b06775": "sess_412521c2be942f710d83"
+    },
+    "content_to_session": {
+      "sha256:86457ba7728d041770a08c34dd5e92726f5d90dc3cf6a1bad40eaeff9a8c3f29": "sess_412521c2be942f710d83"
+    },
+    "message_to_session": {
+      "example-message-001": "sess_412521c2be942f710d83"
+    },
+    "root_to_session": {
+      "discord:000000000000000003:example-root-001": "sess_412521c2be942f710d83"
+    },
+    "thread_to_session": {}
+  },
+  "outbox_items": {
+    "outbox_9a0c3df10b16413c290b": {
+      "admission_review_id": "adm_e04283a7297b2efcfb3a",
+      "attempt_count": 1,
+      "channel_id": "000000000000000003",
+      "created_at": "2026-06-10T16:52:04Z",
+      "endpoint": "/channels/000000000000000003/messages",
+      "idempotency_key": "outidem_1342d20bfd962fd2ea64",
+      "last_receipt_id": "outrec_3f4b06d6de6d19880358",
+      "method": "POST",
+      "nonce": "nonce_9a0c3df10b16413c290b",
+      "outbox_id": "outbox_9a0c3df10b16413c290b",
+      "outbox_sha256": "sha256:fecb0e72be812eff97a7e9d72ea541dc9296f89bfdbb3d3dbeacb140dfa7cdf7",
+      "payload": {
+        "content": "AMS M8G dry-run completed.",
+        "task_run_id": "run_8711881a14ba4e2d15d4"
+      },
+      "payload_sha256": "sha256:be7dccffdf4d95168ec4ac0d7ab70c1f348ca55621e9d345aff3960cb5fb2156",
+      "schema_version": "ams.ams_codex.outbox_item.v0",
+      "session_id": "sess_412521c2be942f710d83",
+      "state": "readback_verified",
+      "target": "discord",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "updated_at": "2026-06-10T16:52:04Z"
+    }
+  },
+  "outbox_receipts": {
+    "outrec_3f4b06d6de6d19880358": {
+      "attempt": 1,
+      "created_at": "2026-06-10T16:52:04Z",
+      "outbox_id": "outbox_9a0c3df10b16413c290b",
+      "outbox_receipt_id": "outrec_3f4b06d6de6d19880358",
+      "readback_ref": "discord://000000000000000003/sim-discord-msg-m8g",
+      "reason_codes": [],
+      "receipt_sha256": "sha256:f5fcf85446f577bde9371393e719b3708ac73f339debc2a2fe31aafc003034ba",
+      "response_payload": {
+        "message_id": "sim-discord-msg-m8g"
+      },
+      "response_sha256": "sha256:37d2a0b2981f645a732bc134221a07cb3d27310a458d48240fb55be1cd24fa1a",
+      "schema_version": "ams.ams_codex.outbox_receipt.v0",
+      "status": "readback_verified",
+      "task_run_id": "run_8711881a14ba4e2d15d4"
+    }
+  },
+  "provider_results": {
+    "provres_97cffbd7c4f1844d29de": {
+      "ended_at": "2026-06-10T16:52:04Z",
+      "est_cost_usd": null,
+      "ingested_at": "2026-06-10T16:52:04Z",
+      "output_refs": [
+        "artifact://simulation/m8g-provider-output"
+      ],
+      "provider": "openai_codex",
+      "provider_msg_refs": [
+        "codex://sim-codex-thread-m8g/msg-001"
+      ],
+      "provider_result_id": "provres_97cffbd7c4f1844d29de",
+      "provider_session_id": "sim-codex-thread-m8g",
+      "schema_version": "ams.ams_codex.provider_result.v0",
+      "sha256": "sha256:e4755f29b65b18687d2129e5f228f8ed8ef0ed07e1409e324b0fa7cc6bb49fce",
+      "source_class": "trusted",
+      "started_at": "2026-06-10T16:52:04Z",
+      "status": "ok",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "token_usage": {
+        "cached": 0,
+        "input": 128,
+        "output": 64
+      }
+    }
+  },
+  "resource_claims": {
+    "resclaim_4670f9e33b51658268cc": {
+      "claim_sha256": "sha256:e8a9acb00bf407a02a468f9405cf245e655498f4e6c88398f4bd03379969dd43",
+      "created_at": "2026-06-10T16:52:04Z",
+      "expires_at": "2026-06-10T17:52:04Z",
+      "holder": "agent_b",
+      "idempotency_key": "idem_fb2e701462350022afdf",
+      "policy_id": "respol_local_default_v0",
+      "policy_sha256": "sha256:72beea6e7fcd076a6e54070070e22ed5dc3e2c575c193730ce470219908de0d1",
+      "provider_profile_id": "codex-app-server-default",
+      "released_at": "2026-06-10T16:52:04Z",
+      "reserved": {
+        "concurrency_units": 1,
+        "cpu_cores": 1,
+        "gpu_memory_mb": 0,
+        "max_input_tokens": 50000,
+        "max_output_tokens": 12000,
+        "max_runtime_seconds": 3600,
+        "memory_mb": 2048
+      },
+      "resource_claim_id": "resclaim_4670f9e33b51658268cc",
+      "resource_verdict_id": "resv_d29d50dc7fa888dcb727",
+      "schema_version": "ams.ams_codex.resource_claim.v0",
+      "session_id": "sess_412521c2be942f710d83",
+      "state": "released",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "updated_at": "2026-06-10T16:52:04Z"
+    }
+  },
+  "resource_policies": {},
+  "revision": 26,
+  "run_events": {
+    "runevt_0cd3a9bb4a3baff330f2": {
+      "actor": "agent_b",
+      "artifact_refs": [],
+      "created_at": "2026-06-10T16:52:04Z",
+      "event_sha256": "sha256:4a127b2ac04f44c15140ddfbc59423978a6604f301a960e90758df7390db46da",
+      "event_type": "run.dispatched",
+      "from_state": "dispatching",
+      "payload": {
+        "dispatch_envelope_id": "dispenv_31b0bf0fd05002873574",
+        "provider_request_id": "preq_31d896c34474384e894a",
+        "summary": "provider request envelope built by AMS dispatch"
+      },
+      "payload_sha256": "sha256:94c8d7f93b079112efdcba97dbf12a3de28d73f29a289c99f7f1799ffe0a2d69",
+      "payload_summary": "provider request envelope built by AMS dispatch",
+      "previous_event_sha256": "sha256:6d1e64ab18a20812725d74ef408c2dac5c3fd311065dd0057fdca079d9cd9583",
+      "reason_codes": [
+        "dispatch.envelope_ready"
+      ],
+      "risk_flags": [],
+      "run_event_id": "runevt_0cd3a9bb4a3baff330f2",
+      "schema_version": "ams.ams_codex.run_event.v0",
+      "sequence": 3,
+      "session_id": "sess_412521c2be942f710d83",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "to_state": "in_flight",
+      "token_usage": {}
+    },
+    "runevt_488b385fa8bdbe6f2afa": {
+      "actor": "agent_b",
+      "artifact_refs": [],
+      "created_at": "2026-06-10T16:52:04Z",
+      "event_sha256": "sha256:6d1e64ab18a20812725d74ef408c2dac5c3fd311065dd0057fdca079d9cd9583",
+      "event_type": "run.dispatch_intent",
+      "from_state": "planned",
+      "payload": {
+        "definition_snapshot_sha256": "sha256:7eb6d72fe806e3adfdf2da0f92876b3fa922a0d15bf3de84d18988b33fa3801d",
+        "end_state_sha256": "sha256:f6507ff81bc9a19d67b0ad680bccd1a174eb122c70b03c8228a7a28bd2574fad",
+        "intent_sha256": "sha256:5d0ae538afdf85e7a2b6d6f9e6972186b9fe4a4104aa4b411d35d48eb3a1506a",
+        "resource_claim_id": "resclaim_4670f9e33b51658268cc"
+      },
+      "payload_sha256": "sha256:9db54148555162871c8a19d9728311e09dc92008f62420b46540c98cb0538fa6",
+      "payload_summary": null,
+      "previous_event_sha256": "sha256:ace517d920a00da21880d02f30aa36fa7424ae849e169e11a40a10e8f0a17a46",
+      "reason_codes": [
+        "dispatch.intent_recorded"
+      ],
+      "risk_flags": [],
+      "run_event_id": "runevt_488b385fa8bdbe6f2afa",
+      "schema_version": "ams.ams_codex.run_event.v0",
+      "sequence": 2,
+      "session_id": "sess_412521c2be942f710d83",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "to_state": "dispatching",
+      "token_usage": {}
+    },
+    "runevt_5df8dfff644ec5fce7b9": {
+      "actor": "agent_b",
+      "artifact_refs": [],
+      "created_at": "2026-06-10T16:52:04Z",
+      "event_sha256": "sha256:0c94a61e6fd92c61078a225e80963a317cc491e832db32e40878160a19238d12",
+      "event_type": "run.completed",
+      "from_state": "verified",
+      "payload": {
+        "summary": "end-state predicate passed"
+      },
+      "payload_sha256": "sha256:ab78df2443a54a156fb36dee286e276d1af3c7158c8cddd8961ca0b1add8ac9e",
+      "payload_summary": "end-state predicate passed",
+      "previous_event_sha256": "sha256:95d14e49349ea545cdaf3f0617f15f18c2272d1a28f339aac8c857bbdbe598f1",
+      "reason_codes": [
+        "run.completed"
+      ],
+      "risk_flags": [],
+      "run_event_id": "runevt_5df8dfff644ec5fce7b9",
+      "schema_version": "ams.ams_codex.run_event.v0",
+      "sequence": 6,
+      "session_id": "sess_412521c2be942f710d83",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "to_state": "completed",
+      "token_usage": {}
+    },
+    "runevt_9910f831bac05fedc9cd": {
+      "actor": "agent_b",
+      "artifact_refs": [],
+      "created_at": "2026-06-10T16:52:04Z",
+      "event_sha256": "sha256:ace517d920a00da21880d02f30aa36fa7424ae849e169e11a40a10e8f0a17a46",
+      "event_type": "run.created",
+      "from_state": null,
+      "payload": {
+        "definition_snapshot_sha256": "sha256:7eb6d72fe806e3adfdf2da0f92876b3fa922a0d15bf3de84d18988b33fa3801d",
+        "provider": "openai_codex",
+        "provider_session_id": "sim-codex-thread-m8g",
+        "provider_surface": "app-server",
+        "state": "planned"
+      },
+      "payload_sha256": "sha256:d08fa7a24d748d0e98dea31f86cc15a24b1134b01cff03dbab782ae80bab6685",
+      "payload_summary": "planned",
+      "previous_event_sha256": null,
+      "reason_codes": [],
+      "risk_flags": [],
+      "run_event_id": "runevt_9910f831bac05fedc9cd",
+      "schema_version": "ams.ams_codex.run_event.v0",
+      "sequence": 1,
+      "session_id": "sess_412521c2be942f710d83",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "to_state": "planned",
+      "token_usage": {}
+    },
+    "runevt_cec8e02c581d58ac41a5": {
+      "actor": "agent_b",
+      "artifact_refs": [],
+      "created_at": "2026-06-10T16:52:04Z",
+      "event_sha256": "sha256:ab022caec83b70574f4f49243e34f7bbb1dab202ec68786afbc04125a094e8c4",
+      "event_type": "result.ingested",
+      "from_state": "in_flight",
+      "payload": {
+        "output_refs": [
+          "artifact://simulation/m8g-provider-output"
+        ],
+        "provider_result_id": "provres_97cffbd7c4f1844d29de",
+        "status": "ok"
+      },
+      "payload_sha256": "sha256:d1bdf7de6bb34e44c964f5e800aefeed626475e436a42bcb7b10122d69d706e4",
+      "payload_summary": null,
+      "previous_event_sha256": "sha256:4a127b2ac04f44c15140ddfbc59423978a6604f301a960e90758df7390db46da",
+      "reason_codes": [
+        "provider_result.ok"
+      ],
+      "risk_flags": [],
+      "run_event_id": "runevt_cec8e02c581d58ac41a5",
+      "schema_version": "ams.ams_codex.run_event.v0",
+      "sequence": 4,
+      "session_id": "sess_412521c2be942f710d83",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "to_state": "landed",
+      "token_usage": {
+        "cached": 0,
+        "input": 128,
+        "output": 64
+      }
+    },
+    "runevt_fba7736dc8f5eacabaa9": {
+      "actor": "agent_b",
+      "artifact_refs": [],
+      "created_at": "2026-06-10T16:52:04Z",
+      "event_sha256": "sha256:95d14e49349ea545cdaf3f0617f15f18c2272d1a28f339aac8c857bbdbe598f1",
+      "event_type": "verify.passed",
+      "from_state": "landed",
+      "payload": {
+        "predicate_results": [
+          {
+            "children": 1,
+            "predicate_id": "all",
+            "status": "pass",
+            "type": "all"
+          },
+          {
+            "details": {
+              "collection": "provider_results",
+              "matched_ids": [
+                "provres_97cffbd7c4f1844d29de"
+              ]
+            },
+            "predicate_id": "provider_result_ok",
+            "status": "pass",
+            "type": "record_exists"
+          }
+        ]
+      },
+      "payload_sha256": "sha256:91c5c17231412747b9cff820f9137d3893c827059721c1ddcb68b46007ecf471",
+      "payload_summary": null,
+      "previous_event_sha256": "sha256:ab022caec83b70574f4f49243e34f7bbb1dab202ec68786afbc04125a094e8c4",
+      "reason_codes": [
+        "predicate.passed"
+      ],
+      "risk_flags": [],
+      "run_event_id": "runevt_fba7736dc8f5eacabaa9",
+      "schema_version": "ams.ams_codex.run_event.v0",
+      "sequence": 5,
+      "session_id": "sess_412521c2be942f710d83",
+      "surface": "app-server",
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "to_state": "verified",
+      "token_usage": {}
+    }
+  },
+  "schema": "ams.ams_codex.store.v0",
+  "sessions": {
+    "sess_412521c2be942f710d83": {
+      "ams_task_id": "task_412521c2be942f710d83",
+      "artifact_refs": [],
+      "attention_id": "attn_24ad4f8e5851c7b06775",
+      "claude_agent_id": null,
+      "claude_session_id": null,
+      "claude_surface": "unknown",
+      "codex_surface": "app-server",
+      "codex_thread_id": "sim-codex-thread-m8g",
+      "compaction_epoch": 0,
+      "created_at": "2026-06-10T16:52:04Z",
+      "discord_channel_id": "000000000000000003",
+      "discord_root_message_id": "example-root-001",
+      "discord_thread_id": null,
+      "event_ids": [
+        "evt_949d08e44aea43be2a82"
+      ],
+      "last_summary_checkpoint_id": null,
+      "lease_holder": "agent_b",
+      "lease_id": "lease_d9a24ff1be85e84a48b2",
+      "message_ids": [
+        "example-message-001"
+      ],
+      "no_repeat_keys": [
+        "sha256:f633140ac7e09b1d11b09a3654809eeee6cb0da093247c9e779c43e92168ab4c",
+        "sha256:8795975161de5d54608ea0dba4ddd00310e2f1c7a97074daf10740139639d245",
+        "sha256:93c8649d27662f18b2c0b156af33f83cb2e44a8062c9b01a323979754232c7c4"
+      ],
+      "provider_sessions": [
+        {
+          "active_turn_id": null,
+          "compaction_epoch": 0,
+          "created_at": "2026-06-10T16:52:04Z",
+          "last_checkpoint_id": null,
+          "provider": "openai_codex",
+          "provider_agent_id": null,
+          "provider_session_id": "sim-codex-thread-m8g",
+          "status": "active",
+          "surface": "app-server",
+          "updated_at": "2026-06-10T16:52:04Z"
+        }
+      ],
+      "root_key": "discord:000000000000000003:example-root-001",
+      "session_id": "sess_412521c2be942f710d83",
+      "session_revision": 2,
+      "source_refs": [
+        "discord://000000000000000003/example-message-001"
+      ],
+      "state": "active",
+      "updated_at": "2026-06-10T16:52:04Z"
+    }
+  },
+  "surface_definitions": {
+    "surfdef_64890db24a81991c235a": {
+      "allowed_methods": [
+        "session/start",
+        "session/resume"
+      ],
+      "capabilities": [
+        "verifier",
+        "worker"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Claude Agent SDK request surface; local dry-run only here."
+      },
+      "definition_id": "surfdef_64890db24a81991c235a",
+      "definition_sha256": "sha256:3034613e85e8ec74216503fa231e3bcc12f963419b503822154bd8095c6e3adf",
+      "endpoint": null,
+      "mode": "dry_run",
+      "provider": "anthropic_claude",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "agent-sdk",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "surfdef_9556c107ac8053af96da": {
+      "allowed_methods": [
+        "queue",
+        "receipt",
+        "readback"
+      ],
+      "capabilities": [
+        "egress_queue"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "AMS-owned Discord outbox/readback surface; no direct send."
+      },
+      "definition_id": "surfdef_9556c107ac8053af96da",
+      "definition_sha256": "sha256:a4a70dfe91a2a97a2b4af77eb68ed8a61bd6c7e40df3272c37b33d9ea9b22662",
+      "endpoint": null,
+      "mode": "shadow",
+      "provider": "discord",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "egress"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "ams_outbox",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "surfdef_e5d7521917598d77fca9": {
+      "allowed_methods": [
+        "generate",
+        "chat"
+      ],
+      "capabilities": [
+        "local_model",
+        "bounded_runner"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Local Ollama-compatible model surface; local dry-run only here."
+      },
+      "definition_id": "surfdef_e5d7521917598d77fca9",
+      "definition_sha256": "sha256:06544466cfb72fa0443de6d6fcfd4976d2a5b0cbffd6901f63ec467ef92829fd",
+      "endpoint": null,
+      "mode": "dry_run",
+      "provider": "local_ollama",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "ollama-api",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "surfdef_f59cc07b5123666c9a55": {
+      "allowed_methods": [
+        "thread/start",
+        "thread/resume",
+        "turn/start",
+        "turn/steer"
+      ],
+      "capabilities": [
+        "code_worker",
+        "bounded_runner"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Codex app-server envelope surface; local dry-run only here."
+      },
+      "definition_id": "surfdef_f59cc07b5123666c9a55",
+      "definition_sha256": "sha256:af76bc189b3f67ed6469c4b8b003d0563cf87cf059ea6c50a9cc8638eca20d8a",
+      "endpoint": null,
+      "mode": "dry_run",
+      "provider": "openai_codex",
+      "requires_readback": true,
+      "requires_signed_policy": true,
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "surface": "app-server",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    }
+  },
+  "task_runs": {
+    "run_8711881a14ba4e2d15d4": {
+      "action": "implement_and_verify",
+      "actor": "agent_b",
+      "allowed_tools": [
+        "Read",
+        "ApplyPatch",
+        "Tests"
+      ],
+      "ams_task_id": "task_412521c2be942f710d83",
+      "artifact_refs": [],
+      "attempt": 1,
+      "attention_id": "attn_24ad4f8e5851c7b06775",
+      "capability_snapshot_sha256": null,
+      "compaction_epoch": 0,
+      "completed_at": "2026-06-10T16:52:04Z",
+      "context_id": "ctx_68ef59dd8085f2bc579c",
+      "created_at": "2026-06-10T16:52:04Z",
+      "cwd": "/home/user/ams_codex",
+      "definition_snapshot_sha256": "sha256:7eb6d72fe806e3adfdf2da0f92876b3fa922a0d15bf3de84d18988b33fa3801d",
+      "delivery_status": "not_requested",
+      "duration_ms": null,
+      "error_class": null,
+      "event_id": "evt_949d08e44aea43be2a82",
+      "exit_status": null,
+      "final_checkpoint_id": null,
+      "gate_mode": "shadow_only",
+      "gate_wait_ms": null,
+      "idempotency_key": "idem_fb2e701462350022afdf",
+      "input_context_sha256": "sha256:b931c21af0ad8db4e7b22d0cc7405f04efa0311d1aa9e91be47c5c2c19271e6c",
+      "input_tokens": 128,
+      "lease_expires_at": "2026-06-10T17:22:04Z",
+      "lease_holder": "agent_b",
+      "lease_id": "lease_d9a24ff1be85e84a48b2",
+      "lease_revision": null,
+      "method": "turn/start",
+      "model": "gpt-5.5",
+      "no_repeat_keys_checked": [
+        "sha256:f633140ac7e09b1d11b09a3654809eeee6cb0da093247c9e779c43e92168ab4c",
+        "sha256:8795975161de5d54608ea0dba4ddd00310e2f1c7a97074daf10740139639d245",
+        "sha256:93c8649d27662f18b2c0b156af33f83cb2e44a8062c9b01a323979754232c7c4"
+      ],
+      "no_repeat_verdict": "not_checked",
+      "outbox_id": null,
+      "outcome": null,
+      "output_tokens": 64,
+      "parent_run_id": null,
+      "pre_dispatch_gate_id": null,
+      "pre_egress_gate_id": null,
+      "provider": "openai_codex",
+      "provider_agent_id": null,
+      "provider_request_id": "preq_31d896c34474384e894a",
+      "provider_session_id": "sim-codex-thread-m8g",
+      "provider_surface": "app-server",
+      "provider_turn_id": null,
+      "readback_ref": null,
+      "readback_sha256": null,
+      "receipts": [],
+      "remaining_context_estimate": null,
+      "requested_by": "agent:agent_b",
+      "retry_of": null,
+      "sandbox": "workspace-write",
+      "schema_version": "ams.ams_codex.task_run.v0",
+      "session_id": "sess_412521c2be942f710d83",
+      "shadow_only": true,
+      "source_refs": [
+        "discord://000000000000000003/example-message-001"
+      ],
+      "started_at": "2026-06-10T16:52:04Z",
+      "state": "completed",
+      "stderr_sha256": null,
+      "stdout_sha256": null,
+      "summary_checkpoint_id": null,
+      "surface_definition_ref": {
+        "definition_id": "surfdef_f59cc07b5123666c9a55",
+        "definition_sha256": "sha256:af76bc189b3f67ed6469c4b8b003d0563cf87cf059ea6c50a9cc8638eca20d8a",
+        "provider": "openai_codex",
+        "surface": "app-server",
+        "version": "v0"
+      },
+      "task_run_id": "run_8711881a14ba4e2d15d4",
+      "tool_definition_refs": [
+        {
+          "definition_id": "tooldef_aad7f3bf52545a6dbc2f",
+          "definition_sha256": "sha256:494282ac55436b94f043f334612bcb5fa224f193e7ce5ccdc6f39f9e5df4d17b",
+          "name": "Read",
+          "version": "v0"
+        },
+        {
+          "definition_id": "tooldef_4c09b624eb487aacda12",
+          "definition_sha256": "sha256:2ce085f06badba6d92e34006a2c8ddbad73fa7754e4249c122e14652c54aa680",
+          "name": "ApplyPatch",
+          "version": "v0"
+        },
+        {
+          "definition_id": "tooldef_67456770dfc1eeb1daa8",
+          "definition_sha256": "sha256:08816d140dd191a3fd44c1a3ab96117b1a0d166dec97240fc90908578f47d3b6",
+          "name": "Tests",
+          "version": "v0"
+        }
+      ],
+      "tool_gate_ids": [],
+      "tool_scope": [
+        "Read",
+        "ApplyPatch",
+        "Tests"
+      ],
+      "total_tokens": 192,
+      "updated_at": "2026-06-10T16:52:04Z"
+    }
+  },
+  "tool_definitions": {
+    "tooldef_00469e44b6d407892a4a": {
+      "allowed_actions": [
+        "egress"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Direct Discord send path, disabled until signed live gate."
+      },
+      "definition_id": "tooldef_00469e44b6d407892a4a",
+      "definition_sha256": "sha256:c9e6252cb4755598e0dabce119922d55a5a87b27462da268819bfb36d72437f0",
+      "egress_modes": [
+        "direct"
+      ],
+      "input_schema_sha256": null,
+      "name": "discord_client.send",
+      "risk_flags": [
+        "egress",
+        "live_touch"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "disabled",
+      "tool_type": "egress",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_04b352f6aed549b0da4c": {
+      "allowed_actions": [
+        "write"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Edit workspace files through approved patch mechanisms."
+      },
+      "definition_id": "tooldef_04b352f6aed549b0da4c",
+      "definition_sha256": "sha256:81e932a65615421e521306b5c28186e625f95c341b7bbd44186e0d047dfd4f54",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "Edit",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "filesystem",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_144b43be58e870b0a198": {
+      "allowed_actions": [
+        "egress"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Queue an AMS outbox item; never sends directly."
+      },
+      "definition_id": "tooldef_144b43be58e870b0a198",
+      "definition_sha256": "sha256:9b75a487c77ca3c192e27c22248f69ff302aa4b3f36e5f8a14c98cf7fa2b5d5b",
+      "egress_modes": [
+        "ams_outbox"
+      ],
+      "input_schema_sha256": null,
+      "name": "EgressOutbox",
+      "risk_flags": [
+        "egress"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "egress",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_4c09b624eb487aacda12": {
+      "allowed_actions": [
+        "write"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Apply scoped patches to workspace files."
+      },
+      "definition_id": "tooldef_4c09b624eb487aacda12",
+      "definition_sha256": "sha256:2ce085f06badba6d92e34006a2c8ddbad73fa7754e4249c122e14652c54aa680",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "ApplyPatch",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "filesystem",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_67456770dfc1eeb1daa8": {
+      "allowed_actions": [
+        "test"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Run local test suites or focused verification commands."
+      },
+      "definition_id": "tooldef_67456770dfc1eeb1daa8",
+      "definition_sha256": "sha256:08816d140dd191a3fd44c1a3ab96117b1a0d166dec97240fc90908578f47d3b6",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "Tests",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "shell",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_aad7f3bf52545a6dbc2f": {
+      "allowed_actions": [
+        "read"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Read bounded workspace files through the agent runtime."
+      },
+      "definition_id": "tooldef_aad7f3bf52545a6dbc2f",
+      "definition_sha256": "sha256:494282ac55436b94f043f334612bcb5fa224f193e7ce5ccdc6f39f9e5df4d17b",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "Read",
+      "risk_flags": [],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "filesystem",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    },
+    "tooldef_fd717b882e3d0b245b7d": {
+      "allowed_actions": [
+        "read",
+        "test"
+      ],
+      "created_at": "2026-06-10T00:00:00Z",
+      "definition": {
+        "description": "Run local shell commands that inspect or verify state."
+      },
+      "definition_id": "tooldef_fd717b882e3d0b245b7d",
+      "definition_sha256": "sha256:3f01fe33b2e3092241ae0dff97cbb8b206f79d60115415109e9451bca93466ab",
+      "egress_modes": [
+        "none"
+      ],
+      "input_schema_sha256": null,
+      "name": "ShellReadOnly",
+      "risk_flags": [
+        "non_trivial"
+      ],
+      "runner": null,
+      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "scope": "local",
+      "signed_policy_sha256": null,
+      "status": "active",
+      "tool_type": "shell",
+      "updated_at": "2026-06-10T00:00:00Z",
+      "version": "v0"
+    }
+  }
+}

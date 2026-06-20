@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:run-event:v0",
+  "title": "AMSCodexRunTraceEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_event_id",
+    "task_run_id",
+    "session_id",
+    "sequence",
+    "event_type",
+    "to_state",
+    "actor",
+    "payload_sha256",
+    "previous_event_sha256",
+    "created_at",
+    "event_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.run_event.v0" },
+    "run_event_id": { "type": "string", "minLength": 1 },
+    "task_run_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "event_type": { "type": "string", "minLength": 1 },
+    "from_state": {
+      "type": ["string", "null"],
+      "enum": [null, "planned", "dispatching", "in_flight", "dispatched", "landed", "blocked", "failed", "verified", "completed"]
+    },
+    "to_state": {
+      "type": "string",
+      "enum": ["planned", "dispatching", "in_flight", "dispatched", "landed", "blocked", "failed", "verified", "completed"]
+    },
+    "actor": { "type": ["string", "null"] },
+    "surface": { "type": ["string", "null"] },
+    "payload": { "type": "object" },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "payload_summary": { "type": ["string", "null"] },
+    "artifact_refs": { "type": "array", "items": { "type": "string" } },
+    "token_usage": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "reason_codes": { "type": "array", "items": { "type": "string" } },
+    "risk_flags": { "type": "array", "items": { "type": "string" } },
+    "previous_event_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "event_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

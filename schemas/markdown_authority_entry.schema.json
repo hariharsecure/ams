@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:markdown-authority-entry:v0",
+  "title": "AMSCodexMarkdownAuthorityEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "markdown_authority_entry_id",
+    "label",
+    "source_root",
+    "path",
+    "source_sha256",
+    "size_bytes",
+    "line_count",
+    "doc_role",
+    "authority_level",
+    "status",
+    "valid_from",
+    "valid_until",
+    "supersedes",
+    "superseded_by",
+    "startup_include",
+    "memory_claim_refs",
+    "raw_content_stored",
+    "reason_codes",
+    "created_at",
+    "markdown_authority_entry_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.markdown_authority_entry.v0" },
+    "markdown_authority_entry_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "path": { "type": "string", "minLength": 1 },
+    "source_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "size_bytes": { "type": "integer", "minimum": 0 },
+    "line_count": { "type": "integer", "minimum": 0 },
+    "doc_role": {
+      "type": "string",
+      "enum": [
+        "control",
+        "generated",
+        "milestone",
+        "research_plan",
+        "external_review_contract",
+        "handoff",
+        "support"
+      ]
+    },
+    "authority_level": {
+      "type": "string",
+      "enum": ["current", "supporting", "historical", "superseded", "evidence-only"]
+    },
+    "status": { "type": "string", "enum": ["active", "inactive"] },
+    "valid_from": { "type": ["string", "null"] },
+    "valid_until": { "type": ["string", "null"] },
+    "supersedes": { "type": "array", "items": { "type": "string" } },
+    "superseded_by": { "type": "array", "items": { "type": "string" } },
+    "startup_include": { "type": "boolean" },
+    "memory_claim_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["memory_claim_id", "memory_claim_sha256"],
+        "properties": {
+          "memory_claim_id": { "type": "string", "minLength": 1 },
+          "memory_claim_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+        }
+      }
+    },
+    "raw_content_stored": { "type": "boolean", "const": false },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "markdown_authority_entry_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

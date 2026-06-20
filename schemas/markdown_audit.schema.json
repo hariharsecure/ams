@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ams:ams-codex:markdown-audit:v0",
+  "title": "AMSCodexMarkdownAudit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "markdown_audit_id",
+    "label",
+    "source_root",
+    "scan_mode",
+    "network_required",
+    "raw_markdown_stored",
+    "markdown_file_count",
+    "total_line_count",
+    "total_size_bytes",
+    "markdown_snapshot_sha256",
+    "role_counts",
+    "authority_index",
+    "policy",
+    "file_summaries",
+    "metadata_gaps",
+    "structure_gaps",
+    "oversized_files",
+    "instruction_files",
+    "session_metadata",
+    "status",
+    "reason_codes",
+    "created_at",
+    "markdown_audit_sha256"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "ams.ams_codex.markdown_audit.v0" },
+    "markdown_audit_id": { "type": "string", "minLength": 1 },
+    "label": { "type": "string", "minLength": 1 },
+    "source_root": { "type": "string", "minLength": 1 },
+    "scan_mode": { "type": "string", "enum": ["metadata_hash_only"] },
+    "network_required": { "type": "boolean", "const": false },
+    "raw_markdown_stored": { "type": "boolean", "const": false },
+    "markdown_file_count": { "type": "integer", "minimum": 0 },
+    "total_line_count": { "type": "integer", "minimum": 0 },
+    "total_size_bytes": { "type": "integer", "minimum": 0 },
+    "markdown_snapshot_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "role_counts": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "authority_index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instruction_docs",
+        "control_docs",
+        "latest_milestone_doc",
+        "status_doc",
+        "map_doc",
+        "readme_doc"
+      ],
+      "properties": {
+        "instruction_docs": { "type": "array", "items": { "type": "string" } },
+        "control_docs": { "type": "array", "items": { "type": "string" } },
+        "latest_milestone_doc": { "type": ["string", "null"] },
+        "status_doc": { "type": ["string", "null"] },
+        "map_doc": { "type": ["string", "null"] },
+        "readme_doc": { "type": ["string", "null"] }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_file_lines",
+        "max_control_doc_lines",
+        "required_instruction_files",
+        "raw_markdown_stored",
+        "raw_session_content_stored",
+        "prompt_text_stored",
+        "transcript_text_stored"
+      ],
+      "properties": {
+        "max_file_lines": { "type": "integer", "minimum": 1 },
+        "max_control_doc_lines": { "type": "integer", "minimum": 1 },
+        "required_instruction_files": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "excluded_paths": { "type": "array", "items": { "type": "string" } },
+        "raw_markdown_stored": { "type": "boolean", "const": false },
+        "raw_session_content_stored": { "type": "boolean", "const": false },
+        "prompt_text_stored": { "type": "boolean", "const": false },
+        "transcript_text_stored": { "type": "boolean", "const": false }
+      }
+    },
+    "file_summaries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "size_bytes",
+          "line_count",
+          "parse_truncated",
+          "title_present",
+          "doc_role",
+          "milestone_id",
+          "status_present",
+          "date_present",
+          "updated_present",
+          "heading_count",
+          "has_verification_section",
+          "has_next_section",
+          "has_sources_section",
+          "frontmatter_present",
+          "raw_content_stored"
+        ],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "size_bytes": { "type": "integer", "minimum": 0 },
+          "line_count": { "type": "integer", "minimum": 0 },
+          "parse_truncated": { "type": "boolean" },
+          "title_present": { "type": "boolean" },
+          "doc_role": {
+            "type": "string",
+            "enum": ["control", "milestone", "research_plan", "external_review_contract", "handoff", "support"]
+          },
+          "milestone_id": { "type": ["string", "null"] },
+          "status_present": { "type": "boolean" },
+          "date_present": { "type": "boolean" },
+          "updated_present": { "type": "boolean" },
+          "heading_count": { "type": "integer", "minimum": 0 },
+          "has_verification_section": { "type": "boolean" },
+          "has_next_section": { "type": "boolean" },
+          "has_sources_section": { "type": "boolean" },
+          "frontmatter_present": { "type": "boolean" },
+          "raw_content_stored": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "metadata_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "field"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "field": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "structure_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "field"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "field": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "oversized_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "line_count", "limit"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "line_count": { "type": "integer", "minimum": 0 },
+          "limit": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "instruction_files": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["files", "all_present", "max_recommended_lines"],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["path", "present", "line_count", "sha256"],
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "present": { "type": "boolean" },
+              "line_count": { "type": "integer", "minimum": 0 },
+              "sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" }
+            }
+          }
+        },
+        "all_present": { "type": "boolean" },
+        "max_recommended_lines": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "session_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "included",
+        "window_days",
+        "window_start",
+        "window_end",
+        "raw_content_stored",
+        "prompt_text_stored",
+        "transcript_text_stored",
+        "sources",
+        "codex",
+        "claude",
+        "reason_codes",
+        "metadata_window_sha256"
+      ],
+      "properties": {
+        "included": { "type": "boolean" },
+        "window_days": { "type": "integer", "minimum": 1 },
+        "window_start": { "type": "string" },
+        "window_end": { "type": "string" },
+        "raw_content_stored": { "type": "boolean", "const": false },
+        "prompt_text_stored": { "type": "boolean", "const": false },
+        "transcript_text_stored": { "type": "boolean", "const": false },
+        "sources": { "type": "array", "items": { "type": "string" } },
+        "codex": { "type": "object", "additionalProperties": true },
+        "claude": { "type": "object", "additionalProperties": true },
+        "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "metadata_window_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "status": { "type": "string", "enum": ["allow", "defer", "deny"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "created_at": { "type": "string" },
+    "markdown_audit_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+  }
+}

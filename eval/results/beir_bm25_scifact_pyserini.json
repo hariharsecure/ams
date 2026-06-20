@@ -1,0 +1,32 @@
+{
+  "dataset": "scifact",
+  "split": "test",
+  "retriever": "Pyserini BM25 (Anserini 0.22.1, Lucene)",
+  "config": {
+    "k1": 0.9,
+    "b": 0.4,
+    "index_type": "JsonCollection",
+    "generator": "DefaultLuceneDocumentGenerator",
+    "stemmer": "porter",
+    "analyzer": "EnglishAnalyzer",
+    "hits": 1000
+  },
+  "corpus_size": 5183,
+  "query_count": 300,
+  "ndcg": {
+    "NDCG@10": 0.67891
+  },
+  "recall": {
+    "Recall@10": 0.80383,
+    "Recall@100": 0.92533
+  },
+  "mrr": {
+    "MRR@10": 0.64566
+  },
+  "published_reference": {
+    "source": "BEIR paper (Thakur et al. 2021), Table 2",
+    "NDCG@10": 0.665,
+    "notes": "Pyserini BM25 k1=0.9 b=0.4 Anserini/Lucene"
+  },
+  "notes": "Run via direct Anserini JAR subprocess (pyjnius JVM bridge crashes on arm64 Mac with Homebrew openjdk@11 SIGBUS)"
+}
