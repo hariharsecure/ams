@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:runner-dry-run-parity:v0",
-  "title": "AMSCodexRunnerDryRunParity",
+  "$id": "ams:ams:runner-dry-run-parity:v0",
+  "title": "AMSRunnerDryRunParity",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -37,7 +37,7 @@
     "parity_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.runner_dry_run_parity.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.runner_dry_run_parity.v0" },
     "runner_dry_run_parity_id": { "type": "string", "minLength": 1 },
     "dispatch_envelope": { "type": "object" },
     "dispatch_envelope_id": { "type": "string", "minLength": 1 },

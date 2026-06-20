@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:codebase-spider-graph-snapshot:v0",
-  "title": "AMSCodexCodebaseSpiderGraphSnapshot",
+  "$id": "ams:ams:codebase-spider-graph-snapshot:v0",
+  "title": "AMSCodebaseSpiderGraphSnapshot",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -24,7 +24,7 @@
     "codebase_spider_graph_snapshot_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.codebase_spider_graph_snapshot.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.codebase_spider_graph_snapshot.v0" },
     "codebase_spider_graph_snapshot_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:store-backup-drill:v0",
-  "title": "AMSCodexStoreBackupDrill",
+  "$id": "ams:ams:store-backup-drill:v0",
+  "title": "AMSStoreBackupDrill",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -29,7 +29,7 @@
     "drill_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.store_backup_drill.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.store_backup_drill.v0" },
     "store_backup_drill_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_store_path": { "type": "string", "minLength": 1 },

@@ -5,11 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.epoch import EpochCloser
-from ams_codex.models import canonical_json
-from ams_codex.replay import ReplayChecker
-from ams_codex.simulation import run_full_simulation, run_incident_simulation
-from ams_codex.store import JsonStore
+from ams.epoch import EpochCloser
+from ams.models import canonical_json
+from ams.replay import ReplayChecker
+from ams.simulation import run_full_simulation, run_incident_simulation
+from ams.store import JsonStore
 
 
 class M8HEpochCloseTest(unittest.TestCase):
@@ -23,7 +23,7 @@ class M8HEpochCloseTest(unittest.TestCase):
             self.assertTrue(result["closed"], result["report"]["errors"])
             self.assertTrue(result["replay_after"]["ok"], result["replay_after"]["errors"])
             event = result["epoch_event"]
-            self.assertEqual(event["type"], "ams.ams_codex.epoch.closed")
+            self.assertEqual(event["type"], "ams.ams.epoch.closed")
             self.assertEqual(event["data"]["label"], "m8h-c-completed")
             state = store.load()
             self.assertIn(event["id"], state["ams_events"])
@@ -39,8 +39,8 @@ class M8HEpochCloseTest(unittest.TestCase):
             self.assertTrue(result["closed"], result["report"]["errors"])
             state = store.load()
             event_types = [event["type"] for event in state["ams_events"].values()]
-            self.assertIn("ams.ams_codex.incident.opened", event_types)
-            self.assertIn("ams.ams_codex.epoch.closed", event_types)
+            self.assertIn("ams.ams.incident.opened", event_types)
+            self.assertIn("ams.ams.epoch.closed", event_types)
             self.assertTrue(result["replay_after"]["ok"], result["replay_after"]["errors"])
 
     def test_close_epoch_refuses_future_context_revision_without_commit(self) -> None:

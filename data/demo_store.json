@@ -12,7 +12,7 @@
       ],
       "created_at": "2026-06-10T00:57:55Z",
       "decisions": [
-        "Keep all work inside AMS_codex"
+        "Keep all work inside AMS"
       ],
       "epoch": 0,
       "lease_id": "lease_d9a24ff1be85e84a48b2",
@@ -43,10 +43,10 @@
         "method": "turn/start",
         "params": {
           "approvalPolicy": "never",
-          "cwd": "/home/user/ams_codex",
+          "cwd": "/home/user/ams",
           "input": [
             {
-              "text": "AMS/Codex dry-run context slice.\nDo not post to Discord. Do not start persistent monitors. AMS state is authoritative.\n\nsession_id: sess_412521c2be942f710d83\nattention_id: attn_24ad4f8e5851c7b06775\ntarget: {'channel_id': '000000000000000003', 'id': 'example-message-001', 'kind': 'discord_message'}\nstate: working\nlease: {'expires_at': '2026-06-10T01:31:12Z', 'holder': 'agent_b', 'lease_id': 'lease_d9a24ff1be85e84a48b2'}\nsummary_checkpoint_id: sum_092cfda4661275bde1f8\nsource_refs: ['discord://000000000000000003/example-message-001']\nartifact_refs: []\nconstraints: ['do_not_post_to_discord_without_explicit_approval', 'do_not_start_persistent_monitor_without_explicit_approval', 'ams_state_wins_over_codex_transcript']\nrequested_action: create_or_continue_codex_task\n",
+              "text": "AMS dry-run context slice.\nDo not post to Discord. Do not start persistent monitors. AMS state is authoritative.\n\nsession_id: sess_412521c2be942f710d83\nattention_id: attn_24ad4f8e5851c7b06775\ntarget: {'channel_id': '000000000000000003', 'id': 'example-message-001', 'kind': 'discord_message'}\nstate: working\nlease: {'expires_at': '2026-06-10T01:31:12Z', 'holder': 'agent_b', 'lease_id': 'lease_d9a24ff1be85e84a48b2'}\nsummary_checkpoint_id: sum_092cfda4661275bde1f8\nsource_refs: ['discord://000000000000000003/example-message-001']\nartifact_refs: []\nconstraints: ['do_not_post_to_discord_without_explicit_approval', 'do_not_start_persistent_monitor_without_explicit_approval', 'ams_state_wins_over_codex_transcript']\nrequested_action: create_or_continue_codex_task\n",
               "type": "text"
             }
           ],
@@ -131,13 +131,13 @@
         "risk_flags": [
           "non_trivial"
         ],
-        "tool": "ams_codex.prepare_codex",
+        "tool": "ams.prepare_codex",
         "writes": false
       },
       "created_at": "2026-06-10T01:00:47Z",
       "verdict": {
         "created_at": "2026-06-10T01:00:47Z",
-        "engine_version": "ams-codex-local-shadow/v0.1.0",
+        "engine_version": "ams-local-shadow/v0.1.0",
         "ledger_event_id": "shadowevt_010e2384bddafea39d38",
         "reasons": [
           "shadow-allow-local-dry-run"
@@ -164,7 +164,7 @@
       "created_at": "2026-06-10T01:00:54Z",
       "verdict": {
         "created_at": "2026-06-10T01:00:54Z",
-        "engine_version": "ams-codex-local-shadow/v0.1.0",
+        "engine_version": "ams-local-shadow/v0.1.0",
         "ledger_event_id": "shadowevt_13fe8f0f142c8f2db649",
         "reasons": [
           "shadow-defer-egress-needs-signed-engine"
@@ -197,7 +197,7 @@
   "resource_policies": {},
   "revision": 1,
   "run_events": {},
-  "schema": "ams.ams_codex.store.v0",
+  "schema": "ams.ams.store.v0",
   "sessions": {
     "sess_412521c2be942f710d83": {
       "ams_task_id": "task_412521c2be942f710d83",
@@ -271,7 +271,7 @@
       "risk_flags": [
         "non_trivial"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "agent-sdk",
@@ -301,7 +301,7 @@
       "risk_flags": [
         "egress"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "ams_outbox",
@@ -331,7 +331,7 @@
       "risk_flags": [
         "non_trivial"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "ollama-api",
@@ -363,7 +363,7 @@
       "risk_flags": [
         "non_trivial"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "app-server",
@@ -393,7 +393,7 @@
         "live_touch"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "disabled",
@@ -420,7 +420,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -447,7 +447,7 @@
         "egress"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -474,7 +474,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -501,7 +501,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -526,7 +526,7 @@
       "name": "Read",
       "risk_flags": [],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -554,7 +554,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",

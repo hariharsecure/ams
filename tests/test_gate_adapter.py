@@ -4,15 +4,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.gate_adapter import GateShadowAdapter, build_action
-from ams_codex.store import JsonStore
+from ams.gate_adapter import GateShadowAdapter, build_action
+from ams.store import JsonStore
 
 
 class GateAdapterTest(unittest.TestCase):
     def test_local_readonly_allows_shadow(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             action = build_action(
-                tool="ams_codex.status",
+                tool="ams.status",
                 endpoint=None,
                 method="READ",
                 payload={"status": True},

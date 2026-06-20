@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:markdown-authority-index:v0",
-  "title": "AMSCodexMarkdownAuthorityIndex",
+  "$id": "ams:ams:markdown-authority-index:v0",
+  "title": "AMSMarkdownAuthorityIndex",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -28,7 +28,7 @@
     "markdown_authority_index_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.markdown_authority_index.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.markdown_authority_index.v0" },
     "markdown_authority_index_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

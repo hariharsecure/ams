@@ -5,11 +5,11 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.cli import cmd_work_mode_decision
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
-from ams_codex.work_mode_decision import WorkModeDecisionStore, _hash_without
+from ams.cli import cmd_work_mode_decision
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
+from ams.work_mode_decision import WorkModeDecisionStore, _hash_without
 
 
 class WorkModeDecisionTest(unittest.TestCase):
@@ -19,7 +19,7 @@ class WorkModeDecisionTest(unittest.TestCase):
 
             decision = WorkModeDecisionStore(store).create(
                 request_text="How should agents preserve context after compaction and restart a Claude session?",
-                changed_paths=["ams_codex/session_registry.py"],
+                changed_paths=["ams/session_registry.py"],
                 source_root=Path(td),
                 label="test-session-isolation",
             )
@@ -40,7 +40,7 @@ class WorkModeDecisionTest(unittest.TestCase):
 
             decision = WorkModeDecisionStore(store).create(
                 request_text="Analyze dead code, duplicate logic, unused APIs, legacy files, and technical debt.",
-                changed_paths=["ams_codex/cli.py", "README.md"],
+                changed_paths=["ams/cli.py", "README.md"],
                 source_root=Path(td),
                 label="test-cleanup",
             )
@@ -59,7 +59,7 @@ class WorkModeDecisionTest(unittest.TestCase):
 
             decision = WorkModeDecisionStore(store).create(
                 request_text="Research session isolation and also do aggressive cleanup of duplicate legacy code.",
-                changed_paths=["ams_codex/agent_memory_sim.py", "ams_codex/replay.py"],
+                changed_paths=["ams/agent_memory_sim.py", "ams/replay.py"],
                 source_root=Path(td),
                 label="test-both",
             )
@@ -77,7 +77,7 @@ class WorkModeDecisionTest(unittest.TestCase):
 
             decision = WorkModeDecisionStore(store).create(
                 request_text="Update capability policy boundaries.",
-                changed_paths=["ams_codex/capability_policy.py"],
+                changed_paths=["ams/capability_policy.py"],
                 source_root=Path(td),
                 label="test-substring",
             )

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:codebase-graph-node:v0",
-  "title": "AMSCodexCodebaseGraphNode",
+  "$id": "ams:ams:codebase-graph-node:v0",
+  "title": "AMSCodebaseGraphNode",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -22,7 +22,7 @@
     "codebase_graph_node_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.codebase_graph_node.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.codebase_graph_node.v0" },
     "codebase_graph_node_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

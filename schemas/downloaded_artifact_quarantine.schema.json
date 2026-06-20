@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:downloaded-artifact-quarantine:v0",
-  "title": "AMSCodexDownloadedArtifactQuarantine",
+  "$id": "ams:ams:downloaded-artifact-quarantine:v0",
+  "title": "AMSDownloadedArtifactQuarantine",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -25,7 +25,7 @@
     "quarantine_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.downloaded_artifact_quarantine.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.downloaded_artifact_quarantine.v0" },
     "downloaded_artifact_quarantine_id": { "type": "string", "minLength": 1 },
     "source_uri": { "type": "string", "minLength": 1 },
     "source_type": { "type": "string", "enum": ["url", "file", "dataset", "unknown"] },

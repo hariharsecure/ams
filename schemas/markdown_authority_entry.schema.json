@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:markdown-authority-entry:v0",
-  "title": "AMSCodexMarkdownAuthorityEntry",
+  "$id": "ams:ams:markdown-authority-entry:v0",
+  "title": "AMSMarkdownAuthorityEntry",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -28,7 +28,7 @@
     "markdown_authority_entry_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.markdown_authority_entry.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.markdown_authority_entry.v0" },
     "markdown_authority_entry_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

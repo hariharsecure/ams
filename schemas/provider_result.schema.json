@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:provider-result:v0",
-  "title": "AMSCodexProviderResult",
+  "$id": "ams:ams:provider-result:v0",
+  "title": "AMSProviderResult",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -22,7 +22,7 @@
     "sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.provider_result.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.provider_result.v0" },
     "provider_result_id": { "type": "string", "minLength": 1 },
     "task_run_id": { "type": "string", "minLength": 1 },
     "provider": { "type": "string", "minLength": 1 },

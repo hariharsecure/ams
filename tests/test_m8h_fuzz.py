@@ -5,11 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.models import canonical_json
-from ams_codex.replay import replay_check
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.simulation import run_full_simulation, run_incident_simulation
-from ams_codex.store import JsonStore
+from ams.models import canonical_json
+from ams.replay import replay_check
+from ams.replay_oracle import ReplayOracle
+from ams.simulation import run_full_simulation, run_incident_simulation
+from ams.store import JsonStore
 
 
 class M8HFuzzTest(unittest.TestCase):

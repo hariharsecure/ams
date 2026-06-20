@@ -4,20 +4,20 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.architecture_audit import ArchitectureAuditStore
-from ams_codex.architecture_gate import ArchitectureGateStore
-from ams_codex.blast_radius import BlastRadiusReviewStore
-from ams_codex.capability_policy import build_capability_request, evaluate_capability_request
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.dispatch import dispatch
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.resource_claim import ResourceClaimStore
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.admission import AdmissionReviewStore
+from ams.architecture_audit import ArchitectureAuditStore
+from ams.architecture_gate import ArchitectureGateStore
+from ams.blast_radius import BlastRadiusReviewStore
+from ams.capability_policy import build_capability_request, evaluate_capability_request
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.dispatch import dispatch
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.resource_claim import ResourceClaimStore
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 class ArchitectureGateTest(unittest.TestCase):
@@ -41,7 +41,7 @@ class ArchitectureGateTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             store = JsonStore(Path(td) / "store.json")
             task_run = _ready_task_run(store)
-            request = _capability_request(paths=["ams_codex/replay.py"])
+            request = _capability_request(paths=["ams/replay.py"])
             verdict = evaluate_capability_request(request)
             self.assertEqual(verdict["status"], "allow", verdict["reason_codes"])
             AdmissionReviewStore(store).create(
@@ -56,7 +56,7 @@ class ArchitectureGateTest(unittest.TestCase):
 
             self.assertFalse(result["dispatched"])
             self.assertEqual(result["reason_code"], "dispatch.architecture_gate_required")
-            self.assertIn("ams_codex/replay.py", result["scoped_paths"])
+            self.assertIn("ams/replay.py", result["scoped_paths"])
             self.assertTrue(ReplayChecker(store).check()["ok"])
 
     def test_dispatch_refuses_denied_architecture_gate(self) -> None:
@@ -69,12 +69,12 @@ class ArchitectureGateTest(unittest.TestCase):
             gate = ArchitectureGateStore(store).create(
                 subject_kind="task_run",
                 subject_id=task_run["task_run_id"],
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 architecture_audit_id=audit["architecture_audit_id"],
             )
             self.assertEqual(gate["decision"], "deny")
             request = _capability_request(
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 gate=gate,
                 audit=audit,
             )
@@ -105,20 +105,20 @@ class ArchitectureGateTest(unittest.TestCase):
             gate = ArchitectureGateStore(store).create(
                 subject_kind="task_run",
                 subject_id=task_run["task_run_id"],
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 architecture_audit_id=audit["architecture_audit_id"],
             )
             self.assertEqual(gate["decision"], "defer")
             blast = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id=task_run["task_run_id"],
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 label="test-blast-radius",
             )
             request = _capability_request(
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 gate=gate,
                 audit=audit,
                 blast_radius=blast,
@@ -147,7 +147,7 @@ class ArchitectureGateTest(unittest.TestCase):
             gate = ArchitectureGateStore(store).create(
                 subject_kind="task_run",
                 subject_id=task_run["task_run_id"],
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 architecture_audit_id=audit["architecture_audit_id"],
             )
             state = store.load()
@@ -167,7 +167,7 @@ class ArchitectureGateTest(unittest.TestCase):
             ArchitectureGateStore(store).create(
                 subject_kind="change_request",
                 subject_id="chg_arch_gate",
-                paths=["ams_codex/replay.py"],
+                paths=["ams/replay.py"],
                 architecture_audit_id=audit["architecture_audit_id"],
             )
 
@@ -219,7 +219,7 @@ def _capability_request(
 
 
 def _architecture_audit(root: Path, *, status: str, store: JsonStore) -> dict:
-    pkg = root / "ams_codex"
+    pkg = root / "ams"
     pkg.mkdir(exist_ok=True)
     (pkg / "__init__.py").write_text("", encoding="utf-8")
     if status == "deny":
@@ -231,7 +231,7 @@ def _architecture_audit(root: Path, *, status: str, store: JsonStore) -> dict:
         (pkg / "b.py").write_text(duplicate, encoding="utf-8")
     else:
         (pkg / "a.py").write_text("def ok():\n    return 1\n", encoding="utf-8")
-    return ArchitectureAuditStore(store).create(source_root=root, package_name="ams_codex")
+    return ArchitectureAuditStore(store).create(source_root=root, package_name="ams")
 
 
 if __name__ == "__main__":

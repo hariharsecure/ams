@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:readiness-review:v0",
-  "title": "AMSCodexReadinessReview",
+  "$id": "ams:ams:readiness-review:v0",
+  "title": "AMSReadinessReview",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -22,7 +22,7 @@
     "readiness_review_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.readiness_review.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.readiness_review.v0" },
     "readiness_review_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from ams_codex.self_eval import run_self_eval
+from ams.self_eval import run_self_eval
 
 
 class SelfEvalTest(unittest.TestCase):

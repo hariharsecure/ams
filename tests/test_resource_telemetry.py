@@ -4,14 +4,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.context import ContextStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.resource_claim import ResourceClaimStore
-from ams_codex.resource_telemetry import ResourceTelemetryStore
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.context import ContextStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.resource_claim import ResourceClaimStore
+from ams.resource_telemetry import ResourceTelemetryStore
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 def _store_run_claim(root: Path) -> tuple[JsonStore, dict, dict]:

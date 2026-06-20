@@ -5,10 +5,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.discord_canary import DiscordCanarySendPlanStore
-from ams_codex.discord_canary_receipt import DiscordCanaryReceiptStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
+from ams.discord_canary import DiscordCanarySendPlanStore
+from ams.discord_canary_receipt import DiscordCanaryReceiptStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_discord_canary import _canary_fixture  # noqa: E402

@@ -5,10 +5,10 @@ import unittest
 from pathlib import Path
 import sys
 
-from ams_codex.models import hash_without as _hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.resource_enforcement import ResourceEnforcementTrialStore
+from ams.models import hash_without as _hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.resource_enforcement import ResourceEnforcementTrialStore
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_resource_telemetry import _store_run_claim

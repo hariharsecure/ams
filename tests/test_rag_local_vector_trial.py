@@ -5,12 +5,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.models import hash_without as _hash_without, sha256_text
-from ams_codex.rag_index_plan import RAGIndexPlanStore, _snapshot_hash
-from ams_codex.rag_local_vector_trial import RAGLocalVectorTrialStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.models import hash_without as _hash_without, sha256_text
+from ams.rag_index_plan import RAGIndexPlanStore, _snapshot_hash
+from ams.rag_local_vector_trial import RAGLocalVectorTrialStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class RAGLocalVectorTrialTest(unittest.TestCase):

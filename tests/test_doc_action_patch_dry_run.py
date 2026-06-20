@@ -5,11 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.doc_action_patch_artifact_approval import _hash_without as _approval_hash_without
-from ams_codex.doc_action_patch_dry_run import DocActionPatchDryRunPlanStore, _hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.doc_action_patch_artifact_approval import _hash_without as _approval_hash_without
+from ams.doc_action_patch_dry_run import DocActionPatchDryRunPlanStore, _hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_doc_action_patch_artifact_approval import _approval_fixture

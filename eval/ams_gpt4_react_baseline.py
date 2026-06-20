@@ -18,7 +18,7 @@ Requires:  OPENAI_API_KEY  in the environment (the GPT-4 baseline arm makes
 160 + 32 greedy Chat Completions calls).
 
 Paths resolve from the environment (see ams_injecagent_eval.py):
-    AMS_ROOT       repo root with the ams_codex/ package (default: parent of eval/)
+    AMS_ROOT       repo root with the ams/ package (default: parent of eval/)
     INJECAGENT_DIR clone of the public InjecAgent repo
     OUTPUT_DIR     where result JSON + ablation manifest are written
                    (default: $AMS_ROOT/eval/results)

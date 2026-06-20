@@ -4,11 +4,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.attention_router import AttentionRouterStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.attention_router import AttentionRouterStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 class AttentionRouterTest(unittest.TestCase):

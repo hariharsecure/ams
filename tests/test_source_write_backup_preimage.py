@@ -5,14 +5,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.source_write_backup_preimage import (
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.source_write_backup_preimage import (
     SourceWriteBackupPreimageReceiptStore,
     _hash_without,
 )
-from ams_codex.store import JsonStore
-from ams_codex.workspace import path_is_under
+from ams.store import JsonStore
+from ams.workspace import path_is_under
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_source_write_preflight import _source_write_preflight_fixture

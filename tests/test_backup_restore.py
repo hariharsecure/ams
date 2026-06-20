@@ -4,10 +4,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.backup_restore import StoreBackupDrillStore
-from ams_codex.store import JsonStore, empty_state
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
+from ams.backup_restore import StoreBackupDrillStore
+from ams.store import JsonStore, empty_state
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
 
 
 class BackupRestoreDrillTest(unittest.TestCase):

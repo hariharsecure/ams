@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from ams_codex.shadow_readiness import evaluate_shadow_readiness
+from ams.shadow_readiness import evaluate_shadow_readiness
 
 
 READY_INSTALL = {"ready_for_live": True}

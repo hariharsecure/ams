@@ -5,10 +5,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.rag_index_plan import RAGIndexPlanStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.rag_index_plan import RAGIndexPlanStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class RAGIndexPlanTest(unittest.TestCase):

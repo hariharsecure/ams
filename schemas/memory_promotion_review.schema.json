@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:memory-promotion-review:v0",
-  "title": "AMSCodexMemoryPromotionReview",
+  "$id": "ams:ams:memory-promotion-review:v0",
+  "title": "AMSMemoryPromotionReview",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -31,7 +31,7 @@
     "memory_promotion_review_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.memory_promotion_review.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.memory_promotion_review.v0" },
     "memory_promotion_review_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "candidate_claim": { "$ref": "#/$defs/candidate_claim" },

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:session-start-brief:v0",
-  "title": "AMSCodexSessionStartBrief",
+  "$id": "ams:ams:session-start-brief:v0",
+  "title": "AMSSessionStartBrief",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -24,7 +24,7 @@
     "session_start_brief_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.session_start_brief.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.session_start_brief.v0" },
     "session_start_brief_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

@@ -4,14 +4,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.definition_registry import DefinitionRegistryStore
-from ams_codex.dispatch import dispatch
-from ams_codex.replay import ReplayChecker
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.definition_registry import DefinitionRegistryStore
+from ams.dispatch import dispatch
+from ams.replay import ReplayChecker
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 class DefinitionRegistryTest(unittest.TestCase):

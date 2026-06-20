@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:agent-memory-trial:v0",
-  "title": "AMSCodexAgentMemoryTrial",
+  "$id": "ams:ams:agent-memory-trial:v0",
+  "title": "AMSAgentMemoryTrial",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -22,7 +22,7 @@
     "trial_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.agent_memory_trial.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.agent_memory_trial.v0" },
     "agent_memory_trial_id": { "type": "string", "minLength": 1 },
     "trial_label": { "type": "string", "minLength": 1 },
     "mode": { "type": "string", "const": "fake_agents" },

@@ -5,13 +5,13 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.cli import cmd_generated_status_snapshot
-from ams_codex.generated_artifact import hash_without
-from ams_codex.generated_status import GeneratedStatusSnapshotStore, build_generated_status_snapshot
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.session_start_brief import SessionStartBriefStore
-from ams_codex.store import JsonStore
+from ams.cli import cmd_generated_status_snapshot
+from ams.generated_artifact import hash_without
+from ams.generated_status import GeneratedStatusSnapshotStore, build_generated_status_snapshot
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.session_start_brief import SessionStartBriefStore
+from ams.store import JsonStore
 
 
 class GeneratedStatusSnapshotTest(unittest.TestCase):

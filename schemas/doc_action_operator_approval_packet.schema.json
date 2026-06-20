@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:doc-action-operator-approval-packet:v0",
-  "title": "AMSCodexDocActionOperatorApprovalPacket",
+  "$id": "ams:ams:doc-action-operator-approval-packet:v0",
+  "title": "AMSDocActionOperatorApprovalPacket",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -32,7 +32,7 @@
     "doc_action_operator_approval_packet_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.doc_action_operator_approval_packet.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.doc_action_operator_approval_packet.v0" },
     "doc_action_operator_approval_packet_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

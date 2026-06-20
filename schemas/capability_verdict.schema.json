@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:capability-verdict:v0",
-  "title": "AMSCodexCapabilityVerdict",
+  "$id": "ams:ams:capability-verdict:v0",
+  "title": "AMSCapabilityVerdict",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -22,7 +22,7 @@
   "properties": {
     "schema_version": {
       "type": "string",
-      "const": "ams.ams_codex.capability_verdict.v0"
+      "const": "ams.ams.capability_verdict.v0"
     },
     "capability_verdict_id": { "type": "string", "minLength": 1 },
     "capability_request_id": { "type": ["string", "null"] },

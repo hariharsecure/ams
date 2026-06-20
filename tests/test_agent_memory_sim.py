@@ -4,10 +4,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.agent_memory_sim import init_agent_sim_runtime, run_default_agent_memory_trial
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.agent_memory_sim import init_agent_sim_runtime, run_default_agent_memory_trial
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class AgentMemorySimTest(unittest.TestCase):

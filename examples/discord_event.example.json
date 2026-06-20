@@ -6,7 +6,7 @@
   "root_message_id": "example-root-001",
   "author_id": "operator_a",
   "author_name": "Operator A",
-  "content": "Build a local dry-run AMS/Codex session registry.",
+  "content": "Build a local dry-run AMS session registry.",
   "priority": "P0",
   "reason_code": "manual_example",
   "requested_action": "create_or_continue_codex_task"

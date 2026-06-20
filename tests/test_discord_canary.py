@@ -4,17 +4,17 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.context import ContextStore
-from ams_codex.discord_canary import DiscordCanarySendPlanStore
-from ams_codex.discord_source import DiscordSourcePacketStore
-from ams_codex.outbox import OutboxStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
-from ams_codex.surface_promise import SurfacePromiseStore
+from ams.admission import AdmissionReviewStore
+from ams.context import ContextStore
+from ams.discord_canary import DiscordCanarySendPlanStore
+from ams.discord_source import DiscordSourcePacketStore
+from ams.outbox import OutboxStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
+from ams.surface_promise import SurfacePromiseStore
 
 
 class DiscordCanarySendPlanTest(unittest.TestCase):

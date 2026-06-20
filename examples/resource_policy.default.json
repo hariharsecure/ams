@@ -9,7 +9,7 @@
   "name": "local-default-dry-run",
   "provider_profiles": [
     {
-      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_cwd_roots": ["/home/user/ams"],
       "allowed_tools": ["Read", "Edit", "ApplyPatch", "ShellReadOnly", "Tests"],
       "data_classes": ["public", "project", "hash_refs"],
       "denied_tools": ["discord_client.send", "network.post", "launchd.write"],
@@ -26,7 +26,7 @@
       "surface": "app-server"
     },
     {
-      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_cwd_roots": ["/home/user/ams"],
       "allowed_tools": ["Read", "ShellReadOnly", "Tests"],
       "data_classes": ["public", "project", "hash_refs"],
       "denied_tools": ["Edit", "ApplyPatch", "discord_client.send", "network.post"],
@@ -43,7 +43,7 @@
       "surface": "agent-sdk"
     },
     {
-      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_cwd_roots": ["/home/user/ams"],
       "allowed_tools": ["Read", "ShellReadOnly"],
       "data_classes": ["public", "project", "hash_refs"],
       "denied_tools": ["Edit", "ApplyPatch", "discord_client.send", "network.post"],
@@ -60,7 +60,7 @@
       "surface": "ollama-api"
     },
     {
-      "allowed_cwd_roots": ["/home/user/ams_codex"],
+      "allowed_cwd_roots": ["/home/user/ams"],
       "allowed_tools": ["Read", "ShellReadOnly"],
       "data_classes": ["public", "project", "hash_refs"],
       "denied_tools": ["Edit", "ApplyPatch", "discord_client.send", "network.post"],
@@ -78,11 +78,11 @@
     }
   ],
   "resource_policy_id": "respol_local_default_v0",
-  "schema_version": "ams.ams_codex.resource_policy.v0",
+  "schema_version": "ams.ams.resource_policy.v0",
   "scope": {
     "default_egress": "deny",
     "install_id": "local-dry-run",
-    "workspace_roots": ["/home/user/ams_codex"]
+    "workspace_roots": ["/home/user/ams"]
   },
   "status_cadence": {
     "max_public_status_per_hour": 4,

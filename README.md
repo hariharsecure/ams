@@ -35,11 +35,11 @@ bundle reproducible evidence (target milestone `MILESTONE-29` and onward).
 
 ## What's in here
 
-- `ams_codex/` — the kernel: capability + resource policy, the gate adapter,
+- `ams/` — the kernel: capability + resource policy, the gate adapter,
   provenance/taint records, signed-policy and package-manifest handling, the
   replay oracle, shadow runner, surface adapters (Discord / terminal / queue),
   RAG embedding quarantine, and the conformance-pack generator.
-- `schemas/` — JSON Schemas (`ams:ams-codex:*`) for every record type the kernel
+- `schemas/` — JSON Schemas (`ams:ams:*`) for every record type the kernel
   emits or consumes. The kernel validates against these at runtime.
 - `tests/` — ~490 tests covering policy hashing, signed-policy verification,
   deterministic replay parity, gate verdicts, and schema validation.
@@ -54,6 +54,11 @@ These are benchmarks I ran myself; the harnesses and the raw result JSONs are in
 `eval/` so the numbers can be re-derived from a clean clone. They are not a
 third-party audit — treat them as reproducible self-reported measurements with
 their configs and published reference points recorded alongside.
+
+> Provenance note: the result JSONs record the engine label
+> `ams-codex-local-shadow/v0.1.0` — the project's name at the time the benchmarks
+> were run (later renamed to **AMS**). The label is kept verbatim so the recorded
+> result provenance is not rewritten after the fact.
 
 - **Retrieval (RAG defense surface).** Lucene/Anserini BM25 on BEIR SciFact
   (k1=0.9, b=0.4, 300 queries): **nDCG@10 = 0.679** (Recall@10 = 0.804), in line
@@ -73,7 +78,7 @@ their configs and published reference points recorded alongside.
 
 ```bash
 python3 -m pytest -q          # full suite
-python3 -m ams_codex.cli --help
+python3 -m ams.cli --help
 ```
 
 Requires Python ≥ 3.9, no third-party runtime dependencies.

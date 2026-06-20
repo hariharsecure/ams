@@ -4,16 +4,16 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.models import canonical_json, sha256_text
-from ams_codex.provider_auth import ProviderAuthPreflightStore
-from ams_codex.rag_embedding_job import RAGEmbeddingJobStore
-from ams_codex.rag_embedding_receipt import RAGEmbeddingReceiptStore
-from ams_codex.rag_index_plan import RAGIndexPlanStore
-from ams_codex.rag_retrieval_query import RAGRetrievalQueryStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.admission import AdmissionReviewStore
+from ams.models import canonical_json, sha256_text
+from ams.provider_auth import ProviderAuthPreflightStore
+from ams.rag_embedding_job import RAGEmbeddingJobStore
+from ams.rag_embedding_receipt import RAGEmbeddingReceiptStore
+from ams.rag_index_plan import RAGIndexPlanStore
+from ams.rag_retrieval_query import RAGRetrievalQueryStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class RAGRetrievalQueryTest(unittest.TestCase):

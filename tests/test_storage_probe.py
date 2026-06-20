@@ -3,7 +3,7 @@ from __future__ import annotations
 import tempfile
 import unittest
 
-from ams_codex.storage_probe import run_storage_probe
+from ams.storage_probe import run_storage_probe
 
 
 class StorageProbeTest(unittest.TestCase):

@@ -4,10 +4,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.claude_adapter import ClaudeDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.claude_adapter import ClaudeDryRunAdapter
+from ams.context import ContextStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 class ClaudeAdapterTest(unittest.TestCase):

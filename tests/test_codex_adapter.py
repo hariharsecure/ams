@@ -4,11 +4,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.checkpoint import CheckpointStore
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.checkpoint import CheckpointStore
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 class CodexAdapterTest(unittest.TestCase):

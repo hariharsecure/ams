@@ -5,23 +5,23 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.architecture_audit import ArchitectureAuditStore
-from ams_codex.architecture_gate import ArchitectureGateStore
-from ams_codex.blast_radius import BlastRadiusReviewStore
-from ams_codex.capability_policy import build_capability_request, evaluate_capability_request
-from ams_codex.cli import cmd_blast_radius_review
-from ams_codex.codebase_spider_graph import CodebaseSpiderGraphStore
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.dispatch import dispatch
-from ams_codex.models import hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.resource_claim import ResourceClaimStore
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.admission import AdmissionReviewStore
+from ams.architecture_audit import ArchitectureAuditStore
+from ams.architecture_gate import ArchitectureGateStore
+from ams.blast_radius import BlastRadiusReviewStore
+from ams.capability_policy import build_capability_request, evaluate_capability_request
+from ams.cli import cmd_blast_radius_review
+from ams.codebase_spider_graph import CodebaseSpiderGraphStore
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.dispatch import dispatch
+from ams.models import hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.resource_claim import ResourceClaimStore
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 class BlastRadiusReviewTest(unittest.TestCase):
@@ -32,16 +32,16 @@ class BlastRadiusReviewTest(unittest.TestCase):
 
             review = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
-                paths=["ams_codex/beta.py"],
+                paths=["ams/beta.py"],
                 label="test-blast",
             )
 
             self.assertEqual(review["decision"], "allow")
             self.assertEqual(review["reason_codes"], ["blast_radius.reviewed"])
-            self.assertIn("ams_codex/alpha.py", review["impact_summary"]["impact_paths"])
+            self.assertIn("ams/alpha.py", review["impact_summary"]["impact_paths"])
             self.assertEqual(review["impact_summary"]["related_tests"], ["tests/test_beta.py"])
             self.assertEqual({ref["query_kind"] for ref in review["query_refs"]}, {
                 "impact_slice",
@@ -53,15 +53,15 @@ class BlastRadiusReviewTest(unittest.TestCase):
     def test_review_defers_when_related_tests_are_missing(self) -> None:
         with tempfile.TemporaryDirectory() as td:
             root = _graph_repo(Path(td))
-            (root / "ams_codex" / "lonely.py").write_text("def lonely():\n    return 1\n", encoding="utf-8")
+            (root / "ams" / "lonely.py").write_text("def lonely():\n    return 1\n", encoding="utf-8")
             store = JsonStore(root / "store.json")
 
             review = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
-                paths=["ams_codex/lonely.py"],
+                paths=["ams/lonely.py"],
                 label="test-blast",
             )
 
@@ -73,15 +73,15 @@ class BlastRadiusReviewTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = _graph_repo(Path(td))
             store = JsonStore(root / "store.json")
-            CodebaseSpiderGraphStore(store).create(source_root=root, package_name="ams_codex", label="test-graph")
-            (root / "ams_codex" / "beta.py").write_text("def value():\n    return 'changed'\n", encoding="utf-8")
+            CodebaseSpiderGraphStore(store).create(source_root=root, package_name="ams", label="test-graph")
+            (root / "ams" / "beta.py").write_text("def value():\n    return 'changed'\n", encoding="utf-8")
 
             review = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
-                paths=["ams_codex/beta.py"],
+                paths=["ams/beta.py"],
                 label="test-blast",
             )
 
@@ -89,7 +89,7 @@ class BlastRadiusReviewTest(unittest.TestCase):
             self.assertIn("blast_radius.graph_query_stale", review["reason_codes"])
             self.assertIn("blast_radius.stale_paths", review["reason_codes"])
             self.assertEqual(review["impact_summary"]["stale_paths"], [
-                {"path": "ams_codex/beta.py", "reason": "hash_mismatch"}
+                {"path": "ams/beta.py", "reason": "hash_mismatch"}
             ])
             self.assertTrue(ReplayChecker(store).check()["ok"])
 
@@ -101,7 +101,7 @@ class BlastRadiusReviewTest(unittest.TestCase):
 
             review = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
                 paths=["../outside.txt"],
@@ -120,14 +120,14 @@ class BlastRadiusReviewTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = _graph_repo(Path(td))
             store = JsonStore(root / "store.json")
-            CodebaseSpiderGraphStore(store).create(source_root=root, package_name="ams_codex", label="test-graph")
-            (root / "ams_codex" / "beta.py").write_text("def value():\n    return 'changed'\n", encoding="utf-8")
+            CodebaseSpiderGraphStore(store).create(source_root=root, package_name="ams", label="test-graph")
+            (root / "ams" / "beta.py").write_text("def value():\n    return 'changed'\n", encoding="utf-8")
             review = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
-                paths=["ams_codex/beta.py"],
+                paths=["ams/beta.py"],
                 label="test-blast",
             )
             state = store.load()
@@ -148,10 +148,10 @@ class BlastRadiusReviewTest(unittest.TestCase):
             store = JsonStore(root / "store.json")
             BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
-                paths=["ams_codex/beta.py"],
+                paths=["ams/beta.py"],
                 label="test-blast",
             )
 
@@ -168,10 +168,10 @@ class BlastRadiusReviewTest(unittest.TestCase):
             args = SimpleNamespace(
                 store=str(root / "store.json"),
                 source_root=str(root),
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id="task-1",
-                path=["ams_codex/beta.py"],
+                path=["ams/beta.py"],
                 change_intent="source_change",
                 graph_snapshot_id=None,
                 ensure_graph=True,
@@ -188,8 +188,8 @@ class BlastRadiusReviewTest(unittest.TestCase):
             store = JsonStore(Path(td) / "store.json")
             task_run = _ready_task_run(store)
             root = _graph_repo(Path(td) / "repo")
-            gate = _architecture_gate(root, store, task_run, paths=["ams_codex/beta.py"])
-            request = _capability_request(paths=["ams_codex/beta.py"], gate_bundle=gate)
+            gate = _architecture_gate(root, store, task_run, paths=["ams/beta.py"])
+            request = _capability_request(paths=["ams/beta.py"], gate_bundle=gate)
             verdict = evaluate_capability_request(request)
             self.assertEqual(verdict["status"], "allow", verdict["reason_codes"])
             AdmissionReviewStore(store).create(
@@ -211,16 +211,16 @@ class BlastRadiusReviewTest(unittest.TestCase):
             root = _graph_repo(Path(td))
             store = JsonStore(root / "store.json")
             task_run = _ready_task_run(store)
-            gate = _architecture_gate(root, store, task_run, paths=["ams_codex/beta.py"])
+            gate = _architecture_gate(root, store, task_run, paths=["ams/beta.py"])
             review = BlastRadiusReviewStore(store).create(
                 source_root=root,
-                package_name="ams_codex",
+                package_name="ams",
                 subject_kind="task_run",
                 subject_id=task_run["task_run_id"],
-                paths=["ams_codex/beta.py"],
+                paths=["ams/beta.py"],
                 label="test-blast",
             )
-            request = _capability_request(paths=["ams_codex/beta.py"], blast_radius=review, gate_bundle=gate)
+            request = _capability_request(paths=["ams/beta.py"], blast_radius=review, gate_bundle=gate)
             verdict = evaluate_capability_request(request)
             self.assertEqual(verdict["status"], "allow", verdict["reason_codes"])
             AdmissionReviewStore(store).create(
@@ -238,7 +238,7 @@ class BlastRadiusReviewTest(unittest.TestCase):
 
 
 def _graph_repo(root: Path) -> Path:
-    pkg = root / "ams_codex"
+    pkg = root / "ams"
     tests = root / "tests"
     pkg.mkdir(parents=True)
     tests.mkdir()
@@ -252,7 +252,7 @@ def _graph_repo(root: Path) -> Path:
         encoding="utf-8",
     )
     (tests / "test_beta.py").write_text(
-        "from ams_codex import beta\n\n\ndef test_value():\n    assert beta.value()\n",
+        "from ams import beta\n\n\ndef test_value():\n    assert beta.value()\n",
         encoding="utf-8",
     )
     return root
@@ -274,7 +274,7 @@ def _ready_task_run(store: JsonStore) -> dict:
 
 
 def _architecture_gate(root: Path, store: JsonStore, task_run: dict, *, paths: list[str]) -> dict:
-    audit = ArchitectureAuditStore(store).create(source_root=root, package_name="ams_codex")
+    audit = ArchitectureAuditStore(store).create(source_root=root, package_name="ams")
     gate = ArchitectureGateStore(store).create(
         subject_kind="task_run",
         subject_id=task_run["task_run_id"],

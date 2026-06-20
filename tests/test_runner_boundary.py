@@ -4,26 +4,26 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.capability_policy import build_capability_request, evaluate_capability_request
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.dispatch import dispatch
-from ams_codex.outbox import OutboxStore
-from ams_codex.resource_claim import ResourceClaimStore
-from ams_codex.runner_boundary import runner_preflight
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.shadow_launch import ShadowLaunchStore
-from ams_codex.store import JsonStore
-from ams_codex.surface_bindings import SurfaceBindingStore, _record_sha
-from ams_codex.surface_promise import SurfacePromiseStore
+from ams.admission import AdmissionReviewStore
+from ams.capability_policy import build_capability_request, evaluate_capability_request
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.dispatch import dispatch
+from ams.outbox import OutboxStore
+from ams.resource_claim import ResourceClaimStore
+from ams.runner_boundary import runner_preflight
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.shadow_launch import ShadowLaunchStore
+from ams.store import JsonStore
+from ams.surface_bindings import SurfaceBindingStore, _record_sha
+from ams.surface_promise import SurfacePromiseStore
 
 
 PACKAGE_SHA = "sha256:" + "1" * 64
 OTHER_PACKAGE_SHA = "sha256:" + "2" * 64
 READY_INSTALL = {
-    "schema_version": "ams.ams_codex.install_preflight.v0",
+    "schema_version": "ams.ams.install_preflight.v0",
     "ready_for_live": True,
     "status": "pass",
     "checks": [],

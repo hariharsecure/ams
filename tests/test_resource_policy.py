@@ -4,12 +4,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.context import ContextStore
-from ams_codex.definition_registry import build_surface_definition
-from ams_codex.resource_policy import build_default_resource_policy, evaluate_task_run
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
+from ams.context import ContextStore
+from ams.definition_registry import build_surface_definition
+from ams.resource_policy import build_default_resource_policy, evaluate_task_run
+from ams.run_trace import RunTraceStore
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
 
 
 def _task_run(provider: str = "openai_codex", surface: str = "app-server", tools: list[str] | None = None) -> dict:

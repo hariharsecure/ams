@@ -4,13 +4,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.artifact_quarantine import DownloadedArtifactQuarantineStore
-from ams_codex.rag_embedding_job import RAGEmbeddingJobStore
-from ams_codex.rag_index_plan import RAGIndexPlanStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.admission import AdmissionReviewStore
+from ams.artifact_quarantine import DownloadedArtifactQuarantineStore
+from ams.rag_embedding_job import RAGEmbeddingJobStore
+from ams.rag_index_plan import RAGIndexPlanStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class RAGEmbeddingJobTest(unittest.TestCase):

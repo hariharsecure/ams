@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:blast-radius-review:v0",
-  "title": "AMSCodexBlastRadiusReview",
+  "$id": "ams:ams:blast-radius-review:v0",
+  "title": "AMSBlastRadiusReview",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -26,7 +26,7 @@
     "blast_radius_review_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.blast_radius_review.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.blast_radius_review.v0" },
     "blast_radius_review_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

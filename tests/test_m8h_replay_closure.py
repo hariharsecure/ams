@@ -4,13 +4,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.models import canonical_json, sha256_text
-from ams_codex.replay import ReplayChecker
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.simulation import run_full_simulation
-from ams_codex.store import JsonStore
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.models import canonical_json, sha256_text
+from ams.replay import ReplayChecker
+from ams.session_registry import SessionRegistry
+from ams.simulation import run_full_simulation
+from ams.store import JsonStore
 
 
 def _rehash_record(record: dict, hash_field: str) -> None:

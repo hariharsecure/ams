@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:shadow-approval-packet:v0",
-  "title": "AMSCodexShadowApprovalPacket",
+  "$id": "ams:ams:shadow-approval-packet:v0",
+  "title": "AMSShadowApprovalPacket",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -29,7 +29,7 @@
     "approval_packet_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.shadow_approval_packet.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.shadow_approval_packet.v0" },
     "shadow_approval_packet_id": { "type": "string", "minLength": 1 },
     "shadow_launch_plan_id": { "type": "string", "minLength": 1 },
     "shadow_launch_plan_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },

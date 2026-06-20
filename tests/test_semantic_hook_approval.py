@@ -6,17 +6,17 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.models import canonical_json, sha256_text
-from ams_codex.package_manifest import build_package_manifest, verify_package_manifest
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.semantic_hook_approval import SemanticHookApprovalBindingStore, _hash_without
-from ams_codex.semantic_hook_install_plan import SemanticHookInstallPlanStore
-from ams_codex.semantic_hook_run import SemanticHookRunStore
-from ams_codex.semantic_oracle_review import SemanticOracleReviewStore
-from ams_codex.signed_policy import SignedPolicyConfig
-from ams_codex.simulation_sweep import SimulationSweepStore
-from ams_codex.store import JsonStore
+from ams.models import canonical_json, sha256_text
+from ams.package_manifest import build_package_manifest, verify_package_manifest
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.semantic_hook_approval import SemanticHookApprovalBindingStore, _hash_without
+from ams.semantic_hook_install_plan import SemanticHookInstallPlanStore
+from ams.semantic_hook_run import SemanticHookRunStore
+from ams.semantic_oracle_review import SemanticOracleReviewStore
+from ams.signed_policy import SignedPolicyConfig
+from ams.simulation_sweep import SimulationSweepStore
+from ams.store import JsonStore
 
 
 SSH_KEYGEN = shutil.which("ssh-keygen")

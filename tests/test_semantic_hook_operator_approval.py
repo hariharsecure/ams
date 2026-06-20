@@ -5,9 +5,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.semantic_hook_operator_approval import (
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.semantic_hook_operator_approval import (
     REQUIRED_READBACK_PHRASES,
     REQUIRED_REVIEW_STEPS,
     SemanticHookOperatorApprovalPacketStore,

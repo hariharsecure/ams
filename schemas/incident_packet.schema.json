@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:incident-packet:v0",
-  "title": "AMSCodexIncidentPacket",
+  "$id": "ams:ams:incident-packet:v0",
+  "title": "AMSIncidentPacket",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,7 +20,7 @@
     "incident_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.incident_packet.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.incident_packet.v0" },
     "incident_packet_id": { "type": "string", "minLength": 1 },
     "trigger": { "type": "string", "minLength": 1 },
     "task_run_id": { "type": ["string", "null"] },

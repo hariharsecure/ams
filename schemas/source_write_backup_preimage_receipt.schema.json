@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:source-write-backup-preimage-receipt:v0",
-  "title": "AMSCodexSourceWriteBackupPreimageReceipt",
+  "$id": "ams:ams:source-write-backup-preimage-receipt:v0",
+  "title": "AMSSourceWriteBackupPreimageReceipt",
   "type": "object",
   "additionalProperties": true,
   "required": [
@@ -49,7 +49,7 @@
   "properties": {
     "schema_version": {
       "type": "string",
-      "const": "ams.ams_codex.source_write_backup_preimage_receipt.v0"
+      "const": "ams.ams.source_write_backup_preimage_receipt.v0"
     },
     "source_write_backup_preimage_receipt_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },

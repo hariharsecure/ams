@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:semantic-hook-run:v0",
-  "title": "AMSCodexSemanticHookRun",
+  "$id": "ams:ams:semantic-hook-run:v0",
+  "title": "AMSSemanticHookRun",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -30,7 +30,7 @@
     "semantic_hook_run_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.semantic_hook_run.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.semantic_hook_run.v0" },
     "semantic_hook_run_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

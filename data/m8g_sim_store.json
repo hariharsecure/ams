@@ -16,10 +16,10 @@
         "created_at": "2026-06-10T16:52:04Z",
         "egress_mode": "ams_outbox",
         "paths": [
-          "ams_codex/simulation.py",
+          "ams/simulation.py",
           "tests/test_m8g_full.py"
         ],
-        "schema_version": "ams.ams_codex.capability_request.v0",
+        "schema_version": "ams.ams.capability_request.v0",
         "signed_policy_sha256": null,
         "tier": "builder",
         "tools": [
@@ -41,7 +41,7 @@
       },
       "review_sha256": "sha256:be04ee76354aa639c4d0e372ff6f79b567b0c4ccf4a59d357eb1ba8ebd5824fa",
       "reviewer": "ams.local",
-      "schema_version": "ams.ams_codex.admission_review.v0",
+      "schema_version": "ams.ams.admission_review.v0",
       "subject_id": "run_8711881a14ba4e2d15d4",
       "subject_kind": "task_run"
     }
@@ -169,7 +169,7 @@
         "task_run_id": "run_8711881a14ba4e2d15d4"
       },
       "payload_sha256": "sha256:be7dccffdf4d95168ec4ac0d7ab70c1f348ca55621e9d345aff3960cb5fb2156",
-      "schema_version": "ams.ams_codex.outbox_item.v0",
+      "schema_version": "ams.ams.outbox_item.v0",
       "session_id": "sess_412521c2be942f710d83",
       "state": "readback_verified",
       "target": "discord",
@@ -190,7 +190,7 @@
         "message_id": "sim-discord-msg-m8g"
       },
       "response_sha256": "sha256:37d2a0b2981f645a732bc134221a07cb3d27310a458d48240fb55be1cd24fa1a",
-      "schema_version": "ams.ams_codex.outbox_receipt.v0",
+      "schema_version": "ams.ams.outbox_receipt.v0",
       "status": "readback_verified",
       "task_run_id": "run_8711881a14ba4e2d15d4"
     }
@@ -209,7 +209,7 @@
       ],
       "provider_result_id": "provres_97cffbd7c4f1844d29de",
       "provider_session_id": "sim-codex-thread-m8g",
-      "schema_version": "ams.ams_codex.provider_result.v0",
+      "schema_version": "ams.ams.provider_result.v0",
       "sha256": "sha256:e4755f29b65b18687d2129e5f228f8ed8ef0ed07e1409e324b0fa7cc6bb49fce",
       "source_class": "trusted",
       "started_at": "2026-06-10T16:52:04Z",
@@ -245,7 +245,7 @@
       },
       "resource_claim_id": "resclaim_4670f9e33b51658268cc",
       "resource_verdict_id": "resv_d29d50dc7fa888dcb727",
-      "schema_version": "ams.ams_codex.resource_claim.v0",
+      "schema_version": "ams.ams.resource_claim.v0",
       "session_id": "sess_412521c2be942f710d83",
       "state": "released",
       "task_run_id": "run_8711881a14ba4e2d15d4",
@@ -275,7 +275,7 @@
       ],
       "risk_flags": [],
       "run_event_id": "runevt_0cd3a9bb4a3baff330f2",
-      "schema_version": "ams.ams_codex.run_event.v0",
+      "schema_version": "ams.ams.run_event.v0",
       "sequence": 3,
       "session_id": "sess_412521c2be942f710d83",
       "surface": "app-server",
@@ -304,7 +304,7 @@
       ],
       "risk_flags": [],
       "run_event_id": "runevt_488b385fa8bdbe6f2afa",
-      "schema_version": "ams.ams_codex.run_event.v0",
+      "schema_version": "ams.ams.run_event.v0",
       "sequence": 2,
       "session_id": "sess_412521c2be942f710d83",
       "surface": "app-server",
@@ -330,7 +330,7 @@
       ],
       "risk_flags": [],
       "run_event_id": "runevt_5df8dfff644ec5fce7b9",
-      "schema_version": "ams.ams_codex.run_event.v0",
+      "schema_version": "ams.ams.run_event.v0",
       "sequence": 6,
       "session_id": "sess_412521c2be942f710d83",
       "surface": "app-server",
@@ -358,7 +358,7 @@
       "reason_codes": [],
       "risk_flags": [],
       "run_event_id": "runevt_9910f831bac05fedc9cd",
-      "schema_version": "ams.ams_codex.run_event.v0",
+      "schema_version": "ams.ams.run_event.v0",
       "sequence": 1,
       "session_id": "sess_412521c2be942f710d83",
       "surface": "app-server",
@@ -388,7 +388,7 @@
       ],
       "risk_flags": [],
       "run_event_id": "runevt_cec8e02c581d58ac41a5",
-      "schema_version": "ams.ams_codex.run_event.v0",
+      "schema_version": "ams.ams.run_event.v0",
       "sequence": 4,
       "session_id": "sess_412521c2be942f710d83",
       "surface": "app-server",
@@ -436,7 +436,7 @@
       ],
       "risk_flags": [],
       "run_event_id": "runevt_fba7736dc8f5eacabaa9",
-      "schema_version": "ams.ams_codex.run_event.v0",
+      "schema_version": "ams.ams.run_event.v0",
       "sequence": 5,
       "session_id": "sess_412521c2be942f710d83",
       "surface": "app-server",
@@ -445,7 +445,7 @@
       "token_usage": {}
     }
   },
-  "schema": "ams.ams_codex.store.v0",
+  "schema": "ams.ams.store.v0",
   "sessions": {
     "sess_412521c2be942f710d83": {
       "ams_task_id": "task_412521c2be942f710d83",
@@ -523,7 +523,7 @@
       "risk_flags": [
         "non_trivial"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "agent-sdk",
@@ -553,7 +553,7 @@
       "risk_flags": [
         "egress"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "ams_outbox",
@@ -583,7 +583,7 @@
       "risk_flags": [
         "non_trivial"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "ollama-api",
@@ -615,7 +615,7 @@
       "risk_flags": [
         "non_trivial"
       ],
-      "schema_version": "ams.ams_codex.surface_definition.v0",
+      "schema_version": "ams.ams.surface_definition.v0",
       "signed_policy_sha256": null,
       "status": "active",
       "surface": "app-server",
@@ -641,7 +641,7 @@
       "completed_at": "2026-06-10T16:52:04Z",
       "context_id": "ctx_68ef59dd8085f2bc579c",
       "created_at": "2026-06-10T16:52:04Z",
-      "cwd": "/home/user/ams_codex",
+      "cwd": "/home/user/ams",
       "definition_snapshot_sha256": "sha256:7eb6d72fe806e3adfdf2da0f92876b3fa922a0d15bf3de84d18988b33fa3801d",
       "delivery_status": "not_requested",
       "duration_ms": null,
@@ -685,7 +685,7 @@
       "requested_by": "agent:agent_b",
       "retry_of": null,
       "sandbox": "workspace-write",
-      "schema_version": "ams.ams_codex.task_run.v0",
+      "schema_version": "ams.ams.task_run.v0",
       "session_id": "sess_412521c2be942f710d83",
       "shadow_only": true,
       "source_refs": [
@@ -755,7 +755,7 @@
         "live_touch"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "disabled",
@@ -782,7 +782,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -809,7 +809,7 @@
         "egress"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -836,7 +836,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -863,7 +863,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -888,7 +888,7 @@
       "name": "Read",
       "risk_flags": [],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",
@@ -916,7 +916,7 @@
         "non_trivial"
       ],
       "runner": null,
-      "schema_version": "ams.ams_codex.tool_definition.v0",
+      "schema_version": "ams.ams.tool_definition.v0",
       "scope": "local",
       "signed_policy_sha256": null,
       "status": "active",

@@ -5,10 +5,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.real_agent_trial import run_real_agent_smoke_trial
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.real_agent_trial import run_real_agent_smoke_trial
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class RealAgentTrialTest(unittest.TestCase):

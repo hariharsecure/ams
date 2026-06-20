@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:capability-policy:v0",
-  "title": "AMSCodexCapabilityPolicy",
+  "$id": "ams:ams:capability-policy:v0",
+  "title": "AMSCapabilityPolicy",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -17,7 +17,7 @@
   "properties": {
     "schema_version": {
       "type": "string",
-      "const": "ams.ams_codex.capability_policy.v0"
+      "const": "ams.ams.capability_policy.v0"
     },
     "capability_policy_id": { "type": "string", "minLength": 1 },
     "name": { "type": "string", "minLength": 1 },

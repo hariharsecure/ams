@@ -5,14 +5,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.doc_action_patch_apply_acceptance import (
+from ams.doc_action_patch_apply_acceptance import (
     DocActionPatchApplyAcceptancePacketStore,
     REQUIRED_ACCEPTANCE_PHRASES,
     _hash_without,
 )
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_doc_action_patch_apply_boundary import _apply_boundary_fixture

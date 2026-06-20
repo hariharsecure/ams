@@ -6,13 +6,13 @@ import unittest
 from pathlib import Path
 from queue import Empty
 
-from ams_codex.context import ContextStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.resource_claim import ResourceClaimStore
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.schema_validation import SchemaValidationError
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore, StoreRevisionError, empty_state
+from ams.context import ContextStore
+from ams.replay import ReplayChecker
+from ams.resource_claim import ResourceClaimStore
+from ams.run_trace import RunTraceStore
+from ams.schema_validation import SchemaValidationError
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore, StoreRevisionError, empty_state
 
 
 def _append_event_worker(store_path: str, task_run_id: str, worker_id: int, queue: multiprocessing.Queue) -> None:
@@ -58,7 +58,7 @@ class StoreHardeningTest(unittest.TestCase):
             store = JsonStore(Path(td) / "store.json")
             state = empty_state()
             state["task_runs"]["bad-run"] = {
-                "schema_version": "ams.ams_codex.task_run.v0",
+                "schema_version": "ams.ams.task_run.v0",
                 "task_run_id": "bad-run",
                 "state": "invalid",
             }

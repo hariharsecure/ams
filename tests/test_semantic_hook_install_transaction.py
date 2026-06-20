@@ -5,9 +5,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.semantic_hook_install_transaction import (
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.semantic_hook_install_transaction import (
     SemanticHookInstallTransactionStore,
     _hash_without,
 )

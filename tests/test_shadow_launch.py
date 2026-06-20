@@ -5,20 +5,20 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.schema_validation import SchemaValidationError
-from ams_codex.shadow_launch import ShadowLaunchStore
-from ams_codex.simulation import run_full_simulation
-from ams_codex.store import JsonStore
-from ams_codex.surface_bindings import SurfaceBindingStore, _record_sha
-from ams_codex.surface_promise import SurfacePromiseStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.schema_validation import SchemaValidationError
+from ams.shadow_launch import ShadowLaunchStore
+from ams.simulation import run_full_simulation
+from ams.store import JsonStore
+from ams.surface_bindings import SurfaceBindingStore, _record_sha
+from ams.surface_promise import SurfacePromiseStore
 
 
 PACKAGE_SHA = "sha256:" + "1" * 64
 OTHER_PACKAGE_SHA = "sha256:" + "2" * 64
 READY_INSTALL = {
-    "schema_version": "ams.ams_codex.install_preflight.v0",
+    "schema_version": "ams.ams.install_preflight.v0",
     "ready_for_live": True,
     "status": "pass",
     "checks": [],

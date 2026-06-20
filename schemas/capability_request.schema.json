@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:capability-request:v0",
-  "title": "AMSCodexCapabilityRequest",
+  "$id": "ams:ams:capability-request:v0",
+  "title": "AMSCapabilityRequest",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -18,7 +18,7 @@
   "properties": {
     "schema_version": {
       "type": "string",
-      "const": "ams.ams_codex.capability_request.v0"
+      "const": "ams.ams.capability_request.v0"
     },
     "capability_request_id": { "type": "string", "minLength": 1 },
     "actor": { "type": "string", "minLength": 1 },

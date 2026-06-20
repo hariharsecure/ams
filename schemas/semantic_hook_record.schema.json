@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:semantic-hook-record:v0",
-  "title": "AMSCodexSemanticHookRecord",
+  "$id": "ams:ams:semantic-hook-record:v0",
+  "title": "AMSSemanticHookRecord",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -24,7 +24,7 @@
     "semantic_hook_record_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.semantic_hook_record.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.semantic_hook_record.v0" },
     "semantic_hook_record_id": { "type": "string", "minLength": 1 },
     "semantic_hook_run_id": { "type": "string", "minLength": 1 },
     "semantic_oracle_review_id": { "type": "string", "minLength": 1 },

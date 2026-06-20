@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:conformance-pack:v0",
-  "title": "AMSCodexConformancePack",
+  "$id": "ams:ams:conformance-pack:v0",
+  "title": "AMSConformancePack",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -27,7 +27,7 @@
     "conformance_pack_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.conformance_pack.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.conformance_pack.v0" },
     "conformance_pack_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "target_milestone": { "type": "string", "minLength": 1 },

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:task-run:v0",
-  "title": "AMSCodexTaskRun",
+  "$id": "ams:ams:task-run:v0",
+  "title": "AMSTaskRun",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -25,7 +25,7 @@
     "updated_at"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.task_run.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.task_run.v0" },
     "task_run_id": { "type": "string", "minLength": 1 },
     "session_id": { "type": "string", "minLength": 1 },
     "ams_task_id": { "type": ["string", "null"] },

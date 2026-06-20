@@ -5,12 +5,12 @@ import unittest
 from copy import deepcopy
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.outbox import OutboxStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.simulation import run_full_simulation
-from ams_codex.store import JsonStore
-from ams_codex.surface_promise import SurfacePromiseStore
+from ams.admission import AdmissionReviewStore
+from ams.outbox import OutboxStore
+from ams.replay import ReplayChecker
+from ams.simulation import run_full_simulation
+from ams.store import JsonStore
+from ams.surface_promise import SurfacePromiseStore
 
 
 class SurfacePromiseTest(unittest.TestCase):

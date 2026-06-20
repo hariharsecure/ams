@@ -4,11 +4,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.console import build_console_report, render_html, render_text, write_console
-from ams_codex.epoch import EpochCloser
-from ams_codex.models import canonical_json
-from ams_codex.simulation import run_full_simulation, run_incident_simulation
-from ams_codex.store import JsonStore
+from ams.console import build_console_report, render_html, render_text, write_console
+from ams.epoch import EpochCloser
+from ams.models import canonical_json
+from ams.simulation import run_full_simulation, run_incident_simulation
+from ams.store import JsonStore
 
 
 class ConsoleTest(unittest.TestCase):
@@ -25,7 +25,7 @@ class ConsoleTest(unittest.TestCase):
             self.assertIn("Replay: OK", text)
             self.assertIn("Task Runs", text)
             self.assertIn("Replay: OK", html)
-            self.assertIn("ams.ams_codex.epoch.closed", html)
+            self.assertIn("ams.ams.epoch.closed", html)
 
     def test_console_does_not_mutate_store(self) -> None:
         with tempfile.TemporaryDirectory() as td:

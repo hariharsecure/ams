@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:rag-index-plan:v0",
-  "title": "AMSCodexRAGIndexPlan",
+  "$id": "ams:ams:rag-index-plan:v0",
+  "title": "AMSRAGIndexPlan",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -23,7 +23,7 @@
     "plan_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.rag_index_plan.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.rag_index_plan.v0" },
     "rag_index_plan_id": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },
     "collection": { "type": "string", "minLength": 1 },

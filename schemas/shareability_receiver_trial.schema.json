@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:shareability-receiver-trial:v0",
-  "title": "AMSCodexShareabilityReceiverTrial",
+  "$id": "ams:ams:shareability-receiver-trial:v0",
+  "title": "AMSShareabilityReceiverTrial",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -21,7 +21,7 @@
     "artifacts"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.shareability_receiver_trial.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.shareability_receiver_trial.v0" },
     "shareability_receiver_trial_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_bundle_ref": {

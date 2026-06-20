@@ -5,13 +5,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.backup_restore import StoreBackupDrillStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.runner_parity import RunnerDryRunParityStore
-from ams_codex.shadow_approval import ShadowApprovalPacketStore
-from ams_codex.shadow_runner import ShadowRunnerStore
-from ams_codex.workspace import workspace_root
+from ams.backup_restore import StoreBackupDrillStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.runner_parity import RunnerDryRunParityStore
+from ams.shadow_approval import ShadowApprovalPacketStore
+from ams.shadow_runner import ShadowRunnerStore
+from ams.workspace import workspace_root
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_runner_parity import SSH_KEYGEN, _live_preflight, _signed_manifest_dispatch_and_launch  # noqa: E402

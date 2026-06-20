@@ -5,11 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.models import hash_without as _hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.semantic_hook_operator_approval import REQUIRED_READBACK_PHRASES
-from ams_codex.semantic_hook_operator_readback import SemanticHookOperatorReadbackReceiptStore
+from ams.models import hash_without as _hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.semantic_hook_operator_approval import REQUIRED_READBACK_PHRASES
+from ams.semantic_hook_operator_readback import SemanticHookOperatorReadbackReceiptStore
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_semantic_hook_install_transaction import _create_ready_transaction

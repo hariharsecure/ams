@@ -4,8 +4,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.simulation import run_dual_agent_simulation
-from ams_codex.store import JsonStore
+from ams.simulation import run_dual_agent_simulation
+from ams.store import JsonStore
 
 
 class SimulationTest(unittest.TestCase):

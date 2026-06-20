@@ -6,8 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.models import canonical_json
-from ams_codex.signed_policy import SignedPolicyConfig, verify_signed_policy
+from ams.models import canonical_json
+from ams.signed_policy import SignedPolicyConfig, verify_signed_policy
 
 
 SSH_KEYGEN = shutil.which("ssh-keygen")
@@ -39,7 +39,7 @@ class SignedPolicyTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             fixture = _signed_policy_fixture(Path(td), identity="signer@example.test")
             fixture["policy"].write_text(
-                canonical_json({"policy_id": "test", "protected": ["ams_codex/replay.py"]}) + "\n",
+                canonical_json({"policy_id": "test", "protected": ["ams/replay.py"]}) + "\n",
                 encoding="utf-8",
             )
 
@@ -103,7 +103,7 @@ def _signed_policy_fixture(root: Path, *, identity: str) -> dict[str, Path | str
     policy_path = root / "policy.json"
     policy = {
         "policy_id": "test",
-        "protected": ["ams_codex/policy.py"],
+        "protected": ["ams/policy.py"],
         "mode": "shadow_only",
     }
     policy_path.write_text(canonical_json(policy), encoding="utf-8")

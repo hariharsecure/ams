@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:attention-signal:v0",
-  "title": "AMSCodexAttentionSignal",
+  "$id": "ams:ams:attention-signal:v0",
+  "title": "AMSAttentionSignal",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -42,7 +42,7 @@
     "attention_signal_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.attention_signal.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.attention_signal.v0" },
     "attention_signal_id": { "type": "string", "minLength": 1 },
     "attention_id": { "type": ["string", "null"] },
     "parent_attention_id": { "type": ["string", "null"] },

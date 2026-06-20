@@ -5,11 +5,11 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.cli import cmd_readiness_review
-from ams_codex.readiness_review import ReadinessReviewStore, _hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.cli import cmd_readiness_review
+from ams.readiness_review import ReadinessReviewStore, _hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class ReadinessReviewTest(unittest.TestCase):
@@ -90,7 +90,7 @@ class ReadinessReviewTest(unittest.TestCase):
 
 
 def _minimal_repo(root: Path) -> Path:
-    (root / "ams_codex").mkdir()
+    (root / "ams").mkdir()
     (root / "schemas").mkdir()
     (root / "tests").mkdir()
     (root / "AGENTS.md").write_text("# Agent Instructions\n\nStatus: active\nUpdated: 2026-06-12\n", encoding="utf-8")
@@ -131,8 +131,8 @@ def _minimal_repo(root: Path) -> Path:
         "intervention_settlement.py",
         "attention_router.py",
     ]:
-        (root / "ams_codex" / rel).write_text("def marker():\n    return 1\n", encoding="utf-8")
-    (root / "ams_codex" / "__init__.py").write_text("", encoding="utf-8")
+        (root / "ams" / rel).write_text("def marker():\n    return 1\n", encoding="utf-8")
+    (root / "ams" / "__init__.py").write_text("", encoding="utf-8")
     (root / "schemas" / "markdown_audit.schema.json").write_text("{}", encoding="utf-8")
     (root / "tests" / "test_demo.py").write_text("def test_demo():\n    assert True\n", encoding="utf-8")
     return root

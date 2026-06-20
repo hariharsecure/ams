@@ -6,12 +6,12 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.definition_registry import DefinitionRegistryStore
-from ams_codex.models import canonical_json
-from ams_codex.package_manifest import build_package_manifest, verify_package_manifest
-from ams_codex.schema_validation import validate_record
-from ams_codex.signed_policy import SignedPolicyConfig
-from ams_codex.store import JsonStore
+from ams.definition_registry import DefinitionRegistryStore
+from ams.models import canonical_json
+from ams.package_manifest import build_package_manifest, verify_package_manifest
+from ams.schema_validation import validate_record
+from ams.signed_policy import SignedPolicyConfig
+from ams.store import JsonStore
 
 
 SSH_KEYGEN = shutil.which("ssh-keygen")

@@ -4,15 +4,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.doc_action_execution import DocActionExecutionPlanStore, _hash_without as _execution_hash_without
-from ams_codex.doc_action_operator_approval import (
+from ams.doc_action_execution import DocActionExecutionPlanStore, _hash_without as _execution_hash_without
+from ams.doc_action_operator_approval import (
     DocActionOperatorApprovalPacketStore,
     _hash_without as _approval_hash_without,
 )
-from ams_codex.doc_action_patch_preview import DocActionPatchPreviewStore, _hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.doc_action_patch_preview import DocActionPatchPreviewStore, _hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class DocActionPatchPreviewTest(unittest.TestCase):

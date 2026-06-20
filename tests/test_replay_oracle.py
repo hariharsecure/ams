@@ -8,12 +8,12 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.cli import cmd_replay_oracle
-from ams_codex.models import canonical_json
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.simulation import run_full_simulation
-from ams_codex.store import JsonStore
+from ams.cli import cmd_replay_oracle
+from ams.models import canonical_json
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.simulation import run_full_simulation
+from ams.store import JsonStore
 
 
 class ReplayOracleTest(unittest.TestCase):

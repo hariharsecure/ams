@@ -4,14 +4,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.claude_adapter import ClaudeDryRunAdapter
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.store import JsonStore
-from ams_codex.surface_bindings import SurfaceBindingStore
+from ams.claude_adapter import ClaudeDryRunAdapter
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.session_registry import SessionRegistry
+from ams.store import JsonStore
+from ams.surface_bindings import SurfaceBindingStore
 
 
 class SurfaceBindingsTest(unittest.TestCase):
@@ -139,7 +139,7 @@ class SurfaceBindingsTest(unittest.TestCase):
             )
             state = store.load()
             binding = {
-                "schema_version": "ams.ams_codex.surface_binding.v0",
+                "schema_version": "ams.ams.surface_binding.v0",
                 "surface_binding_id": "surfbind_bad",
                 "runtime_surface_id": surface["runtime_surface_id"],
                 "session_id": session["session_id"],

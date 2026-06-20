@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:markdown-audit:v0",
-  "title": "AMSCodexMarkdownAudit",
+  "$id": "ams:ams:markdown-audit:v0",
+  "title": "AMSMarkdownAudit",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -31,7 +31,7 @@
     "markdown_audit_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.markdown_audit.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.markdown_audit.v0" },
     "markdown_audit_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "source_root": { "type": "string", "minLength": 1 },

@@ -6,10 +6,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.conformance_pack import ConformancePackStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore, empty_state
+from ams.conformance_pack import ConformancePackStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore, empty_state
 
 
 class ConformancePackTest(unittest.TestCase):
@@ -25,7 +25,7 @@ class ConformancePackTest(unittest.TestCase):
                 target_milestone="MILESTONE-29",
                 label="test-conformance-pack",
                 check_store_paths=[store.path],
-                command_specs=[f"{sys.executable} -m py_compile ams_codex/__init__.py"],
+                command_specs=[f"{sys.executable} -m py_compile ams/__init__.py"],
             )
 
             self.assertEqual(pack["status"], "passed", pack["reason_codes"])

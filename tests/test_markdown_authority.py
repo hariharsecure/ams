@@ -5,12 +5,12 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.cli import cmd_markdown_authority_index
-from ams_codex.markdown_authority import MarkdownAuthorityStore
-from ams_codex.models import hash_without
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.cli import cmd_markdown_authority_index
+from ams.markdown_authority import MarkdownAuthorityStore
+from ams.models import hash_without
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class MarkdownAuthorityTest(unittest.TestCase):

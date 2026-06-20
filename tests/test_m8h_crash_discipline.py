@@ -9,9 +9,9 @@ import unittest
 from pathlib import Path
 from queue import Empty
 
-from ams_codex.models import canonical_json
-from ams_codex.schema_validation import SchemaValidationError
-from ams_codex.store import JsonStore, empty_state
+from ams.models import canonical_json
+from ams.schema_validation import SchemaValidationError
+from ams.store import JsonStore, empty_state
 
 
 class FailingBeforeReplaceStore(JsonStore):
@@ -82,7 +82,7 @@ class M8HCrashDisciplineTest(unittest.TestCase):
             with self.assertRaises(SchemaValidationError):
                 with store.locked() as state:
                     state["task_runs"]["bad-run"] = {
-                        "schema_version": "ams.ams_codex.task_run.v0",
+                        "schema_version": "ams.ams.task_run.v0",
                         "task_run_id": "bad-run",
                         "state": "invalid",
                     }

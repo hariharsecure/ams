@@ -5,15 +5,15 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.doc_action_patch_preview import _hash_without as _preview_hash_without
-from ams_codex.doc_action_patch_readback import (
+from ams.doc_action_patch_preview import _hash_without as _preview_hash_without
+from ams.doc_action_patch_readback import (
     REQUIRED_READBACK_PHRASES,
     DocActionPatchReadbackReceiptStore,
     _hash_without,
 )
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_doc_action_patch_preview import _minimal_repo, _patch_fixture

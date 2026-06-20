@@ -4,13 +4,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.semantic_hook_install_plan import SemanticHookInstallPlanStore, _hash_without
-from ams_codex.semantic_hook_run import SemanticHookRunStore
-from ams_codex.semantic_oracle_review import SemanticOracleReviewStore
-from ams_codex.simulation_sweep import SimulationSweepStore
-from ams_codex.store import JsonStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.semantic_hook_install_plan import SemanticHookInstallPlanStore, _hash_without
+from ams.semantic_hook_run import SemanticHookRunStore
+from ams.semantic_oracle_review import SemanticOracleReviewStore
+from ams.simulation_sweep import SimulationSweepStore
+from ams.store import JsonStore
 
 
 class SemanticHookInstallPlanTest(unittest.TestCase):

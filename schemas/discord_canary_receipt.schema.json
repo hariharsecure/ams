@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:discord-canary-receipt:v0",
-  "title": "AMSCodexDiscordCanaryReceipt",
+  "$id": "ams:ams:discord-canary-receipt:v0",
+  "title": "AMSDiscordCanaryReceipt",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -33,7 +33,7 @@
     "canary_receipt_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.discord_canary_receipt.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.discord_canary_receipt.v0" },
     "discord_canary_receipt_id": { "type": "string", "minLength": 1 },
     "discord_canary_send_plan_id": { "type": ["string", "null"] },
     "discord_canary_send_plan_sha256": { "type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$" },

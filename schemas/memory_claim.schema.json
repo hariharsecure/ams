@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:memory-claim:v0",
-  "title": "AMSCodexMemoryClaim",
+  "$id": "ams:ams:memory-claim:v0",
+  "title": "AMSMemoryClaim",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -31,7 +31,7 @@
     "memory_claim_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.memory_claim.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.memory_claim.v0" },
     "memory_claim_id": { "type": "string", "minLength": 1 },
     "label": { "type": "string", "minLength": 1 },
     "domain": { "type": "string", "minLength": 1 },

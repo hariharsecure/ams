@@ -4,11 +4,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.models import content_hash
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
-from ams_codex.terminal_source import TerminalSourcePacketStore
+from ams.models import content_hash
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
+from ams.terminal_source import TerminalSourcePacketStore
 
 
 class TerminalSourcePacketTest(unittest.TestCase):

@@ -4,11 +4,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.memory_supersession import MemorySupersessionStore
-from ams_codex.models import canonical_json, hash_without, sha256_text
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.store import JsonStore
+from ams.memory_supersession import MemorySupersessionStore
+from ams.models import canonical_json, hash_without, sha256_text
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.store import JsonStore
 
 
 class MemorySupersessionTest(unittest.TestCase):
@@ -107,7 +107,7 @@ class MemorySupersessionTest(unittest.TestCase):
                 domain="ams",
                 subject="doc writes",
                 predicate="executor",
-                scope="project:AMS_codex",
+                scope="project:AMS",
                 value_sha256=_value_hash("direct-agent-writes"),
                 source_ref="prompt://new-request",
             )

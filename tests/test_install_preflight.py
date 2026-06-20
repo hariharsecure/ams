@@ -4,13 +4,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.install_preflight import run_install_preflight
+from ams.install_preflight import run_install_preflight
 
 
 class InstallPreflightTest(unittest.TestCase):
     def test_runtime_store_outside_repo_passes_but_agent_user_defers(self) -> None:
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td) / "AMS_codex"
+            root = Path(td) / "AMS"
             root.mkdir()
             store = Path(td) / "runtime" / "store.json"
 
@@ -29,7 +29,7 @@ class InstallPreflightTest(unittest.TestCase):
 
     def test_runtime_store_inside_repo_fails(self) -> None:
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td) / "AMS_codex"
+            root = Path(td) / "AMS"
             root.mkdir()
             store = root / "data" / "store.json"
 
@@ -47,7 +47,7 @@ class InstallPreflightTest(unittest.TestCase):
 
     def test_ambient_secret_env_reports_names_not_values(self) -> None:
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td) / "AMS_codex"
+            root = Path(td) / "AMS"
             root.mkdir()
             store = Path(td) / "runtime" / "store.json"
 
@@ -67,7 +67,7 @@ class InstallPreflightTest(unittest.TestCase):
 
     def test_package_manifest_path_can_pass(self) -> None:
         with tempfile.TemporaryDirectory() as td:
-            root = Path(td) / "AMS_codex"
+            root = Path(td) / "AMS"
             root.mkdir()
             store = Path(td) / "runtime" / "store.json"
             manifest = Path(td) / "package.json"

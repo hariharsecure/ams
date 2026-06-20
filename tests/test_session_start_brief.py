@@ -5,13 +5,13 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
-from ams_codex.cli import cmd_session_start_brief
-from ams_codex.generated_artifact import hash_without
-from ams_codex.markdown_authority import MarkdownAuthorityStore
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.session_start_brief import SessionStartBriefStore, build_session_start_brief
-from ams_codex.store import JsonStore
+from ams.cli import cmd_session_start_brief
+from ams.generated_artifact import hash_without
+from ams.markdown_authority import MarkdownAuthorityStore
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.session_start_brief import SessionStartBriefStore, build_session_start_brief
+from ams.store import JsonStore
 
 
 class SessionStartBriefTest(unittest.TestCase):

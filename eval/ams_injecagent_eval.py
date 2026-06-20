@@ -9,7 +9,7 @@ re-implemented).
 
 Paths resolve from the environment so the harness runs from a clean clone:
 
-    AMS_ROOT       repo root containing the `ams_codex/` package
+    AMS_ROOT       repo root containing the `ams/` package
                    (default: the parent of this file's directory)
     INJECAGENT_DIR clone of the public InjecAgent repo (its `data/` and `src/`)
                    (default: $AMS_ROOT/eval/injecagent/repo)
@@ -32,8 +32,8 @@ AMS_ROOT = Path(os.environ.get("AMS_ROOT", EVAL_DIR.parent))
 INJEC = Path(os.environ.get("INJECAGENT_DIR", EVAL_DIR / "injecagent" / "repo"))
 sys.path[:0] = [str(INJEC), str(AMS_ROOT)]
 
-from ams_codex.gate_adapter import build_action, shadow_verdict
-from ams_codex.models import content_hash, utc_now
+from ams.gate_adapter import build_action, shadow_verdict
+from ams.models import content_hash, utc_now
 from src.output_parsing import evaluate_output_prompted
 from src.prompts.agent_prompts import PROMPT_DICT
 

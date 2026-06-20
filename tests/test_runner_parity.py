@@ -7,33 +7,33 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from ams_codex.admission import AdmissionReviewStore
-from ams_codex.capability_policy import build_capability_request, evaluate_capability_request
-from ams_codex.codex_adapter import CodexDryRunAdapter
-from ams_codex.context import ContextStore
-from ams_codex.definition_registry import DefinitionRegistryStore
-from ams_codex.dispatch import dispatch
-from ams_codex.models import canonical_json, sha256_text
-from ams_codex.outbox import OutboxStore
-from ams_codex.package_manifest import build_package_manifest, verify_package_manifest
-from ams_codex.replay import ReplayChecker
-from ams_codex.replay_oracle import ReplayOracle
-from ams_codex.resource_claim import ResourceClaimStore
-from ams_codex.runner_boundary import runner_preflight
-from ams_codex.runner_parity import RunnerDryRunParityStore
-from ams_codex.run_trace import RunTraceStore
-from ams_codex.schema_validation import validate_record
-from ams_codex.session_registry import SessionRegistry
-from ams_codex.shadow_launch import ShadowLaunchStore
-from ams_codex.signed_policy import SignedPolicyConfig
-from ams_codex.store import JsonStore
-from ams_codex.surface_bindings import SurfaceBindingStore
-from ams_codex.surface_promise import SurfacePromiseStore
+from ams.admission import AdmissionReviewStore
+from ams.capability_policy import build_capability_request, evaluate_capability_request
+from ams.codex_adapter import CodexDryRunAdapter
+from ams.context import ContextStore
+from ams.definition_registry import DefinitionRegistryStore
+from ams.dispatch import dispatch
+from ams.models import canonical_json, sha256_text
+from ams.outbox import OutboxStore
+from ams.package_manifest import build_package_manifest, verify_package_manifest
+from ams.replay import ReplayChecker
+from ams.replay_oracle import ReplayOracle
+from ams.resource_claim import ResourceClaimStore
+from ams.runner_boundary import runner_preflight
+from ams.runner_parity import RunnerDryRunParityStore
+from ams.run_trace import RunTraceStore
+from ams.schema_validation import validate_record
+from ams.session_registry import SessionRegistry
+from ams.shadow_launch import ShadowLaunchStore
+from ams.signed_policy import SignedPolicyConfig
+from ams.store import JsonStore
+from ams.surface_bindings import SurfaceBindingStore
+from ams.surface_promise import SurfacePromiseStore
 
 
 SSH_KEYGEN = shutil.which("ssh-keygen")
 READY_INSTALL = {
-    "schema_version": "ams.ams_codex.install_preflight.v0",
+    "schema_version": "ams.ams.install_preflight.v0",
     "ready_for_live": True,
     "status": "pass",
     "checks": [],

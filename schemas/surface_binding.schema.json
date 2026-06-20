@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ams:ams-codex:surface-binding:v0",
-  "title": "AMSCodexSurfaceBinding",
+  "$id": "ams:ams:surface-binding:v0",
+  "title": "AMSSurfaceBinding",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -18,7 +18,7 @@
     "surface_binding_sha256"
   ],
   "properties": {
-    "schema_version": { "type": "string", "const": "ams.ams_codex.surface_binding.v0" },
+    "schema_version": { "type": "string", "const": "ams.ams.surface_binding.v0" },
     "surface_binding_id": { "type": "string", "minLength": 1 },
     "runtime_surface_id": { "type": "string", "minLength": 1 },
     "session_id": { "type": "string", "minLength": 1 },
